@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/landing_background">
+
+    <ImageView
+        android:id="@+id/ivIconSplash"
+        android:layout_width="61dp"
+        android:layout_height="42dp"
+        android:layout_centerInParent="true"
+        android:background="@mipmap/ic_action_focus_white_no_margin" />
+
+    <TextView
+        android:id="@+id/tvNameEnglish"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ivIconSplash"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="Eyepetizer"
+        android:textColor="@color/white"
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tvNameEnglish"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="20dp"
+        android:text="开  眼"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvEnglishIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvIntro"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="16dp"
+        android:text="Daily appetizers for your eyes，Bon eyepetit"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvIntro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="46dp"
+        android:text="每日精选视频推介，让你大开眼界。"
+        android:textColor="@color/white" />
+</RelativeLayout>

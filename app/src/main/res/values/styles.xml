@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- 底部滑出自定义Dialog   滑入滑出动画效果-->
+    <style name="animTranslate">
+        <item name="android:windowEnterAnimation">@anim/slide_in</item>
+        <item name="android:windowExitAnimation">@anim/slide_out</item>
+    </style>
+
+    <!-- 自定义Dialog 样式 -->
+    <style name="customDialog" parent="android:style/Theme.Dialog">
+        <item name="android:background">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+
+    <!-- 首页底部栏 tab样式 -->
+    <style name="bottomTab">
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:button">@null</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="android:drawablePadding">3dp</item>
+    </style>
+
+
+</resources>
