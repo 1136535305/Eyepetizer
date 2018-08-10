@@ -1,5 +1,6 @@
 package com.yjq.eyepetizer.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
@@ -16,7 +17,7 @@ import com.yjq.eyepetizer.util.image.ImageLoader
  * 描述：
  * 作者： YangJunQuan   2018-8-7.
  */
-class HomeAdapter(var mContext: Context, var mDataList: MutableList<ItemListBean>? = null) : RecyclerView.Adapter<CommonViewHolder>() {
+class HomeAdapter(private var mContext: Context, var mDataList: MutableList<ItemListBean>? = null) : RecyclerView.Adapter<CommonViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder {
         return parent.inflate<ItemHomeBinding>(R.layout.item_home)
@@ -26,6 +27,7 @@ class HomeAdapter(var mContext: Context, var mDataList: MutableList<ItemListBean
         return mDataList?.size ?: 0
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: CommonViewHolder, position: Int) {
         val mBinding = DataBindingUtil.getBinding<ItemHomeBinding>(holder.itemView) ?: return
 
@@ -51,7 +53,7 @@ class HomeAdapter(var mContext: Context, var mDataList: MutableList<ItemListBean
             tvTitle.text = title                                            //视频标题
             tvSlogan.text = slogan                                          //视频发布者的签名短语
             tvType.text = category                                          //视频类型
-            tvVideoDuration.text = "$realMinute:$realSecond"                //视频时长
+            tvVideoDuration.text = realMinute + ":" + realSecond                //视频时长
             ImageLoader.loadCircleImage(mContext, ivAvatar, avatarUrl)      //视频发布者头像
             ImageLoader.loadImage(mContext, ivBg, bgUrl)                    //视频封面
         }

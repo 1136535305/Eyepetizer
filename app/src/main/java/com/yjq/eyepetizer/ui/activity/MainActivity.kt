@@ -84,11 +84,14 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
 
     private fun initFragment() {
+        //初始化所有的Fragment
         homeFragment = HomeFragment()
         discoverFragment = DiscoverFragment()
         hotFragment = HotFragment()
         mineFragment = MineFragment()
 
+
+        //添加Fragment
         with(supportFragmentManager.beginTransaction()) {
             add(R.id.fragmentContainer, homeFragment)
             add(R.id.fragmentContainer, discoverFragment)
