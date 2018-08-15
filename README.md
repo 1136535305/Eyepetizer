@@ -37,14 +37,174 @@
 * 參數分析：
   * `query`:搜索关键词
 
-* <text id="searchByKeyWordResponse">响应实例</text>：
+* 响应实例
 ```
 {
-  
+	"itemList": [{
+			"type": "briefCard",
+			"data": {
+				"dataType": "BriefCard",
+				"id": 300088048,
+				"icon": "http://qzapp.qlogo.cn/qzapp/1104373357/A5BB1D11FE8CC2F22C50EDC4A0578CEC/100",
+				"iconType": "round",
+				"title": "程序员张",
+				"subTitle": null,
+				"description": null,
+				"actionUrl": "eyepetizer://pgc/detail/300088048/?title=%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BC%A0&userType=NORMAL&tabIndex=0",
+				"adTrack": null,
+				"follow": {
+					"itemType": "user",
+					"itemId": 300088048,
+					"followed": false
+				},
+				"ifPgc": false
+			},
+			"tag": null,
+			"id": 0,
+			"adIndex": -1
+		},
+      
+      .......
+      
+   ],
+	"count": 15,
+	"total": 1,
+	"nextPageUrl": "nextPageUrl : http://baobab.kaiyanapp.com/api/v3/search?start=10&num=10&query=%E7%A8%8B%E5%BA%8F%E5%91%98",
+	"adExist": false
 }
+      
+      
 ```
 
 * 结果分析：
+   * `itemList`:
+      * `type`:跟界面UI有关,值可能为"textCard":纯文本UI卡片式布局数据， "briefCard"：短数据卡片式布局数据, "followCard"：详情卡片式布局数据
+               特别注意，type的类型有3种，故对应下面的`data`数据结构也有三种，我们这里只分析 "followCard"类型对应的 `data` 数据结构
+      * `data`:
+         * `dataType`: "followCard",我们这里只分析该种字段的数据结构
+			* `header`: 
+                * `id`: 
+                * `title`: 
+                * `font`:
+                * `subTitle`:
+                * `subTitleFont`: 
+                * `textAlign`:
+                * `cover`:
+                * `label`: 
+                * `actionUrl`: 
+                * `labelList`:
+                * `icon`: 
+                * `iconType`: 
+                * `description`:
+                * `time`:
+                * `showHateVideo`: 
+			* `content`:
+            * `type` :
+            * `data`:
+               * `dataType`
+               * `id`:
+               * `title`:
+               * `description`:
+               * `library`:
+               * `consumption`:
+                  * `collectionCount`:
+                  * `shareCount`:
+                  * `replyCount`:
+               * `resourceType`:
+               * `slogan`:
+               * `provider`:
+                  * `name`:
+                  * `alias`:
+                  * `icon`:
+               * `category`:
+               * `author`:
+                  * `id`:
+                  * `icon`:
+                  * `name`:
+                  * `description`:
+                  * `link`:
+                  * `latestReleaseTime`:
+                  * `videoNum`:
+                  * `adTrack`:
+                  * `follow`:
+                     * `itemType`:
+                     * `itemId`:
+                     * `followed`:
+                  * `shield`:
+                     * `itemType`:
+                     * `itemId`:
+                     * `shielded`:
+                  * `approvedNotReadyVideoCount`:
+                  * `ifPgc`:
+               * `cover`:
+                  * `feed`:
+                  * `detail`:
+                  * `blurred`:
+                  * `sharing`:
+                  * `homepage`:
+               * `playUrl`:
+               * `thumbPlayUrl`:
+               * `duration`:
+               * `webUrl`:
+                  * `raw`:
+                  * `forWeibo`:
+               * `releaseTime`:
+               * `campaign`:
+               * `waterMarks`:
+               * `adTrack`:
+               * `type`:
+               * `titlePgc`:
+               * `descriptionPgc`:
+               * `remark`:
+               * `ifLimitVideo`:
+               * `searchWeight`:
+               * `idx`:
+               * `shareAdTrack`:
+               * `favoriteAdTrack`:
+               * `webAdTrack`:
+               * `date`:
+               * `promotion`:
+               * `label`:
+               * `descriptionEditor`:
+               * `collected`:
+               * `played`:
+               * `lastViewTime`:
+               * `playlists`:
+               * `src`:
+               * `tags`:数组类型
+                  * `id`:
+                  * `name`:
+                  * `actionUrl`:
+                  * `adTrack`:
+                  * `desc`:
+                  * `bgPicture`:
+                  * `headerImage`:
+                  * `tagRecType`:
+                  * `childTagList`:
+                  * `childTagIdList`:
+               * `playInfo`:数组类型
+                  * `height`:
+                  * `width`:
+                  * `name`:
+                  * `type`:
+                  * `url`:
+                  * `urlList`:数组类型
+                     * `name`:
+                     * `url`:
+                     * `size`:
+               * `labelList`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
+               * `subtitles`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
+         * `tag`:
+         * `id`:
+         * `adIndex`:
+      * `tag` :
+      * `id`:
+      * `adIndex`:
+   
+   * `count`:
+   * `total`:
+   * `nextPageUrl`:
+   * `adExist`:
 
 
 
@@ -61,7 +221,7 @@
                
 * 返回结果：搜索 第 start~start+num 项 
 
-* 响应实例：[同上](#searchByKeyWordResponse)
+* 响应实例：同上
 
 
 ### 4.获取栏目列表
