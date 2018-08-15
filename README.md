@@ -81,24 +81,24 @@
       * `type`:跟界面UI有关,值可能为"textCard":纯文本UI卡片式布局数据， "briefCard"：短数据卡片式布局数据, "followCard"：详情卡片式布局数据
                特别注意，type的类型有3种，故对应下面的`data`数据结构也有三种，我们这里只分析 "followCard"类型对应的 `data` 数据结构
       * `data`:
-         * `dataType`: "followCard",我们这里只分析该种字段的数据结构
-			* `header`: 
-                * `id`: 
-                * `title`: 
-                * `font`:
-                * `subTitle`:
-                * `subTitleFont`: 
-                * `textAlign`:
-                * `cover`:
-                * `label`: 
-                * `actionUrl`: 
-                * `labelList`:
-                * `icon`: 
-                * `iconType`: 
-                * `description`:
-                * `time`:
-                * `showHateVideo`: 
-			* `content`:
+        * `dataType`: "followCard",我们这里只分析该种字段的数据结构
+        * `header`: 
+            * `id`: 
+            * `title`: 
+            * `font`:
+            * `subTitle`:
+            * `subTitleFont`: 
+            * `textAlign`:
+            * `cover`:
+            * `label`: 
+            * `actionUrl`: 
+            * `labelList`:
+            * `icon`: 
+            * `iconType`: 
+            * `description`:
+            * `time`:
+            * `showHateVideo`: 
+        * `content`:
             * `type` :
             * `data`:
                * `dataType`
@@ -194,13 +194,10 @@
                      * `size`:
                * `labelList`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
                * `subtitles`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
-         * `tag`:
-         * `id`:
-         * `adIndex`:
-      * `tag` :
-      * `id`:
-      * `adIndex`:
-   
+            * `tag`:
+            * `id`:
+            * `adIndex`:
+      * `adTrack`:
    * `count`:
    * `total`:
    * `nextPageUrl`:
