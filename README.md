@@ -11,6 +11,8 @@
 
 * Fidder抓包的开眼APK版本:4.3.381
 
+* 由于API接口相当庞大，无法对每一个参数做具体的分析
+
 * 绝大部分接口都包含以下非必须参数，可省略，例：热搜关键词 http://baobab.kaiyanapp.com/api/v3/queries/hot?udid=435865baacfc49499632ea13c5a78f944c2f28aa&vc=381&vn=4.3&deviceModel=DUK-AL20&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=26
     * `udid` : 游客或登录id，任意值，怀疑只要不登录就可以是任意随机长度的字符串
     * `vc` : 应用VersionCode。 跟apk版本有关
@@ -77,51 +79,62 @@
 ```
 
 * 结果分析：
-   * `itemList`:
-      * `type`:跟界面UI有关,值可能为"textCard":纯文本UI卡片式布局数据， "briefCard"：短数据卡片式布局数据, "followCard"：详情卡片式布局数据
-               特别注意，type的类型有3种，故对应下面的`data`数据结构也有三种，我们这里只分析 "followCard"类型对应的 `data` 数据结构
-      * `data`:
+   * `count`: 数量，值等于itemList的长度
+   * `total`: ???
+   * `nextPageUrl`: 加载下一页的Url ，如果返回null，表示没有更多搜索结果了
+   * `adExist`: ???
+   * `itemList`: 数组类型
+      * `tag`: ???
+      * `id`:  ???
+      * `adIndex`:???
+      * `type`:界面UI类型,值可能为**textCard**:纯文本UI卡片式布局数据， **briefCard**：短数据卡片式布局数据, **followCard**：详情卡片式布局数据
+               特别注意，type的类型有3种，故对应下面的`data`数据结构也有三种，我们这里只分析 **followCard**类型对应的 `data` 数据结构
+      * `data`:数据部分
         * `dataType`: "followCard",我们这里只分析该种字段的数据结构
-        * `header`: 
+	* `adTrack`:???
+        * `header`: 搜索结果某一item项的简要介绍
             * `id`: 
-            * `title`: 
+            * `title`: 标题
             * `font`:
-            * `subTitle`:
-            * `subTitleFont`: 
-            * `textAlign`:
+            * `subTitle`:副标题
+            * `subTitleFont`: 副标题字体
+            * `textAlign`:字体对齐格式，一般值为**left**
             * `cover`:
             * `label`: 
             * `actionUrl`: 
             * `labelList`:
-            * `icon`: 
-            * `iconType`: 
-            * `description`:
-            * `time`:
+            * `icon`: 发布者头像
+            * `iconType`: 发布者头像类型，**round**表示圆形头像
+            * `description`:分类描述
+            * `time`:时间戳
             * `showHateVideo`: 
-        * `content`:
-            * `type` :
+        * `content`:搜索结果某一item项的详情数据
+	    * `tag`:
+            * `id`:
+            * `adIndex`:
+            * `type` : 类型，一般是 **video**
             * `data`:
                * `dataType`
                * `id`:
-               * `title`:
-               * `description`:
+               * `title`:标题
+               * `description`:内容描述
                * `library`:
                * `consumption`:
-                  * `collectionCount`:
-                  * `shareCount`:
-                  * `replyCount`:
+                  * `collectionCount`:点赞数
+                  * `shareCount`:分享数
+                  * `replyCount`:评论数
                * `resourceType`:
                * `slogan`:
-               * `provider`:
-                  * `name`:
-                  * `alias`:
-                  * `icon`:
-               * `category`:
-               * `author`:
-                  * `id`:
-                  * `icon`:
-                  * `name`:
-                  * `description`:
+               * `provider`:视频根本来源
+                  * `name`: 来源名称
+                  * `alias`:来源别名
+                  * `icon`: 来源logo的地址Url
+               * `category`:类别
+               * `author`: 发布者信息
+                  * `id`:发布者Id
+                  * `icon`:发布者头像
+                  * `name`:发布者名称
+                  * `description`:发布者描述
                   * `link`:
                   * `latestReleaseTime`:
                   * `videoNum`:
@@ -136,19 +149,19 @@
                      * `shielded`:
                   * `approvedNotReadyVideoCount`:
                   * `ifPgc`:
-               * `cover`:
-                  * `feed`:
-                  * `detail`:
-                  * `blurred`:
+               * `cover`:封面相关
+                  * `feed`:封面Url
+                  * `detail`:详情页封面Url
+                  * `blurred`:模糊背景图片Url
                   * `sharing`:
                   * `homepage`:
                * `playUrl`:
                * `thumbPlayUrl`:
-               * `duration`:
-               * `webUrl`:
-                  * `raw`:
-                  * `forWeibo`:
-               * `releaseTime`:
+               * `duration`:视频长度，单位秒
+               * `webUrl`:网页版url
+                  * `raw`:网页版打开地址
+                  * `forWeibo`:微博打开地址
+               * `releaseTime`:发布时间
                * `campaign`:
                * `waterMarks`:
                * `adTrack`:
@@ -166,42 +179,37 @@
                * `promotion`:
                * `label`:
                * `descriptionEditor`:
-               * `collected`:
+               * `collected`:是否已收藏
                * `played`:
                * `lastViewTime`:
                * `playlists`:
                * `src`:
-               * `tags`:数组类型
-                  * `id`:
-                  * `name`:
+               * `tags`:数组类型，该视频所属的分类标签列表
+                  * `id`:分类标签id
+                  * `name`:分类标签名称
                   * `actionUrl`:
                   * `adTrack`:
                   * `desc`:
                   * `bgPicture`:
-                  * `headerImage`:
+                  * `headerImage`:分类标签 代表图片
                   * `tagRecType`:
                   * `childTagList`:
                   * `childTagIdList`:
                * `playInfo`:数组类型
-                  * `height`:
-                  * `width`:
-                  * `name`:
+                  * `height`:视频高
+                  * `width`:视频宽
+                  * `name`:清晰度
                   * `type`:
-                  * `url`:
-                  * `urlList`:数组类型
-                     * `name`:
-                     * `url`:
-                     * `size`:
+                  * `url`:默认视频播放来源Url地址
+                  * `urlList`:数组类型，播放地址列表
+                     * `name`:视频来源，如**aliyun** **qcloud** **ucloud**，**开眼**的视频资源主要托管在**阿里云**、**腾讯云**、**ucloud**
+                     * `url`: 视频Url
+                     * `size`:视频大小
                * `labelList`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
                * `subtitles`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
-            * `tag`:
-            * `id`:
-            * `adIndex`:
-      * `adTrack`:
-   * `count`:
-   * `total`:
-   * `nextPageUrl`:
-   * `adExist`:
+           
+   
+  
 
 
 
