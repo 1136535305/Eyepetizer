@@ -263,17 +263,48 @@
   		* `apiUrl`:该栏目详情数据ApI接口Url
 
 ### 5.栏目详情
-* 精简后的Url: `http://baobab.kaiyanapp.com/api/v5/index/tab/{tabName}`
+* 精简后的Url:  `http://baobab.kaiyanapp.com/api/v5/index/tab/{tabId}?page={page}`
 
 * 参数分析：
-  * `tabName`: 栏目名称
+  * `tabId`: 【发现】【推荐】【日报】【社区】等栏目使用栏目英文名称，其余栏目使用栏目Id
+  * `page`：页数
 
 * 响应实例：
 ```
 {
-
+	"itemList": [{
+		"type": "horizontalScrollCard",
+		"data": { ...... 
+		},
+	     ......
+	],
+	"count": 15,
+	"total": 0,
+	"nextPageUrl": "http://baobab.kaiyanapp.com/api/v5/index/tab/discovery?start=0",
+	"adExist": false
 }
 ```
+* 结果分析：
+	* `adExiset`:
+	* `count`:**itemList**数组长度
+	* `total`:
+	* `nextPageUrl`: 下一页数据API接口，
+	* `itemList`:数组类型
+		* `type`: 数据类型，不同的**type**对应下面不同的**data**结构,同时对应UI界面列表不同的Item项</br>
+		**horizontalScrollCard**:代表横向滚动的列表Item项</br>
+		**textCard**:</br>
+		**followCard**:</br>
+		**videoSmallCard**:</br>
+		**briefCard**:</br>
+		**squareCardCollection**:</br>
+		**videoCollectionWithBrief**:</br>
+		**banner2**:</br>
+		**autoPlayFollowCard**:</br>
+		* `tag`:
+		* `id`:
+		* `adIndex`:
+		* `data`:篇幅所限，不展开具体分析
+
 
 ### 6.获取用户关注内容列表
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v5/community/tab/list
