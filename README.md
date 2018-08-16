@@ -238,9 +238,29 @@
 * 响应实例：
 ```
 {
-
+"tabInfo": {
+	"tabList": [{
+			"id": -1,
+			"name": "发现",
+			"apiUrl": "http://baobab.kaiyanapp.com/api/v5/index/tab/discovery"
+		}, {
+			"id": -2,
+			"name": "推荐",
+			"apiUrl": "http://baobab.kaiyanapp.com/api/v5/index/tab/allRec?page=0"
+		},
+        。。。。
+	],
+	"defaultIdx": 1
+   }
 }
 ```
+
+* 结果分析:
+	* `defaulstIdx`:	
+	* `tabList`:数组类型，栏目列表
+  		* `id`:栏目id
+  		* `name`:栏目名称
+  		* `apiUrl`:该栏目详情数据ApI接口Url
 
 ### 5.栏目详情
 * 精简后的Url: `http://baobab.kaiyanapp.com/api/v5/index/tab/{tabName}`
