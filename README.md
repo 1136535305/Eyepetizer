@@ -288,18 +288,18 @@
 	* `adExiset`:
 	* `count`:**itemList**数组长度
 	* `total`:
-	* `nextPageUrl`: 下一页数据API接口，
+	* `nextPageUrl`: 下一页数据API接口，实际上已不起作用，大部分是首页Url
 	* `itemList`:数组类型
 		* `type`: 数据类型，不同的**type**对应下面不同的**data**结构,同时对应UI界面列表不同的Item项</br>
 		**horizontalScrollCard**:代表横向滚动的列表Item项</br>
-		**textCard**:</br>
+		**textCard**:代表简单文本的列表Item项</br>
 		**followCard**:</br>
-		**videoSmallCard**:</br>
+		**videoSmallCard**:代表小型视频的列表Item项</br>
 		**briefCard**:</br>
 		**squareCardCollection**:</br>
 		**videoCollectionWithBrief**:</br>
-		**banner2**:</br>
 		**autoPlayFollowCard**:</br>
+		......
 		* `tag`:
 		* `id`:
 		* `adIndex`:
