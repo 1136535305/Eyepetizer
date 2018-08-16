@@ -90,8 +90,7 @@
       * `type`:界面UI类型,值可能为**textCard**:纯文本UI卡片式布局数据， **briefCard**：短数据卡片式布局数据, **followCard**：详情卡片式布局数据
                特别注意，type的类型有3种，故对应下面的`data`数据结构也有三种，我们这里只分析 **followCard**类型对应的 `data` 数据结构
       * `data`:数据部分
-        * `dataType`: "followCard",我们这里只分析该种字段的数据结构
-	* `adTrack`:???
+        * `dataType`: "followCard"，我们这里只分析该种字段的数据结构
         * `header`: 搜索结果某一item项的简要介绍
             * `id`: 
             * `title`: 标题
@@ -109,7 +108,6 @@
             * `time`:时间戳
             * `showHateVideo`: 
         * `content`:搜索结果某一item项的详情数据
-	    * `tag`:
             * `id`:
             * `adIndex`:
             * `type` : 类型，一般是 **video**
@@ -207,7 +205,6 @@
                      * `size`:视频大小
                * `labelList`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
                * `subtitles`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
-           
    
   
 
