@@ -80,9 +80,9 @@
 
 * 结果分析：
    * `count`: 数量，值等于itemList的长度
-   * `total`: ???
+   * `total`: 
    * `nextPageUrl`: 加载下一页的Url ，如果返回null，表示没有更多搜索结果了
-   * `adExist`: ???
+   * `adExist`: 
    * `itemList`: 数组类型
       * `tag`: ???
       * `id`:  ???
@@ -202,11 +202,11 @@
                   * `type`:
                   * `url`:默认视频播放来源Url地址
                   * `urlList`:数组类型，播放地址列表
-                     * `name`:视频来源，如**aliyun** **qcloud** **ucloud**，**开眼**的视频资源主要托管在**阿里云**、**腾讯云**、**ucloud**
+                     * `name`:视频来源，如**aliyun** **qcloud** **ucloud**，**开眼**的视频资源主要托管在该3处云服务器上
                      * `url`: 视频Url
                      * `size`:视频大小
-               * `labelList`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
-               * `subtitles`:数组类型，暂时没发现数据 ╮(╯▽╰)╭
+               * `labelList`:数组类型，暂未发现数据
+               * `subtitles`:数组类型，暂未发现数据 
    
   
 
@@ -309,12 +309,32 @@
 ### 6.获取用户关注内容列表
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v5/community/tab/list
 
-* 响应实例：
+* 注：这里只关注游客默认的关注列表，故省略参数 `udid`
+
+* 响应实例：分析可知，游客默认只关注**作品**和**动态**
 ```
 {
-
+	"tabInfo": {
+		"tabList": [{
+			"id": 0,
+			"name": "作品",
+			"apiUrl": "http://baobab.kaiyanapp.com/api/v5/community/tab/follow"
+		}, {
+			"id": 1,
+			"name": "动态",
+			"apiUrl": "http://baobab.kaiyanapp.com/api/v5/community/tab/dynamicFeeds"
+		}],
+		"defaultIdx": 0
+	}
 }
 ```
+
+* 结果分析：
+	* `defaultIdx`:
+	* `tabList`:数组类型
+		* `id`:关注项Id
+		* `name`:关注项名称
+		* `apiUrl`:关注项详情对应API接口
 
 ### 7.关注内容详情
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v5/community/tab/{tabName}
@@ -324,14 +344,185 @@
   
 * 注：作为游客，默认关注了【作品】和【动态】
 
-* 例：【作品】：http://baobab.kaiyanapp.com/api/v6/community/tab/follow
+* 例：【动态】：http://baobab.kaiyanapp.com/api/v6/community/tab/dynamicFeeds
 
 * 响应实例：
 ```
 {
-
+	"itemList": [{
+		"type": "DynamicInfoCard",
+		"data": {
+			"dataType": "DynamicReplyCard",
+			"dynamicType": "reply",
+			"text": "评论:",
+			"actionUrl": "eyepetizer://replies/video?videoId=121828&top=1029897909421735936&videoTitle=ä¸å¬å°±å¼å¿ï¼å½©è¹åå±å¢æ°æ­ãè¥å®ç¾¤ä¾ ä¼ ã ",
+			"user": {
+				"uid": 300944793,
+				"nickname": "Demo",
+				"avatar": "http://img.wdjimg.com/image/account/ba0422c380e1537b8d7ba727f60a8b57_180_180.png",
+				"userType": "NORMAL",
+				"ifPgc": false,
+				"description": null,
+				"area": null,
+				"gender": null,
+				"registDate": 1502274552000,
+				"releaseDate": null,
+				"cover": null,
+				"actionUrl": "eyepetizer://pgc/detail/300944793/?title=Demo&userType=NORMAL&tabIndex=0",
+				"followed": false,
+				"limitVideoOpen": false,
+				"library": "BLOCK",
+				"uploadStatus": "NORMAL",
+				"bannedDate": null,
+				"bannedDays": 0
+			},
+			"mergeNickName": null,
+			"mergeSubTitle": null,
+			"merge": false,
+			"createDate": 1534381771000,
+			"simpleVideo": {
+				"id": 121828,
+				"resourceType": "video",
+				"uid": 0,
+				"title": "一听就开心！彩虹合唱团新歌「肥宅群侠传」 ",
+				"description": "彩虹合唱团最新 EP「夏日安可」的主打歌「肥宅群侠传」，是根据词曲作者金承志本人的生活经历改编的反战歌曲。因为减肥的问题，引发了家庭内部的战争，父亲愤然离家出走，母亲血亏诊疗费，儿子被送入强制戒胖中心。最后，爱呼唤了和平，母亲带儿子出院，买了三杯九分甜去冰加芋圆仙草冰淇淋的奶茶，一人一杯，修复了家庭关系。很快，大家都明白了，原来胖着也挺好的。",
+				"cover": {
+					"feed": "http://img.kaiyanapp.com/ecf1b57fe609518616a842c1232cf7cf.jpeg?imageMogr2/quality/60/format/jpg",
+					"detail": "http://img.kaiyanapp.com/ecf1b57fe609518616a842c1232cf7cf.jpeg?imageMogr2/quality/60/format/jpg",
+					"blurred": "http://img.kaiyanapp.com/bee80be214092a815c0c8e236558619a.jpeg?imageMogr2/quality/60/format/jpg",
+					"sharing": null,
+					"homepage": "http://img.kaiyanapp.com/ecf1b57fe609518616a842c1232cf7cf.jpeg?imageView2/1/w/720/h/560/format/jpg/q/75|watermark/1/image/aHR0cDovL2ltZy5rYWl5YW5hcHAuY29tL2JsYWNrXzMwLnBuZw==/dissolve/100/gravity/Center/dx/0/dy/0|imageslim"
+				},
+				"category": "音乐",
+				"playUrl": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=121828&resourceType=video&editionType=default&source=aliyun",
+				"duration": 246,
+				"releaseTime": 1534381209000,
+				"consumption": null,
+				"collected": false,
+				"actionUrl": "eyepetizer://ugcResourceDetail?id=121828&resourceType=video",
+				"onlineStatus": "ONLINE",
+				"count": 0
+			},
+			"reply": {
+				"id": 1029897909421735936,
+				"videoId": 121828,
+				"videoTitle": "一听就开心！彩虹合唱团新歌「肥宅群侠传」 ",
+				"message": "看到彩虹，肥宅就滚进来的一定不止我一个(´･ω･`)",
+				"likeCount": 5,
+				"showConversationButton": false,
+				"parentReplyId": 0,
+				"rootReplyId": 1029897909421735936,
+				"ifHotReply": true,
+				"liked": false,
+				"parentReply": null,
+				"user": {
+					"uid": 300944793,
+					"nickname": "Demo",
+					"avatar": "http://img.wdjimg.com/image/account/ba0422c380e1537b8d7ba727f60a8b57_180_180.png",
+					"userType": "NORMAL",
+					"ifPgc": false,
+					"description": null,
+					"area": null,
+					"gender": null,
+					"registDate": 1502274552000,
+					"releaseDate": null,
+					"cover": null,
+					"actionUrl": "eyepetizer://pgc/detail/300944793/?title=Demo&userType=NORMAL&tabIndex=1",
+					"followed": false,
+					"limitVideoOpen": false,
+					"library": "BLOCK",
+					"uploadStatus": "NORMAL",
+					"bannedDate": null,
+					"bannedDays": 0
+				}
+			}
+		},
+		"tag": null,
+		"id": 0,
+		"adIndex": -1
+	    }
+	     ......
+	],
+	"count": 10,
+	"total": 0,
+	"nextPageUrl": "http://baobab.kaiyanapp.com/api/v5/community/tab/dynamicFeeds?start=10&num=10",
+	"adExist": false
 }
 ```
+
+* 结果分析：
+	* `count`: `itemList`数组长度
+	* `total`: 
+	* `nextPageUrl`: 加载下一页API结构
+	* `adExist`:
+	* `itemList`: 数据列表
+		* `adIndex`:
+		* `id`:
+		* `tag`:
+		* `type`: 不同值的`type`对应下面不同结构的 `data`,这里以值**DynamicInfoCard**为例
+		* `data`: 具体数据部分
+			* `dataType`:上层结构中不同值的`type`对应不同数据结构的 `data`,这里以值**DynamicInfoCard**为例
+			* `actionUrl`:网页版功能相关
+			* `createDate`:日期
+			* `dynamicType`:**reply**代表是评论
+			* `merge`:
+			* `mergeNickName`:
+			* `mergeSubTitle`:
+			* `text`:文本内容
+			* `reply`:回复相关信息
+				* `id`:评论Id
+				* `ifHotReply`:该条评论是否**热评**
+				* `likeCount`:评论点赞数
+				* `liked`:
+				* `message`:评论内容
+				* `parentReply`:
+				* `parentReplyId`:
+				* `rootReplyId`:
+				* `showConversationButton`:
+				* `videoId`:评论的视频Id
+				* `videoTitle`:评论的视频标题
+				* `user`: 结构同下 `user`，不重复解释
+			* `simpleVideo`:评论的视频的相关信息
+				* `actionUrl`:
+				* `category`:视频类别
+				* `collected`:已收藏?
+				* `consumption`:
+				* `count`:
+				* `description`:视频描叙信息
+				* `duration`:视频持续时间，单位秒
+				* `id`:视频Id
+				* `onlineStatus`:
+				* `playUrl`:播放地址
+				* `releaseTime`:发表日期
+				* `resourceType`:发表内容类型
+				* `titile`:视频标题
+				* `uid`:
+				* `cover`:视频封面
+					* `blurred`:模糊背景图片Url
+					* `detail`:
+					* `feed`:
+					* `homePage`:
+					* `sharing`:
+			* `user`: 评论者相关信息
+				* `actionUrl`:网页版功能相关
+				* `area`:
+				* `avatar`:评论者头像Url
+				* `bannedData`:
+				* `bannedDays`:
+				* `cover`:
+				* `description`:
+				* `followed`:
+				* `gender`:评论者性别
+				* `ifPgc`:
+				* `library`:
+				* `limitVideoOpen`:
+				* `nickName`:评论者名称
+				* `registDate`:评论者注册日期
+				* `releaseDate`:
+				* `uid`:评论者Id
+				* `uploadStatus`:
+				* `userType`:
+	
 
 ### 8.获取通知列表 
 * 精简后的Url： http://baobab.kaiyanapp.com/api/v3/messages/tabList
