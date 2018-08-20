@@ -674,7 +674,7 @@
 ### 8.获取通知列表 
 * 精简后的Url： http://baobab.kaiyanapp.com/api/v3/messages/tabList
 
-* 特别注意：**游客**身份，通知列表恒为**互动**和**官方**
+* 特别注意：**游客**身份，通知列表恒为**互动**和**官方**，**互动**仅登录后可用
 
 * 响应实例：
 ```
@@ -708,9 +708,36 @@
 * 响应实例：
 ```
 {
-
+	"messageList": [{
+		"id": 454949,
+		"title": "官方通知",
+		"content": "开眼好友功能上线啦~在评论区看到志同道合的朋友，点个「关注」即可收到 TA 最新的评论和喜欢咯~！点击查看功能详情>>",
+		"date": 1520841600000,
+		"actionUrl": "eyepetizer://webview/?title=å¥½ååè½ä¸çº¿å¦~&url=http://www.kaiyanapp.com/guide/follow-guide.html",
+		"icon": "http://img.wdjimg.com/image/video/418d281e65bf010c38c7b07bdd7b6a94_0_0.png",
+		"ifPush": false,
+		"pushStatus": 0,
+		"uid": null
+	},
+	......
+	],
+	"updateTime": 1520841600000,
+	"nextPageUrl": "http://baobab.kaiyanapp.com/api/v3/messages?start=10&num=10"
 }
 ```
+* 结果分析:
+	* `updateTime`:更新时间
+	* `nextPageUrl`:加载下一页API接口
+	* `messageList`:数组类型，通知列表
+		* `id`:通知项标记Id
+		* `title`:通知标题
+		* `content`:通知内容
+		* `date`:时间戳
+		* `actionUrl`:与网页版功能相关
+		* `icon`:头像Url
+		* `ifPush`:
+		* `pushState`:
+		* `uid`:
 
 ### 10.置頂分类列表
 * 精简后的Url：http://baobab.kaiyanapp.com/api/v5/category/list
@@ -718,9 +745,63 @@
 * 响应实例：
 ```
 {
-
+	"itemList": [{
+		"type": "briefCard",
+		"data": {
+			"dataType": "BriefCard",
+			"id": 14,
+			"icon": "http://img.kaiyanapp.com/98beab66d3885a139b54f21e91817c4f.jpeg",
+			"iconType": "square",
+			"title": "#广告",
+			"subTitle": null,
+			"description": "为广告人的精彩创意点赞",
+			"actionUrl": "eyepetizer://category/14/?title=å¹¿å",
+			"adTrack": null,
+			"follow": {
+				"itemType": "category",
+				"itemId": 14,
+				"followed": false
+			},
+			"ifPgc": false
+		},
+		"tag": null,
+		"id": 0,
+		"adIndex": -1
+	 }
+	......			 
+	],
+	"count": 18,
+	"total": 0,
+	"nextPageUrl": null,
+	"adExist": false
 }
 ```
+* 结果分析：
+	* `count`:`itemList`数组的长度
+	* `total`: 值恒为0，推测字段已失效
+	* `nextPageUrl`:查看下一页分类内容所对应API接口
+	* `adExist`:
+	* `itemList`:数组类型，列举了所有的分类
+		* `tag`:
+		* `id`:
+		* `adIndex`:
+		* `type`:**briefCard**
+		* `data`:
+			* `dataType`:**BriefCard**,对应上面的`type`
+			* `id`:分类Id
+			* `icon`:分类图标
+			* `iconType`:图标类型，一般为**square**
+			* `title`:分类标题
+			* `subTitle`:分类副标题
+			* `description`:描述
+			* `actionUrl`:与网页版功能相关
+			* `adTrack`:
+			* `ifPgc`:
+			* `follow`:
+				* `itemType`:item项类型
+				* `itemId`:子项Id
+				* `followed`:
+	
 
 
 
