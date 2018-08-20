@@ -22,7 +22,28 @@
 
 # API 分析
 
-### 1.热搜关键词
+
+- **首页**
+	- [分类列表](#tag4)
+	- [分类Item项详情](#tag5)
+	- [置顶分类排序](#tag10)
+
+- **关注**
+	- [关注列表](#tag6)
+	- [关注Item详情](#tag7)
+	
+- **通知**
+	- [通知列表](#tag8)
+	- [通知Item项详情](#tag9)
+	
+- **搜索**
+	- [搜索关键词](#tag1)
+	- [搜索首页](#tag2)
+	- [搜索更多](#tag3)
+	
+***
+
+### <h3 id="tag1">1.热搜关键词<h3/>
 * 精简后的Url：http://baobab.kaiyanapp.com/api/v3/queries/hot
 
 * 响应实例:
@@ -30,7 +51,7 @@
 ["开眼世界杯", "世界杯", "阅后即瞎", "日食记", "谷阿莫", "励志", "健身", "美食", "一条"]
 ```
 
-### 2.根据用户输入的关键字进行搜索
+### <h3 id="tag2">2.根据用户输入的关键字进行搜索</h3>
 * 精简后的Url：http://baobab.kaiyanapp.com/api/v3/search?query=关键字
 
 * 參數分析：
@@ -359,7 +380,7 @@
 
 
 
-### 3.搜索更多
+### <h3 id="tag3">3.搜索更多</h3>
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v3/search?start=20&num=10&query=%E6%B5%8B%E8%AF%95
 
 * 参数分析：
@@ -375,7 +396,7 @@
 * 响应实例：同上
 
 
-### 4.获取栏目列表
+### <h3 id="tag4">4.获取栏目列表</h3>
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v5/index/tab/list
 
 * 注：目前发现的栏目有
@@ -409,7 +430,7 @@
   		* `name`:栏目名称
   		* `apiUrl`:该栏目详情数据ApI接口Url
 
-### 5.栏目详情
+### <h3 id="tag5">5.栏目详情</h3>
 * 精简后的Url:  `http://baobab.kaiyanapp.com/api/v5/index/tab/{tabId}?page={page}`
 
 * 参数分析：
@@ -483,7 +504,7 @@
 		* `name`:关注项名称
 		* `apiUrl`:关注项详情对应API接口
 
-### 7.关注内容详情
+### <h3 id="tag7">7.关注内容详情</h3>
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v5/community/tab/{tabName}
 
 * 参数分析:
@@ -671,7 +692,7 @@
 				* `userType`:
 	
 
-### 8.获取通知列表 
+### <h3 id="tag8">8.获取通知列表</h3>
 * 精简后的Url： http://baobab.kaiyanapp.com/api/v3/messages/tabList
 
 * 特别注意：**游客**身份，通知列表恒为**互动**和**官方**，**互动**仅登录后可用
@@ -697,7 +718,7 @@
 * 结果分析：同 [6.获取用户关注内容列表](#tag6)
 	
 
-### 9.通知列表某一項詳情
+### <h3 id="tag9">9.通知列表某一項詳情</h3>
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v3/{tabName}
 
 * 参数分析：
@@ -739,7 +760,7 @@
 		* `pushState`:
 		* `uid`:
 
-### 10.置頂分类列表
+### <h3 id="tag10">10.置頂分类列表</h3>
 * 精简后的Url：http://baobab.kaiyanapp.com/api/v5/category/list
 
 * 响应实例：
