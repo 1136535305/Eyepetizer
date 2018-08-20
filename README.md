@@ -79,20 +79,20 @@
 ```
 
 * 结果分析：
-   * `count`: 数量，值等于itemList的长度
+   * `count`: 数量，值等于`itemLis`的长度
    * `total`: 
    * `nextPageUrl`: 加载下一页的Url ，如果返回null，表示没有更多搜索结果了
    * `adExist`: 
    * `itemList`: 数组类型
-      * `tag`: ???
-      * `id`:  ???
-      * `adIndex`:???
-      * `type`:界面UI类型,值可能为</br>
+      * `tag`: 
+      * `id`:  
+      * `adIndex`:
+      * `type`:界面UI类型,值可能为：**textCard**、**briefCard**、**followCard**....等</br>
                **textCard**:纯文本UI卡片式布局数据</br>
                **briefCard**：短数据卡片式布局数据</br>
                **followCard**：详情卡片式布局数据,这里只分析 **followCard**类型对应的 `data` 数据结构</br>
       * `data`:数据部分
-        * `dataType`: "followCard"，我们这里只分析该种字段的数据结构
+        * `dataType`: **followCard**，我们这里只分析该种字段的数据结构
         * `header`: 搜索结果某一item项的简要介绍
             * `id`: 
             * `title`: 标题
@@ -202,7 +202,7 @@
                   * `type`:
                   * `url`:默认视频播放来源Url地址
                   * `urlList`:数组类型，播放地址列表
-                     * `name`:视频来源，如**aliyun** **qcloud** **ucloud**，**开眼**的视频资源主要托管在该3处云服务器上
+                     * `name`:视频来源:**aliyun**、**qcloud**、**ucloud**，**开眼**的视频资源主要托管在该3处云服务器
                      * `url`: 视频Url
                      * `size`:视频大小
                * `labelList`:数组类型，暂未发现数据
@@ -248,7 +248,7 @@
 			"name": "推荐",
 			"apiUrl": "http://baobab.kaiyanapp.com/api/v5/index/tab/allRec?page=0"
 		},
-        。。。。
+        ......
 	],
 	"defaultIdx": 1
    }
@@ -286,11 +286,11 @@
 ```
 * 结果分析：
 	* `adExiset`:
-	* `count`:**itemList**数组长度
+	* `count`:`itemList`数组长度
 	* `total`:
 	* `nextPageUrl`: 下一页数据API接口，实际上已不起作用，大部分是首页Url
 	* `itemList`:数组类型
-		* `type`: 数据类型，不同的**type**对应下面不同的**data**结构,同时对应UI界面列表不同的Item项</br>
+		* `type`: 数据类型，不同的`type`对应下面不同的`data`结构,同时对应UI界面列表不同的Item项</br>
 		**horizontalScrollCard**:代表横向滚动的列表Item项</br>
 		**textCard**:代表简单文本的列表Item项</br>
 		**followCard**:</br>
