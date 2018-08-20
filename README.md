@@ -779,14 +779,14 @@
 * 结果分析：
 	* `count`:`itemList`数组的长度
 	* `total`: 值恒为0，推测字段已失效
-	* `nextPageUrl`:查看下一页分类内容所对应API接口
+	* `nextPageUrl`:查看下一页所需API接口，若值为**null**,表示没有更多数据了
 	* `adExist`:
 	* `itemList`:数组类型，列举了所有的分类
 		* `tag`:
 		* `id`:
 		* `adIndex`:
-		* `type`:**briefCard**
-		* `data`:
+		* `type`:**briefCard**，数据类型
+		* `data`:数据详情
 			* `dataType`:**BriefCard**,对应上面的`type`
 			* `id`:分类Id
 			* `icon`:分类图标
