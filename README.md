@@ -42,39 +42,189 @@
 * 响应实例
 ```
 {
-	"itemList": [{
-			"type": "briefCard",
-			"data": {
-				"dataType": "BriefCard",
-				"id": 300088048,
-				"icon": "http://qzapp.qlogo.cn/qzapp/1104373357/A5BB1D11FE8CC2F22C50EDC4A0578CEC/100",
-				"iconType": "round",
-				"title": "程序员张",
+	"itemList": [ {
+		"type": "followCard",
+		"data": {
+			"dataType": "FollowCard",
+			"header": {
+				"id": 4296,
+				"title": "悦食中国",
+				"font": null,
 				"subTitle": null,
-				"description": null,
-				"actionUrl": "eyepetizer://pgc/detail/300088048/?title=%E7%A8%8B%E5%BA%8F%E5%91%98%E5%BC%A0&userType=NORMAL&tabIndex=0",
-				"adTrack": null,
-				"follow": {
-					"itemType": "user",
-					"itemId": 300088048,
-					"followed": false
-				},
-				"ifPgc": false
+				"subTitleFont": null,
+				"textAlign": "left",
+				"cover": null,
+				"label": null,
+				"actionUrl": "eyepetizer://pgc/detail/58/?title=æ¦é£ä¸­å½&userType=PGC&tabIndex=1",
+				"labelList": null,
+				"icon": "http://img.kaiyanapp.com/2bf6dc5063412267179ac8e6b69ad9df.jpeg?imageMogr2/quality/60",
+				"iconType": "round",
+				"description": "#开胃 / 收录于 每日编辑精选",
+				"time": 1453392000000,
+				"showHateVideo": false
 			},
-			"tag": null,
-			"id": 0,
-			"adIndex": -1
+			"content": {
+				"type": "video",
+				"data": {
+					"dataType": "VideoBeanForClient",
+					"id": 4296,
+					"title": "一碗肠旺面的 21 个关键字",
+					"description": "在贵阳，清晨面馆刚刚开门营业。人们进去呼噜连汤吃完一碗肠旺面，便是一整天的开始。21 个关键字，带你到贵阳吃一碗完美的肠旺面。From @悦食中国",
+					"library": "DAILY",
+					"tags": [{
+						"id": 20,
+						"name": "开胃",
+						"actionUrl": "eyepetizer://tag/20/?title=å¼è",
+						"adTrack": null,
+						"desc": null,
+						"bgPicture": "http://img.kaiyanapp.com/afffaebe827656b0bb24e534ab35275c.jpeg?imageMogr2/quality/100",
+						"headerImage": "http://img.kaiyanapp.com/afffaebe827656b0bb24e534ab35275c.jpeg?imageMogr2/quality/100",
+						"tagRecType": "IMPORTANT",
+						"childTagList": null,
+						"childTagIdList": null
+					}, {
+						"id": 242,
+						"name": "中餐",
+						"actionUrl": "eyepetizer://tag/242/?title=ä¸­é¤",
+						"adTrack": null,
+						"desc": null,
+						"bgPicture": "http://img.kaiyanapp.com/723fdc19732443cf1d3fe071dc50b13d.jpeg?imageMogr2/quality/100",
+						"headerImage": "http://img.kaiyanapp.com/ae67ca0d35f365547e4167c5b8e9f24e.jpeg?imageMogr2/quality/100",
+						"tagRecType": "NORMAL",
+						"childTagList": null,
+						"childTagIdList": null
+					}],
+					"consumption": {
+						"collectionCount": 2831,
+						"shareCount": 3190,
+						"replyCount": 69
+					},
+					"resourceType": "video",
+					"slogan": null,
+					"provider": {
+						"name": "PGC",
+						"alias": "PGC",
+						"icon": ""
+					},
+					"category": "开胃",
+					"author": {
+						"id": 58,
+						"icon": "http://img.kaiyanapp.com/2bf6dc5063412267179ac8e6b69ad9df.jpeg?imageMogr2/quality/60",
+						"name": "悦食中国",
+						"description": "著名生活美食杂志，集结中国所有热爱美食、有志于生活趣味的朋友， 打造专属于你的人与食物的美好关系。",
+						"link": "",
+						"latestReleaseTime": 1496313157000,
+						"videoNum": 4,
+						"adTrack": null,
+						"follow": {
+							"itemType": "author",
+							"itemId": 58,
+							"followed": false
+						},
+						"shield": {
+							"itemType": "author",
+							"itemId": 58,
+							"shielded": false
+						},
+						"approvedNotReadyVideoCount": 0,
+						"ifPgc": true
+					},
+					"cover": {
+						"feed": "http://img.kaiyanapp.com/e320711752a3fa8a924327f03e1d21d7.jpeg?imageMogr2/quality/100",
+						"detail": "http://img.kaiyanapp.com/e320711752a3fa8a924327f03e1d21d7.jpeg?imageMogr2/quality/100",
+						"blurred": "http://img.kaiyanapp.com/2161d401aa4b0ccc053243fd7175aeb5.jpeg?imageMogr2/quality/100",
+						"sharing": null,
+						"homepage": null
+					},
+					"playUrl": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=default&source=aliyun",
+					"thumbPlayUrl": null,
+					"duration": 98,
+					"webUrl": {
+						"raw": "http://www.eyepetizer.net/detail.html?vid=4296",
+						"forWeibo": "http://wandou.im/135gbg"
+					},
+					"releaseTime": 1453392000000,
+					"playInfo": [{
+						"height": 480,
+						"width": 848,
+						"urlList": [{
+							"name": "aliyun",
+							"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=normal&source=aliyun",
+							"size": 19261424
+						}, {
+							"name": "qcloud",
+							"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=normal&source=qcloud",
+							"size": 19261424
+						}, {
+							"name": "ucloud",
+							"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=normal&source=ucloud",
+							"size": 19261424
+						}],
+						"name": "标清",
+						"type": "normal",
+						"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=normal&source=aliyun"
+					}, {
+						"height": 720,
+						"width": 1280,
+						"urlList": [{
+							"name": "aliyun",
+							"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=high&source=aliyun",
+							"size": 24165318
+						}, {
+							"name": "qcloud",
+							"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=high&source=qcloud",
+							"size": 24165318
+						}, {
+							"name": "ucloud",
+							"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=high&source=ucloud",
+							"size": 24165318
+						}],
+						"name": "高清",
+						"type": "high",
+						"url": "http://baobab.kaiyanapp.com/api/v1/playUrl?vid=4296&resourceType=video&editionType=high&source=aliyun"
+					}],
+					"campaign": null,
+					"waterMarks": null,
+					"adTrack": null,
+					"type": "NORMAL",
+					"titlePgc": null,
+					"descriptionPgc": null,
+					"remark": "",
+					"ifLimitVideo": false,
+					"searchWeight": 0,
+					"idx": 0,
+					"shareAdTrack": null,
+					"favoriteAdTrack": null,
+					"webAdTrack": null,
+					"date": 1453392000000,
+					"promotion": null,
+					"label": null,
+					"labelList": [],
+					"descriptionEditor": "在贵阳，清晨面馆刚刚开门营业。人们进去呼噜连汤吃完一碗肠旺面，便是一整天的开始。21 个关键字，带你到贵阳吃一碗完美的肠旺面。From @悦食中国",
+					"collected": false,
+					"played": false,
+					"subtitles": [],
+					"lastViewTime": null,
+					"playlists": null,
+					"src": null
+				},
+				"tag": null,
+				"id": 0,
+				"adIndex": -1
+			},
+			"adTrack": null
 		},
-      
-      .......
-      
-   ],
-	"count": 15,
+		"tag": null,
+		"id": 0,
+		"adIndex": -1
+	}
+	......			 
+			      ],
+	"count": 13,
 	"total": 1,
-	"nextPageUrl": "nextPageUrl : http://baobab.kaiyanapp.com/api/v3/search?start=10&num=10&query=%E7%A8%8B%E5%BA%8F%E5%91%98",
+	"nextPageUrl": "http://baobab.kaiyanapp.com/api/v3/search?start=10&num=10&query=å³é®å­",
 	"adExist": false
-}
-      
+}  
       
 ```
 
@@ -306,7 +456,7 @@
 		* `data`:篇幅所限，不展开具体分析
 
 
-### 6.获取用户关注内容列表
+### <text id="tag6">6.获取用户关注内容列表</text>
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v5/community/tab/list
 
 * 注：这里只关注游客默认的关注列表，故省略参数 `udid`
@@ -527,12 +677,28 @@
 ### 8.获取通知列表 
 * 精简后的Url： http://baobab.kaiyanapp.com/api/v3/messages/tabList
 
+* 特别注意：**游客**身份，通知列表恒为**互动**和**官方**
+
 * 响应实例：
 ```
 {
-
+	"tabInfo": {
+		"tabList": [{
+			"id": 0,
+			"name": "互动",
+			"apiUrl": "http://baobab.kaiyanapp.com/api/v5/discovery/myMessage"
+		}, {
+			"id": 1,
+			"name": "官方",
+			"apiUrl": "http://baobab.kaiyanapp.com/api/v3/messages"
+		}],
+		"defaultIdx": 1
+	}
 }
 ```
+
+* 结果分析：同 [6.获取用户关注内容列表](#tag6)
+	
 
 ### 9.通知列表某一項詳情
 * 精简后的Url: http://baobab.kaiyanapp.com/api/v3/{tabName}
