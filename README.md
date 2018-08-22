@@ -11,7 +11,7 @@
 * 由于API接口相当庞大，无法对每一个参数做具体的分析
 
 * 绝大部分接口都包含以下参数，例：热搜关键词 http://baobab.kaiyanapp.com/api/v3/queries/hot?udid=435865baacfc49499632ea13c5a78f944c2f28aa&vc=381&vn=4.3&deviceModel=DUK-AL20&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=26
-    * `udid` : **游客或登录id，有特定的计算方式，部分接口必须用到，否则会出现403错误。**
+    * `udid` : <font color=red size=72>游客或登录id，有特定的计算方式，部分接口必须用到，否则会出现403错误。</font>
     * `vc` : 应用VersionCode。 跟apk版本有关
     * `vn` : 应用VersionName。跟apk版本有关
     * `deviceModel` : 手机信息
