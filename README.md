@@ -10,8 +10,8 @@
 
 * 由于API接口相当庞大，无法对每一个参数做具体的分析
 
-* 绝大部分接口都包含以下非必须参数，可省略，例：热搜关键词 http://baobab.kaiyanapp.com/api/v3/queries/hot?udid=435865baacfc49499632ea13c5a78f944c2f28aa&vc=381&vn=4.3&deviceModel=DUK-AL20&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=26
-    * `udid` : 游客或登录id，任意值，怀疑只要不登录就可以是任意随机长度的字符串
+* 绝大部分接口都包含以下参数，例：热搜关键词 http://baobab.kaiyanapp.com/api/v3/queries/hot?udid=435865baacfc49499632ea13c5a78f944c2f28aa&vc=381&vn=4.3&deviceModel=DUK-AL20&first_channel=eyepetizer_360_market&last_channel=eyepetizer_360_market&system_version_code=26
+    * `udid` : **游客或登录id，有特定的计算方式，部分接口必须用到，否则会出现403错误。**
     * `vc` : 应用VersionCode。 跟apk版本有关
     * `vn` : 应用VersionName。跟apk版本有关
     * `deviceModel` : 手机信息
@@ -431,11 +431,12 @@
   		* `apiUrl`:该栏目详情数据ApI接口Url
 
 ### <h3 id="tag5">5.栏目详情</h3>
-* 精简后的Url:  `http://baobab.kaiyanapp.com/api/v5/index/tab/{tabId}?page={page}`
+* 精简后的Url:  `http://baobab.kaiyanapp.com/api/v5/index/tab/{tabId}?page={page}&udid=435865baacfc49499632ea13c5a78f944c2f28aa`
 
 * 参数分析：
   * `tabId`: 【发现】【推荐】【日报】【社区】等栏目使用栏目英文名称，其余栏目使用栏目Id
   * `page`：页数
+  * `udid`:**这个参数不可省略，否则部分接口会出现403错误，值由特定的公式计算而出**
 
 * 响应实例：
 ```
