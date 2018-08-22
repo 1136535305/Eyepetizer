@@ -5,52 +5,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="25dp">
-
-            <TextView
-                android:id="@+id/tvBarTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:textSize="16sp" />
-
-            <ImageView
-                android:id="@+id/ivSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:src="@mipmap/icon_search" />
-        </RelativeLayout>
-    </android.support.v7.widget.Toolbar>
 
     <FrameLayout
-        android:id="@+id/fragmentContainer"
+        android:id="@+id/fgContainer"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@+id/line"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/line"
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="@color/dark"
+        android:background="@color/gray"
         app:layout_constraintBottom_toTopOf="@+id/bottomTab"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -61,7 +30,7 @@
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="horizontal"
-        android:padding="5dp"
+        android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -73,16 +42,25 @@
             android:text="@string/homePage" />
 
         <RadioButton
-            android:id="@+id/tabDiscover"
+            android:id="@+id/tabFocus"
             style="@style/bottomTab"
-            android:drawableTop="@drawable/tab_discover_bg"
-            android:text="@string/discover" />
+            android:drawableTop="@drawable/tab_focus_bg"
+            android:text="@string/focus" />
+
+        <ImageView
+            android:id="@+id/tabPublish"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/publish_add" />
 
         <RadioButton
-            android:id="@+id/tabHot"
+            android:id="@+id/tabNotify"
             style="@style/bottomTab"
-            android:drawableTop="@drawable/tab_hot_bg"
-            android:text="@string/hot" />
+            android:drawableTop="@drawable/tab_notify_bg"
+            android:text="@string/notify" />
+
 
         <RadioButton
             android:id="@+id/tabMine"

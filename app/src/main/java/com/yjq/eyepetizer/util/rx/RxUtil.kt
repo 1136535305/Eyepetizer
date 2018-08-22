@@ -1,6 +1,5 @@
 package com.yjq.eyepetizer.util.rx
 
-import com.yjq.eyepetizer.bean.RootBean
 import io.reactivex.Observable
 import io.reactivex.ObservableTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -26,19 +25,7 @@ object RxUtil {
     }
 
 
-    /**
-     * 我们只对数据感兴趣，所以用此方法转换Observable拿取result，其余异常情况统一返回ApiException 统一在onError方法中处理
-     */
-    fun <T> applyResult(): ObservableTransformer<RootBean<T>, T> {
-        return ObservableTransformer { upstream ->
-            upstream.flatMap { rootBean ->
-                if (rootBean.code == "200")
-                    createData(rootBean.result)
-                else
-                    Observable.error(ApiException(rootBean.msg, rootBean.code))
-            }
-        }
-    }
+
 
 
     private fun <T> createData(t: T): Observable<T> {
