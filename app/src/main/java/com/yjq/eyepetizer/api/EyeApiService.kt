@@ -22,7 +22,7 @@ interface EyeApiService {
 
     //获取某栏目详情
     @GET
-    fun getColunmHomePage(@Url url: String): Observable<ColumnPage>
+    fun getColumnHomePage(@Url url: String): Observable<ColumnPage>
 
 
 //

@@ -44,13 +44,13 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="12dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivBg"
-            app:srcCompat="@mipmap/avatar_default" />
+            app:srcCompat="@mipmap/avatar_default"
+            android:layout_marginLeft="10dp" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -71,6 +71,15 @@
             app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
             app:layout_constraintStart_toStartOf="@+id/tvTitle"
             tools:text="有谁的离去，让你怅然若失" />
+
+        <ImageView
+            android:id="@+id/ivMoreAction"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+            app:layout_constraintEnd_toEndOf="@+id/ivBg"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+            app:srcCompat="@mipmap/card_more_action_icon" />
 
 
     </android.support.constraint.ConstraintLayout>

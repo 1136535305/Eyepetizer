@@ -3,6 +3,9 @@ package com.yjq.eyepetizer.util.image
 import android.content.Context
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
+import com.bumptech.glide.TransitionOptions
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.yjq.eyepetizer.GlideApp
 import com.yjq.eyepetizer.R
@@ -22,6 +25,7 @@ object ImageLoader {
         GlideApp.with(context)
                 .load(resId)
                 .placeholder(placeHolder)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
     }
 
@@ -37,6 +41,7 @@ object ImageLoader {
                 .load(imageUrl)
                 .placeholder(placeHolderId)
                 .error(errorId)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
 
     }
@@ -52,6 +57,7 @@ object ImageLoader {
                 .apply(RequestOptions.circleCropTransform())
                 .placeholder(placeHolderId)
                 .error(errorId)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
     }
 
@@ -68,6 +74,7 @@ object ImageLoader {
                 .apply(RequestOptions.circleCropTransform())
                 .placeholder(placeHolderId)
                 .error(errorId)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
 
     }

@@ -17,17 +17,17 @@ enum class ViewTypeEnum(var value: Int) {
     AutoPlayFollowCard(7);
 
     companion object {
-        fun getViewTypeEnum(type: String): Int {
+        fun getViewTypeEnum(type: String): ViewTypeEnum {
             return when (type) {
-                "textCard" -> TextCard.value
-                "briefCard" -> BriefCard.value
-                "followCard" -> FollowCard.value
-                "videoSmallCard" -> VideoSmallCard.value
-                "autoPlayFollowCard" -> AutoPlayFollowCard.value
-                "horizontalScrollCard" -> HorizontalScrollCard.value
-                "squareCardCollection" -> SquareCardCollection.value
-                "videoCollectionWithBrief" -> VideoCollectionWithBrief.value
-                else -> Invalid.value
+                "textCard" -> TextCard
+                "briefCard" -> BriefCard
+                "followCard" -> FollowCard
+                "videoSmallCard" -> VideoSmallCard
+                "autoPlayFollowCard" -> AutoPlayFollowCard
+                "horizontalScrollCard" -> HorizontalScrollCard
+                "squareCardCollection" -> SquareCardCollection
+                "videoCollectionWithBrief" -> VideoCollectionWithBrief
+                else -> Invalid
             }
 
         }

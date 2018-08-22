@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import com.google.gson.Gson
 
 /**
  * 文件： Extension
@@ -46,3 +47,9 @@ class CommonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
 fun <T : ViewDataBinding> ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToParent: Boolean = false): CommonViewHolder {
     return CommonViewHolder(DataBindingUtil.inflate<T>(LayoutInflater.from(context), layoutRes, this, attachToParent).root)
 }
+
+
+/**
+ * Gson 解析
+ */
+inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.java)

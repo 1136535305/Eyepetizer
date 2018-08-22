@@ -52,7 +52,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     private fun initTabLayout() {
 
-
+        //viewPager 初始化
         with(viewPager) {
             adapter = object : FragmentPagerAdapter(childFragmentManager) {
                 override fun getItem(position: Int): Fragment {
@@ -71,12 +71,13 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         }
 
 
-
+        //tabLayout 初始化
         with(tabLayout) {
-            setSelectedTabIndicatorColor(ContextCompat.getColor(context,R.color.dark))
             tabMode = TabLayout.MODE_SCROLLABLE
+            setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.dark))
             setupWithViewPager(viewPager)
         }
+
 
     }
 }

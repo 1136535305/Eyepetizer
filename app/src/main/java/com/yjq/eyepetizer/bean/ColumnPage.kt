@@ -1,5 +1,7 @@
 package com.yjq.eyepetizer.bean
 
+import com.google.gson.JsonObject
+
 /**
  * 文件： ColumnPage
  * 描述：
@@ -16,7 +18,7 @@ data class ColumnPage(
 
 data class Item(
         val type: String, //horizontalScrollCard
-        val data: Any,
+        val data: JsonObject,//不解析该字段，因为字段该字段类型会随着type的变化而变化
         val tag: Any, //null
         val id: Int, //0
         val adIndex: Int //-1

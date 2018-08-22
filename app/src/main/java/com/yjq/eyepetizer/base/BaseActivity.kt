@@ -3,9 +3,11 @@ package com.yjq.eyepetizer.base
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.WindowManager
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
+import com.yjq.eyepetizer.R
 
 /**
  * 文件： BaseActivity
@@ -24,6 +26,12 @@ abstract class BaseActivity : RxAppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = ContextCompat.getColor(this, R.color.dark)
+
+        }
         //  toolbarStyleInit()    //沉浸式体验
     }
 

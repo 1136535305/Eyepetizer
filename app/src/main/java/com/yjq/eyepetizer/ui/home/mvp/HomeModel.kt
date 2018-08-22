@@ -18,7 +18,7 @@ class HomeModel(val context: Context) : HomeContract.Model {
     }
 
     fun getColumnPage(url: String): Observable<ColumnPage> {
-        return RetrofitManager.EyeAPI().getColunmHomePage(url)
+        return RetrofitManager.EyeAPI().getColumnHomePage(url)
     }
 
 }
