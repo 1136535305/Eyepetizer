@@ -1,6 +1,5 @@
 package com.yjq.eyepetizer.ui.home
 
-import android.graphics.Color
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
@@ -13,8 +12,8 @@ import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.ui.home.adapter.HomePagerAdapter
 import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
+import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
-import io.reactivex.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_home_pager.*
 
 /**
@@ -44,6 +43,10 @@ class PagerFragment : BaseFragment(), HomeContract.View {
         mPresenter = HomePresenter(context!!, this)
 
 
+        //隐藏无网络相关UI
+        netError.visibility = View.GONE
+
+
         //初始化recycleView
         with(recyclerView) {
             layoutManager = LinearLayoutManager(context)
@@ -67,10 +70,10 @@ class PagerFragment : BaseFragment(), HomeContract.View {
         val apiUrl = arguments?.getString("API_URL")
         mPresenter.getColumnPage(apiUrl!!)
                 .subscribe(object : RxBaseObserver<ColumnPage>(this) {
-                    override fun onNext(columnPage: ColumnPage) {
+                    override fun onNext(t: ColumnPage) {
 
                         //筛选数据
-                        mItemList = columnPage.itemList.filter {
+                        mItemList = t.itemList.filter {
                             viewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
                         }
 
@@ -103,6 +106,11 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
     //加载进度条处理
     override fun showLoading(isLoad: Boolean) {
+        //避免viewPager快速滑动时，当前fragment已经被销毁，但是仍然触发该回调方法导致空指针错误
+        if (refresh == null) {
+            return
+        }
+
         refresh.isRefreshing = isLoad
     }
 
