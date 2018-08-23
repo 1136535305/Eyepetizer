@@ -5,20 +5,18 @@ import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.google.gson.Gson
-import com.google.gson.JsonObject
 import com.yjq.eyepetizer.CommonViewHolder
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.bean.Item
 import com.yjq.eyepetizer.bean.cards.FollowCard
 import com.yjq.eyepetizer.bean.cards.TextCard
-import com.yjq.eyepetizer.bean.cards.videoSmallCard
+import com.yjq.eyepetizer.bean.cards.VideoSmallCard
 import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.databinding.ItemFollowCardBinding
 import com.yjq.eyepetizer.databinding.ItemTextCardBinding
 import com.yjq.eyepetizer.databinding.ItemVideoSmallCardBinding
 import com.yjq.eyepetizer.inflate
 import com.yjq.eyepetizer.util.image.ImageLoader
-import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.time.TimeUtil
 
 
@@ -40,6 +38,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder {
+
         val viewHolder =
                 when (viewType) {
                     ViewTypeEnum.TextCard.value -> parent.inflate<ItemTextCardBinding>(R.layout.item_text_card)
@@ -115,7 +114,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
         //init data
         val jsonObject = mDataList[position].data
-        val videoSmallCard = Gson().fromJson(jsonObject, videoSmallCard::class.java)
+        val videoSmallCard = Gson().fromJson(jsonObject, VideoSmallCard::class.java)
 
 
         val videoTitle = videoSmallCard.title                                                       //视频标题

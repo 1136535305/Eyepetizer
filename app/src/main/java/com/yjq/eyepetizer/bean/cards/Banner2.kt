@@ -1,5 +1,8 @@
 package com.yjq.eyepetizer.bean.cards
 
+import com.yjq.eyepetizer.bean.Header
+import com.yjq.eyepetizer.bean.Label
+
 /**
  * 文件： Banner2
  * 描述：
@@ -18,12 +21,6 @@ data class Banner2(
         val label: Label,
         val labelList: List<Label>,
         val header: Header
-)
-
-data class Label(
-        val text: String, //广告
-        val card: String, //广告
-        val detail: Any //null
 )
 
 

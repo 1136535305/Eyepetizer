@@ -23,7 +23,7 @@ class CustomDialog private constructor(builder: Builder) : Dialog(builder.contex
 
     private lateinit var rootView: View
     private var canceledable = true            //点击Dialog外部区域或物理回退键  是否使Dialog消失
-    private var canceledTouchOutside = true  //点击Dialog外部区域
+    private var canceledTouchOutside = true    //点击Dialog外部区域
     private var location = CustomDialogLocation.BOTTOM
 
 

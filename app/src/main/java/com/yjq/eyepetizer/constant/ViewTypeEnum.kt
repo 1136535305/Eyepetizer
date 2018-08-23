@@ -22,7 +22,7 @@ enum class ViewTypeEnum(var value: Int) {
                 "textCard" -> TextCard
                 "briefCard" -> BriefCard
                 "followCard" -> FollowCard
-                "videoSmallCard" -> VideoSmallCard
+                "VideoSmallCard" -> VideoSmallCard
                 "autoPlayFollowCard" -> AutoPlayFollowCard
                 "horizontalScrollCard" -> HorizontalScrollCard
                 "squareCardCollection" -> SquareCardCollection

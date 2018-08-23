@@ -1,12 +1,14 @@
 package com.yjq.eyepetizer.bean.cards
 
+import com.yjq.eyepetizer.bean.*
+
 /**
  * 文件： VideoSmallCard
  * 描述：
  * 作者： YangJunQuan   2018-8-21.
  */
 
-data class videoSmallCard(
+data class VideoSmallCard(
         val dataType: String, //VideoBeanForClient
         val id: Int, //120945
         val title: String, //回忆杀！5 分钟听完 20 年欧美金曲

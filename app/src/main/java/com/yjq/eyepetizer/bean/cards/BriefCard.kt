@@ -1,5 +1,7 @@
 package com.yjq.eyepetizer.bean.cards
 
+import com.yjq.eyepetizer.bean.Follow
+
 /**
  * 文件： BriefCard
  * 描述：

@@ -1,5 +1,6 @@
 package com.yjq.eyepetizer.ui.home.mvp
 
+import com.yjq.eyepetizer.base.BaseView
 import com.yjq.eyepetizer.bean.Columns
 import io.reactivex.Observable
 
@@ -10,7 +11,8 @@ import io.reactivex.Observable
  */
 
 interface HomeContract {
-    interface View
+    interface View : BaseView
+
     interface Presenter
 
     interface Model {

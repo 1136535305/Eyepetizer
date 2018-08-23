@@ -35,12 +35,12 @@
                 android:id="@+id/tabLayout"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/ivSearch"
                 app:layout_constraintStart_toEndOf="@+id/ivCategory"
                 app:layout_constraintTop_toTopOf="parent"
                 app:tabIndicatorHeight="0dp"
-                android:overScrollMode="never"
                 app:tabMaxWidth="55dp" />
 
             <ImageView
@@ -76,6 +76,12 @@
         app:layout_constraintTop_toBottomOf="@+id/line" />
 
 
+    <include
+        android:id="@+id/netError"
+        layout="@layout/net_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </android.support.constraint.ConstraintLayout>
 
 

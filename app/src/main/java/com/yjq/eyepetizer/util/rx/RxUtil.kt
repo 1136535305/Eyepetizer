@@ -24,10 +24,6 @@ object RxUtil {
         }
     }
 
-
-
-
-
     private fun <T> createData(t: T): Observable<T> {
         return Observable.create { emitter ->
             try {
@@ -41,5 +37,3 @@ object RxUtil {
 
 }
 
-
-data class ApiException(var msg: String, var code: String) : Exception()
