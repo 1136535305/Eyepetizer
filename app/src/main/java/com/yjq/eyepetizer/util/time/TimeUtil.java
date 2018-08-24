@@ -27,7 +27,7 @@ public class TimeUtil {
     }
 
 
-    public static String tiemStamp2Date(long timeStamp, String dateFormat) {
+    public static String timeStamp2Date(long timeStamp, String dateFormat) {
         SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.getDefault());
 
         Date date = new Date(timeStamp);

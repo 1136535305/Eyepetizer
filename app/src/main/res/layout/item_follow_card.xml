@@ -24,15 +24,11 @@
 
         <TextView
             android:id="@+id/tvVideoDuration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/videoTimeDurationStyle"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
-            android:background="@color/dark"
-            android:padding="3dp"
-            android:textColor="@color/white"
-            android:textSize="13sp"
+            android:background="@drawable/corner_3_dark"
             app:layout_constraintBottom_toBottomOf="@+id/ivBg"
             app:layout_constraintEnd_toEndOf="@+id/ivBg"
             tools:text="00:00" />

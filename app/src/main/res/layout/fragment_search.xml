@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <EditText
+        android:id="@+id/etInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/corner_5_gray"
+        android:drawableLeft="@mipmap/ic_action_search_no_padding"
+        android:drawablePadding="2dp"
+        android:ems="10"
+        android:hint="@string/search_hint_tip"
+        android:inputType="textPersonName"
+        android:paddingBottom="5dp"
+        android:paddingLeft="17dp"
+        android:paddingStart="17dp"
+        android:paddingTop="5dp"
+        android:textCursorDrawable="@drawable/cursor_drawable"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toStartOf="@+id/tvCancelSearch"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvCancelSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="@+id/etInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etInput" />
+</android.support.constraint.ConstraintLayout>

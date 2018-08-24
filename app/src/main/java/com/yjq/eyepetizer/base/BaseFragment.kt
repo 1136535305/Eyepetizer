@@ -1,10 +1,10 @@
 package com.yjq.eyepetizer.base
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.trello.rxlifecycle2.components.support.RxFragment
 
 
 /**
@@ -12,7 +12,7 @@ import android.view.ViewGroup
  * 描述： Fragment基类
  * 作者： YangJunQuan   2018-8-6.
  */
-abstract class BaseFragment : Fragment() {
+abstract class BaseFragment : RxFragment() {
 
     companion object {
         const val TAG = "BaseFragment"

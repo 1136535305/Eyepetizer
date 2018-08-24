@@ -1,6 +1,7 @@
 package com.yjq.eyepetizer.ui.home.mvp
 
 import com.yjq.eyepetizer.base.BaseView
+import com.yjq.eyepetizer.bean.ColumnPage
 import com.yjq.eyepetizer.bean.Columns
 import io.reactivex.Observable
 

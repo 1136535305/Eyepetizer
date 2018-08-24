@@ -19,31 +19,26 @@ object ImageLoader {
     private val TAG = "ImageLoader"
 
 
-    fun loadNetImageWithCorner(context: Context, imageView: ImageView, imageUrl: String?, corner: Int = 20) {
+    fun loadNetImageWithCorner(context: Context, imageView: ImageView, imageUrl: String?, corner: Int = 20, @DrawableRes placeHolderId: Int = R.drawable.corner_3_gray) {
+
         GlideApp.with(context)
                 .load(imageUrl)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .transform(CenterCropRoundCornerTransform(corner))
+                .transition(DrawableTransitionOptions.withCrossFade())  //渐入动画效果
+                .transform(CenterCropRoundCornerTransform(corner))      //centerCrop +  cornerCrop 效果
+                .placeholder(placeHolderId)                             //占位图片
                 .into(imageView)
 
     }
 
 
-    fun loadNetCircleImage(context: Context,
-                           imageView: ImageView,
-                           imageUrl: String?,
-                           @DrawableRes errorId: Int = R.mipmap.ic_empty_picture,
-                           @DrawableRes placeHolderId: Int = R.mipmap.avatar_default) {
-
+    fun loadNetCircleImage(context: Context, imageView: ImageView, imageUrl: String?, @DrawableRes placeHolderId: Int = R.mipmap.avatar_default) {
 
         GlideApp.with(context)
                 .load(imageUrl)
                 .placeholder(placeHolderId)
-                .error(errorId)
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
-
     }
 
 }

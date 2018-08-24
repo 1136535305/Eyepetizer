@@ -52,9 +52,9 @@
         <View
             android:id="@+id/bg"
             android:layout_width="0dp"
-            android:layout_height="100dp"
+            android:layout_height="105dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/corner_5_gray"
+            android:background="@drawable/corner_3_gray"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/tvAuthor"
             app:layout_constraintTop_toBottomOf="@+id/tvReplyMessage" />
@@ -70,6 +70,22 @@
             app:layout_constraintBottom_toBottomOf="@+id/bg"
             app:layout_constraintStart_toStartOf="@+id/bg"
             app:layout_constraintTop_toTopOf="@+id/bg" />
+
+
+        <TextView
+            android:id="@+id/tvVideoDuration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginRight="6dp"
+            android:background="@drawable/corner_3_dark"
+            android:padding="2dp"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivFeed"
+            app:layout_constraintEnd_toEndOf="@+id/ivFeed"
+            tools:text="00:00" />
 
         <TextView
             android:id="@+id/tvVideoName"
@@ -92,10 +108,10 @@
             android:id="@+id/tvVieoType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginBottom="4dp"
             android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivFeed"
             app:layout_constraintStart_toStartOf="@+id/tvVideoName"
-            app:layout_constraintTop_toBottomOf="@+id/tvVideoName"
             tools:text="#生活" />
 
         <TextView
@@ -116,7 +132,7 @@
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/tvReplyLabel"
             app:layout_constraintTop_toTopOf="@+id/tvReplyLabel"
-            tools:text="#2018/08/19"
+            tools:text="2018/08/19"
             android:layout_marginLeft="20dp" />
 
         <TextView
@@ -139,6 +155,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/bg"
             app:srcCompat="@mipmap/ic_action_like_add_grey" />
+
 
     </android.support.constraint.ConstraintLayout>
 </layout>

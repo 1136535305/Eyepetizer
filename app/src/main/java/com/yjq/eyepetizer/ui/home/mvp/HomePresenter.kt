@@ -18,12 +18,9 @@ class HomePresenter(val context: Context, val view: HomeContract.View) : HomeCon
     //获取首页栏目列表
     fun getHomeColumns(): Observable<Columns> {
         return model.getColumns()
-                .compose(RxUtil.applySchedulers())
-
     }
 
     fun getColumnPage(url: String): Observable<ColumnPage> {
         return model.getColumnPage(url)
-                .compose(RxUtil.applySchedulers())
     }
 }

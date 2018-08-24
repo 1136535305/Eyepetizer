@@ -25,7 +25,6 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:text="热门分类" />
 
-
         <TextView
             android:id="@+id/footer2Text"
             android:layout_width="wrap_content"
@@ -33,7 +32,8 @@
             android:drawableRight="@mipmap/goto_icon"
             android:gravity="center"
             android:textColor="@color/dark"
-            android:textSize="12sp"
+            android:textSize="13sp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

@@ -56,6 +56,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
                     ViewTypeEnum.FollowCard.value -> parent.inflate<ItemFollowCardBinding>(R.layout.item_follow_card)
                     ViewTypeEnum.VideoSmallCard.value -> parent.inflate<ItemVideoSmallCardBinding>(R.layout.item_video_small_card)
                     ViewTypeEnum.DynamicInfoCard.value -> parent.inflate<ItemDynamicInfoCardBinding>(R.layout.item_dynamic_info_card)
+                    ViewTypeEnum.SquareCardCollection.value -> parent.inflate<ItemSquareCardCollectionBinding>(R.layout.item_square_card_collection)
                     else -> throw Exception("invalid view type")
                 }
 
@@ -71,6 +72,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ViewTypeEnum.FollowCard.value -> initFollowCardView(holder, position)
             ViewTypeEnum.VideoSmallCard.value -> initVideoSmallCardView(holder, position)
             ViewTypeEnum.DynamicInfoCard.value -> initDynamicInfoCardView(holder, position)
+            ViewTypeEnum.SquareCardCollection.value -> initSquareCardCollectionView(holder, position)
         }
     }
 
@@ -131,7 +133,6 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
     }
 
-
     private fun initVideoSmallCardView(holder: CommonViewHolder, position: Int) {
         val itemVideoSmallCardBinding = DataBindingUtil.getBinding<ItemVideoSmallCardBinding>(holder.itemView)
 
@@ -187,6 +188,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val jsonObject = mDataList[position].data
         val dynamicInfoCard = Gson().fromJson(jsonObject, DynamicInfoCard::class.java)
 
+
         val avatarUrl = dynamicInfoCard.user.avatar                   //评论者头像Url
         val authorName = dynamicInfoCard.user.nickname                //评论者昵称
         val text = dynamicInfoCard.text                               //。。。
@@ -194,8 +196,10 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val videoFeedUrl = dynamicInfoCard.simpleVideo.cover.detail   //视频封面图片
         val videoTitle = dynamicInfoCard.simpleVideo.title            //视频标题
         val videoType = "#${dynamicInfoCard.simpleVideo.category}"    //视频类型
-        val likeCount = dynamicInfoCard.reply.likeCount               //评论点赞数
-        val timeStamp = TimeUtil.tiemStamp2Date(dynamicInfoCard.createDate, "yyyy/MM/dd")
+        val likeCount = dynamicInfoCard.reply.likeCount.toString()    //评论点赞数
+        val timeStamp = TimeUtil.timeStamp2Date(dynamicInfoCard.createDate, "yyyy/MM/dd")             //评论时间
+        val videoDutation = TimeUtil.getFormatHMS(dynamicInfoCard.simpleVideo.duration * 1000.toLong())       //视频时长
+
 
         //init view
         with(itemDynamicInfoCardBinding!!) {
@@ -207,10 +211,48 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, corner = 12)
             tvVideoName.text = videoTitle
             tvVieoType.text = videoType
+            tvVideoDuration.text = videoDutation
             tvDate.text = timeStamp
-            tvLikeCount.text = likeCount.toString()
+            tvLikeCount.text = likeCount
 
         }
+    }
+
+
+    private fun initSquareCardCollectionView(holder: CommonViewHolder, position: Int) {
+//        val itemSquareCardCollectionBinding = DataBindingUtil.getBinding<ItemSquareCardCollectionBinding>(holder.itemView)
+//
+//        //init data
+//        val jsonObject = mDataList[position].data
+//        val squareCardCollection = Gson().fromJson(jsonObject, SquareCardCollection::class.java)
+//
+//
+//        val imageList = ArrayList<String>()
+//        val title = squareCardCollection.header.title
+//
+//        squareCardCollection.itemList.forEach {
+//            val banner2 = Gson().fromJson(it.data, FollowCard::class.java)
+//            imageList.add(banner2.header.icon)
+//            LogUtil.json(Gson().toJson(squareCardCollection))
+//        }
+//
+//
+//
+//        with(itemSquareCardCollectionBinding!!) {
+//            tvTitle.text = title
+//
+//
+//            banner.setImages(imageList)
+//            banner.setImageLoader(object : com.youth.banner.loader.ImageLoader() {
+//                override fun displayImage(context: Context?, path: Any?, imageView: ImageView) {
+//                    // ImageLoader.loadNetImageWithCorner(mContext, imageView, path as String)
+//                    LogUtil.d(path.toString())
+//                }
+//            })
+//            banner.start()
+//        }
+//
+//
     }
 
 }

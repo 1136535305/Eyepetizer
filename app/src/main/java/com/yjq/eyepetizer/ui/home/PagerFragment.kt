@@ -17,6 +17,7 @@ import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
 import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
+import com.yjq.eyepetizer.util.rx.RxUtil
 import kotlinx.android.synthetic.main.fragment_home_pager.*
 
 /**
@@ -34,13 +35,16 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
 
     //data
-    private var lastCompleteVisiblePosition = -1
+    private var nextPaeUrl: String? = null
+    private var firstPageUrl: String? = null
     private var mItemList: List<Item>? = null
-    private var viewTypeList = listOf(                        //允许展示的列表Item项UI类型
+    private var lastCompleteVisiblePosition = -1
+
+
+    //允许展示的列表Item项UI类型
+    private var viewTypeList = listOf(
             ViewTypeEnum.TextCard, ViewTypeEnum.BriefCard, ViewTypeEnum.DynamicInfoCard,
             ViewTypeEnum.FollowCard, ViewTypeEnum.VideoSmallCard)
-    private var firstPageUrl: String? = null
-    private var nextPaeUrl: String? = null
 
 
     //other
@@ -81,7 +85,10 @@ class PagerFragment : BaseFragment(), HomeContract.View {
                 }
 
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                    lastCompleteVisiblePosition = (layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                    with(layoutManager as LinearLayoutManager) {
+                        lastCompleteVisiblePosition = findLastCompletelyVisibleItemPosition()       //记录底部可见的位置
+                    }
+
                 }
             })
         }
@@ -89,7 +96,7 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
         //初始化refreshLayout
         with(refresh) {
-            setColorSchemeColors(ContextCompat.getColor(context, R.color.blueLight))
+            setColorSchemeColors(ContextCompat.getColor(context, R.color.dark))
             setOnRefreshListener { loadData(firstPageUrl, loadMore = false) }
         }
 
@@ -106,24 +113,23 @@ class PagerFragment : BaseFragment(), HomeContract.View {
         if (apiUrl == null) return
 
         mPresenter.getColumnPage(apiUrl)
+                .compose(RxUtil.applySchedulers())  //切换线程
+                .compose(bindToLifecycle())         //RxLifeCycle2.X 避免fragment被销毁后仍进行网络数据请求导致内存泄漏等错误
                 .subscribe(object : RxBaseObserver<ColumnPage>(this) {
                     override fun onNext(t: ColumnPage) {
-
                         //筛选数据
                         mItemList = t.itemList.filter {
                             viewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
                         }
 
-
                         //展示数据
                         mAdapter.setData(mItemList as ArrayList<Item>, loadMore)
 
-
                         //加载下一页所需API接口
                         nextPaeUrl = t.nextPageUrl
-
                     }
                 })
+
     }
 
 
@@ -135,7 +141,7 @@ class PagerFragment : BaseFragment(), HomeContract.View {
     //网络错误处理
     override fun onNetError() {
 
-        if (mItemList?.size ?: 0 == 0)          //在没有数据的前提下，才会提醒用户，避免网络错误提示遮蔽了原有的信息
+        if (mItemList?.size ?: 0 == 0)          //在没有数据的前提下，才会提醒用户，避免网络错误提示遮蔽了原有的列表
             netError.visibility = View.VISIBLE
 
         //点击重试
@@ -148,10 +154,6 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
     //加载进度条处理
     override fun showLoading(isLoad: Boolean) {
-
-        //避免viewPager快速滑动时，当前fragment已经被销毁，但是仍然触发该回调方法导致空指针错误
-        if (refresh == null) return
-
         refresh.isRefreshing = isLoad
     }
 

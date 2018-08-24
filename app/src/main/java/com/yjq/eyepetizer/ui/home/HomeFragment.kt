@@ -14,7 +14,9 @@ import com.yjq.eyepetizer.bean.Item
 import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
+import com.yjq.eyepetizer.ui.search.SearchFragment
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
+import com.yjq.eyepetizer.util.rx.RxUtil
 import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
@@ -23,6 +25,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
  * 作者： YangJunQuan   2018-8-16.
  */
 class HomeFragment : BaseFragment(), HomeContract.View {
+
+
     //data
     private lateinit var mData: Columns
 
@@ -43,14 +47,24 @@ class HomeFragment : BaseFragment(), HomeContract.View {
         mPresenter = HomePresenter(context!!, this)
 
         initData()
+
+        initEvent()
+    }
+
+    private fun initEvent() {
+
+        ivSearch.setOnClickListener {
+            SearchFragment().show(childFragmentManager, "searchFragment")
+        }
     }
 
     private fun initData() {
         mPresenter.getHomeColumns()
-                .compose((activity as RxAppCompatActivity).bindToLifecycle())
+                .compose(bindToLifecycle())
+                .compose(RxUtil.applySchedulers())
                 .subscribe(object : RxBaseObserver<Columns>(this) {
-                    override fun onNext(columns: Columns) {
-                        mData = columns
+                    override fun onNext(t: Columns) {
+                        mData = t
                         initTabLayout()
                     }
                 })

@@ -13,7 +13,7 @@ public class CenterCropRoundCornerTransform extends CenterCrop {
 
     private int radius = 0;
 
-    public CenterCropRoundCornerTransform(int radius){
+    public CenterCropRoundCornerTransform(int radius) {
         this.radius = radius;
     }
 
@@ -30,14 +30,13 @@ public class CenterCropRoundCornerTransform extends CenterCrop {
         Bitmap result = pool.get(source.getWidth(), source.getHeight(),
                 Bitmap.Config.ARGB_8888);
         if (result == null) {
-            result = Bitmap.createBitmap(source.getWidth(), source.getHeight(),
-                    Bitmap.Config.ARGB_8888);
+            result = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
         }
         Canvas canvas = new Canvas(result);
         Paint paint = new Paint();
-        paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP,
-                BitmapShader.TileMode.CLAMP));
+        paint.setShader(new BitmapShader(source, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP));
         paint.setAntiAlias(true);
+
         RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
         canvas.drawRoundRect(rectF, radius, radius, paint);
         return result;
