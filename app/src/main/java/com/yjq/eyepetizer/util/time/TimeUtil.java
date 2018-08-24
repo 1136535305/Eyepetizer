@@ -26,6 +26,15 @@ public class TimeUtil {
         return sdf.format(date);
     }
 
+
+    public static String tiemStamp2Date(long timeStamp, String dateFormat) {
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFormat, Locale.getDefault());
+
+        Date date = new Date(timeStamp);
+        return sdf.format(date);
+
+    }
+
     private static boolean isToday(long timestamp) {
         Calendar c = Calendar.getInstance();
         clearCalendar(c, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND, Calendar.MILLISECOND);

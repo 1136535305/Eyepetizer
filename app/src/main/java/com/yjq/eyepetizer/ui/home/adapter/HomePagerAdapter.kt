@@ -3,18 +3,16 @@ package com.yjq.eyepetizer.ui.home.adapter
 import android.content.Context
 import android.databinding.DataBindingUtil
 import android.support.v7.widget.RecyclerView
+import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.Gson
 import com.yjq.eyepetizer.CommonViewHolder
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.bean.Item
-import com.yjq.eyepetizer.bean.cards.FollowCard
-import com.yjq.eyepetizer.bean.cards.TextCard
-import com.yjq.eyepetizer.bean.cards.VideoSmallCard
+import com.yjq.eyepetizer.bean.cards.*
 import com.yjq.eyepetizer.constant.ViewTypeEnum
-import com.yjq.eyepetizer.databinding.ItemFollowCardBinding
-import com.yjq.eyepetizer.databinding.ItemTextCardBinding
-import com.yjq.eyepetizer.databinding.ItemVideoSmallCardBinding
+import com.yjq.eyepetizer.databinding.*
 import com.yjq.eyepetizer.inflate
 import com.yjq.eyepetizer.util.image.ImageLoader
 import com.yjq.eyepetizer.util.time.TimeUtil
@@ -28,7 +26,19 @@ import com.yjq.eyepetizer.util.time.TimeUtil
 class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
 
 
-    public var mDataList = ArrayList<Item>()
+    var mDataList = ArrayList<Item>()
+
+
+    fun setData(data: ArrayList<Item>, loadMore: Boolean) {
+
+        if (loadMore)
+            mDataList.addAll(data)
+        else
+            mDataList = data
+
+        notifyDataSetChanged()
+    }
+
 
     override fun getItemCount() = mDataList.size
 
@@ -42,8 +52,10 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val viewHolder =
                 when (viewType) {
                     ViewTypeEnum.TextCard.value -> parent.inflate<ItemTextCardBinding>(R.layout.item_text_card)
+                    ViewTypeEnum.BriefCard.value -> parent.inflate<ItemBriefCardBinding>(R.layout.item_brief_card)
                     ViewTypeEnum.FollowCard.value -> parent.inflate<ItemFollowCardBinding>(R.layout.item_follow_card)
-                    ViewTypeEnum.VideoSmallCard.value->parent.inflate<ItemVideoSmallCardBinding>(R.layout.item_video_small_card)
+                    ViewTypeEnum.VideoSmallCard.value -> parent.inflate<ItemVideoSmallCardBinding>(R.layout.item_video_small_card)
+                    ViewTypeEnum.DynamicInfoCard.value -> parent.inflate<ItemDynamicInfoCardBinding>(R.layout.item_dynamic_info_card)
                     else -> throw Exception("invalid view type")
                 }
 
@@ -55,12 +67,12 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
         when (getItemViewType(position)) {
             ViewTypeEnum.TextCard.value -> initTextCardView(holder, position)
+            ViewTypeEnum.BriefCard.value -> initBriefCardView(holder, position)
             ViewTypeEnum.FollowCard.value -> initFollowCardView(holder, position)
             ViewTypeEnum.VideoSmallCard.value -> initVideoSmallCardView(holder, position)
-            else -> throw Exception("invalid view type")
+            ViewTypeEnum.DynamicInfoCard.value -> initDynamicInfoCardView(holder, position)
         }
     }
-
 
     /**
      * **********************************************   下面是各种类型的ItemView 初始化渲染方法   *******************************************************
@@ -75,21 +87,20 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
 
         val title = followCard.content.data.title                                                        //标题
-        val description = followCard.header.title + "  /  #" + followCard.content.data.category          //描述
+        val description = "${followCard.header.title}  /  #${followCard.content.data.category}"          //描述
         val avatarUrl = followCard.header.icon                                                           //发布者头像
         val feedUrl = followCard.content.data.cover.detail                                               //发布内容对应封面
-        val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())
+        val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())           //视频时长
 
         //init view
         with(itemFollowCardBinding!!) {
             tvTitle.text = title
             tvSlogan.text = description
             tvVideoDuration.text = duration
-            ImageLoader.loadCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
-            ImageLoader.loadImage(mContext, ivBg, feedUrl)
+            ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
+            ImageLoader.loadNetImageWithCorner(mContext, ivBg, feedUrl)
         }
     }
-
 
     private fun initTextCardView(holder: CommonViewHolder, position: Int) {
         val itemTextCardBinding = DataBindingUtil.getBinding<ItemTextCardBinding>(holder.itemView)
@@ -98,11 +109,24 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         //init data
         val jsonObject = mDataList[position].data
         val textCard = Gson().fromJson(jsonObject, TextCard::class.java)
-
+        val textType = textCard.type
 
         //init view
         with(itemTextCardBinding!!) {
-            tvType.text = textCard.text
+            when (textType) {
+                "header5" -> {
+                    footer2Text.visibility = View.GONE
+                    header5Text.visibility = View.VISIBLE
+                    header5Text.text = textCard.text
+                }
+                "footer2" -> {
+                    header5Text.visibility = View.GONE
+                    footer2Text.visibility = View.VISIBLE
+                    footer2Text.text = textCard.text
+                }
+
+                else -> Toast.makeText(mContext, "unknown type$textType", Toast.LENGTH_LONG).show()
+            }
         }
 
     }
@@ -128,9 +152,65 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             tvTitle.text = videoTitle
             tvCatogory.text = videoCategory
             tvVideoDuration.text = videoDuration
-            ImageLoader.loadImage(mContext, ivFeed, videoFeedUrl)
+            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl)
         }
 
+    }
+
+
+    private fun initBriefCardView(holder: CommonViewHolder, position: Int) {
+        val itemBriefCardBinding = DataBindingUtil.getBinding<ItemBriefCardBinding>(holder.itemView)
+
+        //init data
+        val jsonObject = mDataList[position].data
+        val briefCard = Gson().fromJson(jsonObject, BriefCard::class.java)
+
+        val description = briefCard.description
+        val title = briefCard.title
+        val iconUrl = briefCard.icon
+
+        //init view
+        with(itemBriefCardBinding!!) {
+            tvTitle.text = title
+            tvDescription.text = description
+            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, iconUrl)
+        }
+
+    }
+
+
+    private fun initDynamicInfoCardView(holder: CommonViewHolder, position: Int) {
+
+        val itemDynamicInfoCardBinding = DataBindingUtil.getBinding<ItemDynamicInfoCardBinding>(holder.itemView)
+
+        //init data
+        val jsonObject = mDataList[position].data
+        val dynamicInfoCard = Gson().fromJson(jsonObject, DynamicInfoCard::class.java)
+
+        val avatarUrl = dynamicInfoCard.user.avatar                   //评论者头像Url
+        val authorName = dynamicInfoCard.user.nickname                //评论者昵称
+        val text = dynamicInfoCard.text                               //。。。
+        val replyMessage = dynamicInfoCard.reply.message              //评论内容
+        val videoFeedUrl = dynamicInfoCard.simpleVideo.cover.detail   //视频封面图片
+        val videoTitle = dynamicInfoCard.simpleVideo.title            //视频标题
+        val videoType = "#${dynamicInfoCard.simpleVideo.category}"    //视频类型
+        val likeCount = dynamicInfoCard.reply.likeCount               //评论点赞数
+        val timeStamp = TimeUtil.tiemStamp2Date(dynamicInfoCard.createDate, "yyyy/MM/dd")
+
+        //init view
+        with(itemDynamicInfoCardBinding!!) {
+            ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl)
+            tvAuthor.text = authorName
+            tvReplyMessage.text = replyMessage
+            tvText.text = text
+
+            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, corner = 12)
+            tvVideoName.text = videoTitle
+            tvVieoType.text = videoType
+            tvDate.text = timeStamp
+            tvLikeCount.text = likeCount.toString()
+
+        }
     }
 
 }

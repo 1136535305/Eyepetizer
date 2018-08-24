@@ -72,6 +72,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     // kotlin结合dataBinding框架
     kapt 'com.android.databinding:compiler:3.1.3'
+    //banner 轮播控件
+    implementation 'com.youth.banner:banner:1.4.10'
 }
 
 kapt {

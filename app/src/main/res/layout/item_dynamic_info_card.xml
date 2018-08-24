@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+
+        <ImageView
+            android:id="@+id/ivAvatar"
+            android:layout_width="43dp"
+            android:layout_height="43dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/avatar_default" />
+
+        <TextView
+            android:id="@+id/tvAuthor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/dark"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatar"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar"
+            tools:text="骐骥" />
+
+        <TextView
+            android:id="@+id/tvText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            app:layout_constraintStart_toStartOf="@+id/tvAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
+            tools:text="评论:" />
+
+        <TextView
+            android:id="@+id/tvReplyMessage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/darkLight"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
+            tools:text="看了这么多宫崎骏的动漫，又听了这么多配乐，感觉整个人的情感都好脆弱" />
+
+
+        <View
+            android:id="@+id/bg"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/corner_5_gray"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/tvReplyMessage" />
+
+        <ImageView
+            android:id="@+id/ivFeed"
+            android:layout_width="140dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15dp"
+            app:layout_constraintBottom_toBottomOf="@+id/bg"
+            app:layout_constraintStart_toStartOf="@+id/bg"
+            app:layout_constraintTop_toTopOf="@+id/bg" />
+
+        <TextView
+            android:id="@+id/tvVideoName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/dark"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/bg"
+            app:layout_constraintStart_toEndOf="@+id/ivFeed"
+            app:layout_constraintTop_toTopOf="@+id/ivFeed"
+            tools:text="献给有梦的每个人：别让拖延症毁了你" />
+
+        <TextView
+            android:id="@+id/tvVieoType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/tvVideoName"
+            app:layout_constraintTop_toBottomOf="@+id/tvVideoName"
+            tools:text="#生活" />
+
+        <TextView
+            android:id="@+id/tvReplyLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="回复"
+            android:textSize="13sp"
+            app:layout_constraintStart_toStartOf="@+id/tvAuthor"
+            app:layout_constraintTop_toBottomOf="@+id/bg" />
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:textSize="13sp"
+            app:layout_constraintStart_toEndOf="@+id/tvReplyLabel"
+            app:layout_constraintTop_toTopOf="@+id/tvReplyLabel"
+            tools:text="#2018/08/19"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/tvLikeCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center"
+            android:text="6"
+            android:textColor="@color/dark"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@+id/ivLike"
+            app:layout_constraintTop_toBottomOf="@+id/bg" />
+
+        <ImageView
+            android:id="@+id/ivLike"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/bg"
+            app:srcCompat="@mipmap/ic_action_like_add_grey" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

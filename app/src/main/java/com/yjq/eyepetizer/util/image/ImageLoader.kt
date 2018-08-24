@@ -3,13 +3,10 @@ package com.yjq.eyepetizer.util.image
 import android.content.Context
 import android.support.annotation.DrawableRes
 import android.widget.ImageView
-import com.bumptech.glide.TransitionOptions
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.yjq.eyepetizer.GlideApp
 import com.yjq.eyepetizer.R
-import com.yjq.eyepetizer.util.log.LogUtil
 
 /**
  * 文件： ImageLoader
@@ -21,59 +18,29 @@ object ImageLoader {
 
     private val TAG = "ImageLoader"
 
-    fun loadImage(context: Context, @DrawableRes resId: Int, @DrawableRes placeHolder: Int, imageView: ImageView) {
+
+    fun loadNetImageWithCorner(context: Context, imageView: ImageView, imageUrl: String?, corner: Int = 20) {
         GlideApp.with(context)
-                .load(resId)
-                .placeholder(placeHolder)
+                .load(imageUrl)
                 .transition(DrawableTransitionOptions.withCrossFade())
+                .transform(CenterCropRoundCornerTransform(corner))
                 .into(imageView)
+
     }
 
 
-    fun loadImage(context: Context,
-                  imageView: ImageView,
-                  imageUrl: String?,
-                  @DrawableRes errorId: Int = R.mipmap.ic_empty_picture,
-                  @DrawableRes placeHolderId: Int = R.drawable.ic_image_loading) {
+    fun loadNetCircleImage(context: Context,
+                           imageView: ImageView,
+                           imageUrl: String?,
+                           @DrawableRes errorId: Int = R.mipmap.ic_empty_picture,
+                           @DrawableRes placeHolderId: Int = R.mipmap.avatar_default) {
 
 
         GlideApp.with(context)
                 .load(imageUrl)
                 .placeholder(placeHolderId)
                 .error(errorId)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
-
-    }
-
-    fun loadCircleImage(context: Context,
-                        imageView: ImageView,
-                        @DrawableRes resId: Int,
-                        @DrawableRes errorId: Int = R.mipmap.ic_empty_picture,
-                        @DrawableRes placeHolderId: Int = R.drawable.ic_image_loading) {
-
-        GlideApp.with(context)
-                .load(resId)
                 .apply(RequestOptions.circleCropTransform())
-                .placeholder(placeHolderId)
-                .error(errorId)
-                .transition(DrawableTransitionOptions.withCrossFade())
-                .into(imageView)
-    }
-
-
-    fun loadCircleImage(context: Context,
-                        imageView: ImageView,
-                        imageUrl: String?,
-                        @DrawableRes errorId: Int = R.mipmap.ic_empty_picture,
-                        @DrawableRes placeHolderId: Int = R.drawable.ic_image_loading) {
-
-
-        GlideApp.with(context)
-                .load(imageUrl)
-                .apply(RequestOptions.circleCropTransform())
-                .placeholder(placeHolderId)
-                .error(errorId)
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
 

@@ -165,5 +165,59 @@ data class Label(
 )
 
 
+data class Reply(
+        val id: Long, //1031731642546257920
+        val videoId: Int, //121650
+        val videoTitle: String, //日式图纹之歌：森罗万象的圆形美
+        val message: String, //家纹可以说是灰常棒的设计概念了，曾经一时兴起，收集了很多相关的素材
+        val likeCount: Int, //7
+        val showConversationButton: Boolean, //false
+        val parentReplyId: Int, //0
+        val rootReplyId: Long, //1031731642546257920
+        val ifHotReply: Boolean, //true
+        val liked: Boolean, //false
+        val parentReply: Any, //null
+        val user: User
+)
+
+data class User(
+        val uid: Int, //300026742
+        val nickname: String, //CHARMS.Jong
+        val avatar: String, //http://img.kaiyanapp.com/231870dcc13e098d31bf551b07b7558f.jpeg?imageMogr2/quality/60/format/jpg
+        val userType: String, //NORMAL
+        val ifPgc: Boolean, //false
+        val description: Any, //null
+        val area: Any, //null
+        val gender: String, //male
+        val registDate: Long, //1475633460000
+        val releaseDate: Long, //1530753110000
+        val cover: String, //http://img.kaiyanapp.com/2d787fa27b38b885da055e6914e88acc.jpeg?imageMogr2/quality/60/format/jpg
+        val actionUrl: String, //eyepetizer://pgc/detail/300026742/?title=CHARMS.Jong&userType=NORMAL&tabIndex=0
+        val followed: Boolean, //false
+        val limitVideoOpen: Boolean, //true
+        val library: String, //BLOCK
+        val uploadStatus: String, //NORMAL
+        val bannedDate: Any, //null
+        val bannedDays: Int //0
+)
+
+
+data class SimpleVideo(
+        val id: Int, //121650
+        val resourceType: String, //video
+        val uid: Int, //0
+        val title: String, //日式图纹之歌：森罗万象的圆形美
+        val description: String, //本片是 NHK 教育电视节目「设计啊！」的宣传片，旨在将设计概念传递给儿童。该计划通过鼓励儿童观察周围的世界，发现问题并思考如何使其变得更好，来培养构成设计思维的综合视觉和感性能力。片中用电子音乐搭配变幻的设计，看完是不是被惊艳到了？From NHK
+        val cover: Cover,
+        val category: String, //创意
+        val playUrl: String, //http://baobab.kaiyanapp.com/api/v1/playUrl?vid=121650&resourceType=video&editionType=default&source=aliyun
+        val duration: Int, //143
+        val releaseTime: Long, //1534813203000
+        val consumption: Any, //null
+        val collected: Boolean, //false
+        val actionUrl: String, //eyepetizer://ugcResourceDetail?id=121650&resourceType=video
+        val onlineStatus: String, //ONLINE
+        val count: Int //0
+)
 
 
