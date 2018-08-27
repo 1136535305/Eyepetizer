@@ -1,6 +1,6 @@
-package com.yjq.eyepetizer.bean.cards
+package com.yjq.eyepetizer.bean.cards.item
 
-import com.yjq.eyepetizer.bean.*
+import com.yjq.eyepetizer.bean.cards.*
 
 /**
  * 文件： VideoSmallCard

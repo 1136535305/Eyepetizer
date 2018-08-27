@@ -6,10 +6,12 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.databinding.ViewDataBinding
 import android.support.annotation.LayoutRes
+import android.support.v4.app.Fragment
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import com.google.gson.Gson
 
@@ -53,3 +55,16 @@ fun <T : ViewDataBinding> ViewGroup.inflate(@LayoutRes layoutRes: Int, attachToP
  * Gson 解析
  */
 inline fun <reified T> Gson.fromJson(json: String) = fromJson(json, T::class.java)
+
+
+/**
+ * Activity中隐藏键盘
+ */
+fun Activity.hideKeyBoard() {
+    (getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(this.currentFocus.windowToken, InputMethodManager.HIDE_NOT_ALWAYS)
+}
+
+
+fun Fragment.hideKeyBoard(view: View) {
+    (context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
+}

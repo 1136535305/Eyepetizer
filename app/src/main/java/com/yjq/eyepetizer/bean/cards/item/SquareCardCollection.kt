@@ -1,7 +1,7 @@
-package com.yjq.eyepetizer.bean.cards
+package com.yjq.eyepetizer.bean.cards.item
 
-import com.yjq.eyepetizer.bean.Header
-import com.yjq.eyepetizer.bean.Item
+import com.yjq.eyepetizer.bean.cards.Header
+import com.yjq.eyepetizer.bean.cards.Item
 
 /**
  * 文件： SquareCardCollection

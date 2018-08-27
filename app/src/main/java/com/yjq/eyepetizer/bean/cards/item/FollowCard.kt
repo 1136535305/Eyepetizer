@@ -1,7 +1,7 @@
-package com.yjq.eyepetizer.bean.cards
+package com.yjq.eyepetizer.bean.cards.item
 
-import com.yjq.eyepetizer.bean.Content
-import com.yjq.eyepetizer.bean.Header
+import com.yjq.eyepetizer.bean.cards.Content
+import com.yjq.eyepetizer.bean.cards.Header
 
 /**
  * 文件： FollowCard

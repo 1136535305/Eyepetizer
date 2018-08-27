@@ -5,13 +5,9 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import android.view.View
-import com.trello.rxlifecycle2.components.support.RxAppCompatActivity
 import com.yjq.eyepetizer.R
-import com.yjq.eyepetizer.bean.Columns
+import com.yjq.eyepetizer.bean.cards.Columns
 import com.yjq.eyepetizer.base.BaseFragment
-import com.yjq.eyepetizer.bean.ColumnPage
-import com.yjq.eyepetizer.bean.Item
-import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
 import com.yjq.eyepetizer.ui.search.SearchFragment

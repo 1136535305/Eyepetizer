@@ -1,7 +1,7 @@
-package com.yjq.eyepetizer.bean.cards
+package com.yjq.eyepetizer.bean.cards.item
 
-import com.yjq.eyepetizer.bean.Header
-import com.yjq.eyepetizer.bean.Label
+import com.yjq.eyepetizer.bean.cards.Header
+import com.yjq.eyepetizer.bean.cards.Label
 
 /**
  * 文件： Banner2

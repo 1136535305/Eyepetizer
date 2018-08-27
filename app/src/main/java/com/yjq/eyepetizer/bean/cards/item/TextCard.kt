@@ -1,4 +1,4 @@
-package com.yjq.eyepetizer.bean.cards
+package com.yjq.eyepetizer.bean.cards.item
 
 /**
  * 文件： TextCard

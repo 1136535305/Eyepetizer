@@ -17,9 +17,14 @@
         android:drawablePadding="2dp"
         android:ems="10"
         android:hint="@string/search_hint_tip"
+        android:imeActionLabel="搜索"
+        android:imeOptions="actionSearch"
         android:inputType="textPersonName"
+        android:maxLines="1"
         android:paddingBottom="5dp"
+        android:paddingEnd="20dp"
         android:paddingLeft="17dp"
+        android:paddingRight="20dp"
         android:paddingStart="17dp"
         android:paddingTop="5dp"
         android:textCursorDrawable="@drawable/cursor_drawable"
@@ -27,6 +32,19 @@
         app:layout_constraintEnd_toStartOf="@+id/tvCancelSearch"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <ImageView
+        android:id="@+id/ivActionCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="@+id/etInput"
+        app:layout_constraintEnd_toEndOf="@+id/etInput"
+        app:layout_constraintTop_toTopOf="@+id/etInput"
+        app:srcCompat="@mipmap/ic_action_cancel_grey" />
 
     <TextView
         android:id="@+id/tvCancelSearch"
@@ -38,4 +56,40 @@
         app:layout_constraintBottom_toBottomOf="@+id/etInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/etInput" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/searchRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInput" />
+
+    <include
+        android:id="@+id/netError"
+        layout="@layout/net_error"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInput" />
+
+
+    <include
+        android:id="@+id/resultEmpty"
+        layout="@layout/search_empty"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etInput" />
+
 </android.support.constraint.ConstraintLayout>

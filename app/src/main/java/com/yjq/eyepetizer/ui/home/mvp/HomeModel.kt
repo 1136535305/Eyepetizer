@@ -1,8 +1,8 @@
 package com.yjq.eyepetizer.ui.home.mvp
 
 import android.content.Context
-import com.yjq.eyepetizer.bean.ColumnPage
-import com.yjq.eyepetizer.bean.Columns
+import com.yjq.eyepetizer.bean.cards.ColumnPage
+import com.yjq.eyepetizer.bean.cards.Columns
 import com.yjq.eyepetizer.manager.RetrofitManager
 import io.reactivex.Observable
 
@@ -11,7 +11,7 @@ import io.reactivex.Observable
  * 描述：
  * 作者： YangJunQuan   2018-8-17.
  */
-class HomeModel(val context: Context) : HomeContract.Model {
+class HomeModel : HomeContract.Model {
 
     override fun getColumns(): Observable<Columns> {
         return RetrofitManager.EyeAPI().getColumnList()

@@ -1,9 +1,8 @@
 package com.yjq.eyepetizer.ui.home.mvp
 
 import android.content.Context
-import com.yjq.eyepetizer.bean.ColumnPage
-import com.yjq.eyepetizer.bean.Columns
-import com.yjq.eyepetizer.util.rx.RxUtil
+import com.yjq.eyepetizer.bean.cards.ColumnPage
+import com.yjq.eyepetizer.bean.cards.Columns
 import io.reactivex.Observable
 
 /**
@@ -13,7 +12,7 @@ import io.reactivex.Observable
  */
 class HomePresenter(val context: Context, val view: HomeContract.View) : HomeContract.Presenter {
 
-    private val model = HomeModel(context)
+    private val model = HomeModel()
 
     //获取首页栏目列表
     fun getHomeColumns(): Observable<Columns> {

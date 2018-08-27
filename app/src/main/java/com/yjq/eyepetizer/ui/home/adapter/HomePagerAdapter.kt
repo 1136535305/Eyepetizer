@@ -9,8 +9,8 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.yjq.eyepetizer.CommonViewHolder
 import com.yjq.eyepetizer.R
-import com.yjq.eyepetizer.bean.Item
-import com.yjq.eyepetizer.bean.cards.*
+import com.yjq.eyepetizer.bean.cards.Item
+import com.yjq.eyepetizer.bean.cards.item.*
 import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.databinding.*
 import com.yjq.eyepetizer.inflate
@@ -169,13 +169,19 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val description = briefCard.description
         val title = briefCard.title
         val iconUrl = briefCard.icon
+        val iconType = briefCard.iconType
 
         //init view
         with(itemBriefCardBinding!!) {
             tvTitle.text = title
             tvDescription.text = description
-            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, iconUrl)
+
+            if (iconType == "square")
+                ImageLoader.loadNetImageWithCorner(mContext, ivFeed, iconUrl)
+            else
+                ImageLoader.loadNetCircleImage(mContext, ivFeed, iconUrl)
         }
+
 
     }
 

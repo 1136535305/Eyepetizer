@@ -1,9 +1,8 @@
-package com.yjq.eyepetizer.bean.cards
+package com.yjq.eyepetizer.bean.cards.item
 
-import com.yjq.eyepetizer.bean.Cover
-import com.yjq.eyepetizer.bean.Reply
-import com.yjq.eyepetizer.bean.SimpleVideo
-import com.yjq.eyepetizer.bean.User
+import com.yjq.eyepetizer.bean.cards.Reply
+import com.yjq.eyepetizer.bean.cards.SimpleVideo
+import com.yjq.eyepetizer.bean.cards.User
 
 /**
  * 文件： DynamicInfoCard

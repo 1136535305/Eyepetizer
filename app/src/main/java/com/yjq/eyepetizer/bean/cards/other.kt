@@ -1,4 +1,4 @@
-package com.yjq.eyepetizer.bean
+package com.yjq.eyepetizer.bean.cards
 
 /**
  * 文件： other

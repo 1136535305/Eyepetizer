@@ -1,4 +1,4 @@
-package com.yjq.eyepetizer.bean
+package com.yjq.eyepetizer.bean.cards
 
 import com.google.gson.JsonObject
 
