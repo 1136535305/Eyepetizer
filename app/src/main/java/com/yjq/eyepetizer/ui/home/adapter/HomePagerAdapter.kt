@@ -23,24 +23,25 @@ import com.yjq.eyepetizer.util.time.TimeUtil
  * 描述：
  * 作者： YangJunQuan   2018-8-20.
  */
-class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
+class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
 
 
-    var mDataList = ArrayList<Item>()
+    private var mDataList = ArrayList<Item>()
 
 
     fun setData(data: ArrayList<Item>, loadMore: Boolean) {
 
         if (loadMore)
-            mDataList.addAll(data)
+            mDataList.addAll(data)  //显示更多
         else
-            mDataList = data
+            mDataList = data        //刷新或者显示首页
 
         notifyDataSetChanged()
     }
 
 
     override fun getItemCount() = mDataList.size
+
 
     override fun getItemViewType(position: Int): Int {
         val type = mDataList[position].type
@@ -92,7 +93,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val description = "${followCard.header.title}  /  #${followCard.content.data.category}"          //描述
         val avatarUrl = followCard.header.icon                                                           //发布者头像
         val feedUrl = followCard.content.data.cover.detail                                               //发布内容对应封面
-        val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())           //视频时长
+        val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())        //视频时长
 
         //init view
         with(itemFollowCardBinding!!) {
@@ -103,6 +104,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ImageLoader.loadNetImageWithCorner(mContext, ivBg, feedUrl)
         }
     }
+
 
     private fun initTextCardView(holder: CommonViewHolder, position: Int) {
         val itemTextCardBinding = DataBindingUtil.getBinding<ItemTextCardBinding>(holder.itemView)
@@ -132,6 +134,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         }
 
     }
+
 
     private fun initVideoSmallCardView(holder: CommonViewHolder, position: Int) {
         val itemVideoSmallCardBinding = DataBindingUtil.getBinding<ItemVideoSmallCardBinding>(holder.itemView)
@@ -204,7 +207,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val videoType = "#${dynamicInfoCard.simpleVideo.category}"    //视频类型
         val likeCount = dynamicInfoCard.reply.likeCount.toString()    //评论点赞数
         val timeStamp = TimeUtil.timeStamp2Date(dynamicInfoCard.createDate, "yyyy/MM/dd")             //评论时间
-        val videoDutation = TimeUtil.getFormatHMS(dynamicInfoCard.simpleVideo.duration * 1000.toLong())       //视频时长
+        val videoDuration = TimeUtil.getFormatHMS(dynamicInfoCard.simpleVideo.duration * 1000.toLong())       //视频时长
 
 
         //init view
@@ -217,7 +220,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, corner = 12)
             tvVideoName.text = videoTitle
             tvVieoType.text = videoType
-            tvVideoDuration.text = videoDutation
+            tvVideoDuration.text = videoDuration
             tvDate.text = timeStamp
             tvLikeCount.text = likeCount
 

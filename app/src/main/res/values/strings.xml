@@ -14,4 +14,7 @@
     <string name="search_hint_tip">搜索视频、作者、以及标签</string>
     <string name="search_empty_message">很抱歉没有找到相匹配的内容</string>
     <string name="searchTip">可以通过所属分类, \n以及标题或者描述中的关键词来查找</string>
+    <string name="searchHistory">搜索历史</string>
+    <string name="delete">删除</string>
+    <string name="search_key_word">热搜关键词</string>
 </resources>

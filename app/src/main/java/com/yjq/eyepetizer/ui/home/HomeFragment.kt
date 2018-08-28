@@ -101,11 +101,11 @@ class HomeFragment : BaseFragment(), HomeContract.View {
 
     //网络错误处理
     override fun onNetError() {
-        netError.visibility = View.VISIBLE
+        searchError.visibility = View.VISIBLE
 
         //点击重试
-        netError.setOnClickListener {
-            netError.visibility = View.GONE
+        searchError.setOnClickListener {
+            searchError.visibility = View.GONE
             initData()
         }
     }

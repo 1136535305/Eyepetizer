@@ -63,7 +63,7 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
 
         //隐藏无网络相关UI
-        netError.visibility = View.GONE
+        searchError.visibility = View.GONE
 
 
         //初始化recycleView
@@ -139,11 +139,11 @@ class PagerFragment : BaseFragment(), HomeContract.View {
     override fun onNetError() {
 
         if (mItemList?.size ?: 0 == 0)          //在没有数据的前提下，才会提醒用户，避免网络错误提示遮蔽了原有的列表
-            netError.visibility = View.VISIBLE
+            searchError.visibility = View.VISIBLE
 
         //点击重试
-        netError.setOnClickListener {
-            netError.visibility = View.GONE
+        searchError.setOnClickListener {
+            searchError.visibility = View.GONE
             loadData(firstPageUrl, loadMore = false)
         }
     }
