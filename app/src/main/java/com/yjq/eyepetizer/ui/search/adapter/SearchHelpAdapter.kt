@@ -23,6 +23,7 @@ class SearchHelpAdapter(private val context: Context) : RecyclerView.Adapter<Com
 
     fun setData(data: List<String>?) {
         hotWords = data
+        notifyDataSetChanged()
     }
 
 
