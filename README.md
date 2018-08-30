@@ -524,7 +524,7 @@
 			"dataType": "DynamicReplyCard",
 			"dynamicType": "reply",
 			"text": "评论:",
-			"actionUrl": "eyepetizer://replies/video?videoId=121828&top=1029897909421735936&videoTitle=ä¸å¬å°±å¼å¿ï¼å½©è¹åå±å¢æ°æ­ãè¥å®ç¾¤ä¾ ä¼ ã ",
+			"actionUrl": "eyepetizer://replies/video?videoId=121828&top=10",
 			"user": {
 				"uid": 300944793,
 				"nickname": "Demo",
