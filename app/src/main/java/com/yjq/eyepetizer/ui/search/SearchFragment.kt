@@ -37,7 +37,6 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
     private var mItemList: List<Item>? = null
     private var nextPaeUrl: String? = null
     private var lastCompleteVisiblePosition = -1
-
     private var mHotWordList: ArrayList<String>? = null
 
 
@@ -60,8 +59,29 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
 
     //other
     private lateinit var mPresenter: SearchPresenter
-    private lateinit var mResultAdapter: HomePagerAdapter
     private lateinit var mHelpAdapter: SearchHelpAdapter
+    private lateinit var mResultAdapter: HomePagerAdapter
+
+    /**
+     * **************************************************  界面状态改变的处理 *********************************************
+     */
+
+
+    private fun setUIState(newState: UIState) {
+        state = newState
+
+        searchHelp.visibility = View.GONE
+        searchError.visibility = View.GONE
+        searchEmpty.visibility = View.GONE
+        searchResult.visibility = View.GONE
+
+        when (state) {
+            UIState.SHOW_SEARCH_HELP -> searchHelp.visibility = View.VISIBLE
+            UIState.SHOW_SEARCH_RESULT -> searchResult.visibility = View.VISIBLE
+            UIState.SHOW_SEARCH_NET_ERROR -> searchError.visibility = View.VISIBLE
+            UIState.SHOW_SEARCH_EMPTY_RESULT -> searchEmpty.visibility = View.VISIBLE
+        }
+    }
 
     /**
      * ******************************   DialogFragment 生命周期方法  ****************************************
@@ -78,7 +98,6 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
 
         //Dialog Window调整
         with(dialog.window) {
-            //setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)//设置该window里的软键盘的弹出方式
             requestFeature(Window.FEATURE_NO_TITLE)                              //去掉Dialog自带的顶部标题栏
             setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             decorView.setPadding(0, 0, 0, 0)              //去掉padding，让dialog等同于屏幕宽度
@@ -88,8 +107,10 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
                 height = WindowManager.LayoutParams.MATCH_PARENT                 //window的高
             }
         }
+
         return inflater.inflate(R.layout.fragment_search, container, false)
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -99,12 +120,9 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
         //搜索框初始化
         with(etInput) {
             //触发搜索功能
-            setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
+            setOnEditorActionListener(TextView.OnEditorActionListener { _, actionId, _ ->
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-
-                    setUIState(UIState.SHOW_SEARCH_RESULT)                  //初始化UI state
                     searchByKeyWord(this.text.toString().trim())            //执行搜索
-                    hideKeyBoard(this)                                //隐藏软键盘
                     return@OnEditorActionListener true
                 }
                 false
@@ -167,9 +185,9 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
                 onItemClick = { position ->
                     run {
                         //搜索帮助列表Item项点击事件
-                        setUIState(UIState.SHOW_SEARCH_RESULT)
                         val hotWord = mHotWordList!![position]
                         etInput.setText(hotWord)
+                        etInput.setSelection(hotWord.length)
                         searchByKeyWord(hotWord)
                     }
                 }
@@ -180,31 +198,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
         }
 
 
-
-
-        setUIState(UIState.SHOW_SEARCH_HELP)
-    }
-
-
-    /**
-     * **************************************************  界面状态改变的处理 *********************************************
-     */
-
-
-    private fun setUIState(newState: UIState) {
-        state = newState
-
-        searchHelp.visibility = View.GONE
-        searchResult.visibility = View.GONE
-        searchError.visibility = View.GONE
-        searchEmpty.visibility = View.GONE
-
-        when (state) {
-            UIState.SHOW_SEARCH_HELP -> searchHelp.visibility = View.VISIBLE
-            UIState.SHOW_SEARCH_RESULT -> searchResult.visibility = View.VISIBLE
-            UIState.SHOW_SEARCH_NET_ERROR -> searchError.visibility = View.VISIBLE
-            UIState.SHOW_SEARCH_EMPTY_RESULT -> searchEmpty.visibility = View.VISIBLE
-        }
+        setUIState(UIState.SHOW_SEARCH_HELP)   //一开始显示搜索帮助列表
     }
 
 
@@ -228,6 +222,10 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
 
     //根据用户输入搜索相应内容
     private fun searchByKeyWord(query: String) {
+
+
+        setUIState(UIState.SHOW_SEARCH_RESULT)
+        hideKeyBoard(etInput)
 
         mPresenter.searchByKeyWord(query)
                 .compose(RxUtil.applySchedulers())
@@ -289,6 +287,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
     override fun onNetError() {
         setUIState(UIState.SHOW_SEARCH_NET_ERROR)
     }
+
 
     override fun showLoading(isLoad: Boolean) {
 

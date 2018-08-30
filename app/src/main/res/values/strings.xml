@@ -17,4 +17,7 @@
     <string name="searchHistory">搜索历史</string>
     <string name="delete">删除</string>
     <string name="search_key_word">热搜关键词</string>
+    <string name="login_tip">点击登录即可发表评论及同步已喜欢视频</string>
+    <string name="preload">缓存</string>
+    <string name="like">喜欢</string>
 </resources>

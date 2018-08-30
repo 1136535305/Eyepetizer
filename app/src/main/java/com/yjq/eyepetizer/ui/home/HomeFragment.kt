@@ -6,8 +6,8 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import android.view.View
 import com.yjq.eyepetizer.R
-import com.yjq.eyepetizer.bean.cards.Columns
 import com.yjq.eyepetizer.base.BaseFragment
+import com.yjq.eyepetizer.bean.cards.Columns
 import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
 import com.yjq.eyepetizer.ui.search.SearchFragment
@@ -115,5 +115,4 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     override fun showLoading(isLoad: Boolean) {
 
     }
-
 }
