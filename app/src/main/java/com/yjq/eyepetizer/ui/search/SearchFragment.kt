@@ -266,7 +266,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
     private fun searchMore() {
 
         if (nextPaeUrl == null) {
-            context?.showToast("没有更多了")
+            mResultAdapter.setNoMore(true)
             return
         }
 

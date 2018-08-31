@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
@@ -106,7 +107,10 @@ class PagerFragment : BaseFragment(), HomeContract.View {
         //初始化refreshLayout
         with(refresh) {
             setColorSchemeColors(ContextCompat.getColor(context, R.color.dark))
-            setOnRefreshListener { loadData(firstPageUrl, loadMore = false) }
+            setOnRefreshListener {
+                mAdapter.setNoMore(false) //重置状态
+                loadData(firstPageUrl, loadMore = false)
+            }
         }
 
 
@@ -120,11 +124,12 @@ class PagerFragment : BaseFragment(), HomeContract.View {
     private fun loadData(apiUrl: String?, loadMore: Boolean) {
 
         if (apiUrl == null) {
-
+            mAdapter.setNoMore(true)  //没有更多
             return
         }
-
         enableLoadMore = false
+
+
         mPresenter.getColumnPage(apiUrl)
                 .compose(RxUtil.applySchedulers())  //切换线程
                 .compose(bindToLifecycle())         //RxLifeCycle2.X 避免fragment被销毁后仍进行网络数据请求导致内存泄漏等错误

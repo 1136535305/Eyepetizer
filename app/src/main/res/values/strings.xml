@@ -20,4 +20,5 @@
     <string name="login_tip">点击登录即可发表评论及同步已喜欢视频</string>
     <string name="preload">缓存</string>
     <string name="like">喜欢</string>
+    <string name="the_end">- The End -</string>
 </resources>

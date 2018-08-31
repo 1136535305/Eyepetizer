@@ -2,11 +2,13 @@ package com.yjq.eyepetizer.ui.home.adapter
 
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.yjq.eyepetizer.CommonViewHolder
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.bean.cards.Item
@@ -27,8 +29,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
     private var mDataList = ArrayList<Item>()
-
-
+    private var showMoreView = false
     fun setData(data: ArrayList<Item>, loadMore: Boolean) {
 
         if (loadMore)
@@ -37,6 +38,23 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             mDataList = data        //刷新或者显示首页
 
         notifyDataSetChanged()
+    }
+
+
+    fun setNoMore(noMoreData: Boolean) {
+
+        if (showMoreView && noMoreData) return
+
+        if (!showMoreView && noMoreData) {
+
+            //构造NoMore时的数据项供解析
+            mDataList.add(Item("theEnd", JsonObject(), -1, -1, -1))
+            notifyDataSetChanged()
+            showMoreView = true
+        }
+
+        if (!noMoreData)
+            showMoreView = false
     }
 
 
@@ -52,6 +70,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
         val viewHolder =
                 when (viewType) {
+                    ViewTypeEnum.TheEnd.value -> parent.inflate<ItemTheEndBinding>(R.layout.item_the_end)
                     ViewTypeEnum.TextCard.value -> parent.inflate<ItemTextCardBinding>(R.layout.item_text_card)
                     ViewTypeEnum.BriefCard.value -> parent.inflate<ItemBriefCardBinding>(R.layout.item_brief_card)
                     ViewTypeEnum.FollowCard.value -> parent.inflate<ItemFollowCardBinding>(R.layout.item_follow_card)
@@ -68,6 +87,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
     override fun onBindViewHolder(holder: CommonViewHolder, position: Int) {
 
         when (getItemViewType(position)) {
+            ViewTypeEnum.TheEnd.value -> initTheEndView(holder, position)
             ViewTypeEnum.TextCard.value -> initTextCardView(holder, position)
             ViewTypeEnum.BriefCard.value -> initBriefCardView(holder, position)
             ViewTypeEnum.FollowCard.value -> initFollowCardView(holder, position)
@@ -77,9 +97,20 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         }
     }
 
+
     /**
      * **********************************************   下面是各种类型的ItemView 初始化渲染方法   *******************************************************
      */
+
+
+    //没有更多数据，到底部的提示ItemView
+    private fun initTheEndView(holder: CommonViewHolder, position: Int) {
+        val itemTheEndBinding = DataBindingUtil.getBinding<ItemTheEndBinding>(holder.itemView)
+        with(itemTheEndBinding!!) {
+            tvEnd.typeface = Typeface.createFromAsset(mContext.assets, "fonts/Lobster-1.4.otf")
+        }
+    }
+
 
     private fun initFollowCardView(holder: CommonViewHolder, position: Int) {
         val itemFollowCardBinding = DataBindingUtil.getBinding<ItemFollowCardBinding>(holder.itemView)

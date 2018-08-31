@@ -7,6 +7,7 @@ package com.yjq.eyepetizer.constant
  */
 enum class ViewTypeEnum(var value: Int) {
 
+    TheEnd(-2),
     Invalid(-1),
     Banner2(0),
     TextCard(1),
@@ -24,6 +25,7 @@ enum class ViewTypeEnum(var value: Int) {
     companion object {
         fun getViewTypeEnum(type: String): ViewTypeEnum {
             return when (type) {
+                "theEnd" -> TheEnd
                 "banner2" -> Banner2
                 "textCard" -> TextCard
                 "briefCard" -> BriefCard
