@@ -21,6 +21,7 @@ import com.yjq.eyepetizer.ui.home.adapter.HomePagerAdapter
 import com.yjq.eyepetizer.ui.search.adapter.SearchHelpAdapter
 import com.yjq.eyepetizer.ui.search.mvp.SearchContact
 import com.yjq.eyepetizer.ui.search.mvp.SearchPresenter
+import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
 import kotlinx.android.synthetic.main.fragment_search.*
@@ -32,6 +33,10 @@ import kotlinx.android.synthetic.main.search_help.*
  * 作者： YangJunQuan   2018-8-24.
  */
 class SearchFragment : RxDialogFragment(), SearchContact.View {
+
+    //TAG
+    private val TAG = "SearchFragment"
+
 
     //data
     private var mItemList: List<Item>? = null
@@ -168,8 +173,10 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
                     if (newState == RecyclerView.SCROLL_STATE_IDLE) {
                         val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
                         val itemCount = layoutManager.itemCount
-                        if (itemCount - 1 == lastItemPosition && isSlideUpward && enableLoadMore)
+                        if (itemCount - 1 == lastItemPosition && isSlideUpward && enableLoadMore) {
+                            LogUtil.d(TAG, "load url:$nextPaeUrl")
                             searchMore()
+                        }
                     }
 
 
@@ -263,6 +270,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
             return
         }
 
+        enableLoadMore = false
         mPresenter.searchMore(nextPaeUrl!!)
                 .compose(RxUtil.applySchedulers())
                 .subscribe(object : RxBaseObserver<ColumnPage>(this) {
