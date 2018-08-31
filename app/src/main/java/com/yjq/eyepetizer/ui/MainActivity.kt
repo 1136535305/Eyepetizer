@@ -70,6 +70,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
     private fun initBottomTab() {
         tabHomePage.isChecked = true   //默认首页
         tabHomePage.setTextColor(ContextCompat.getColor(this, R.color.dark))
+
     }
 
 

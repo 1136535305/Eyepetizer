@@ -13,6 +13,7 @@ import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.ui.home.adapter.HomePagerAdapter
 import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
+import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
 import kotlinx.android.synthetic.main.fragment_home_pager.*
@@ -32,10 +33,14 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
 
     //data
+    private val TAG = "PageFragment"
     private var nextPaeUrl: String? = null
     private var firstPageUrl: String? = null
     private var mItemList: List<Item>? = null
-    private var lastCompleteVisiblePosition = -1
+
+
+    //state
+    private var enableLoadMore = true   //是否允许加载更多，防止重复申请api导致数据重复
 
 
     //允许展示的列表Item项UI类型
@@ -73,19 +78,26 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
             //底部加载
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                    val totalCount = layoutManager.itemCount - 1
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE && totalCount == lastCompleteVisiblePosition) {
-                        loadData(nextPaeUrl, loadMore = true)
-                    }
+                //用来标记是否正在向上滑动
+                private var isSlidingUpward = false
 
+                override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+
+                    //当不滑动时
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        //获取最后一个完全显示的itemPosition
+                        val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                        val itemCount = layoutManager.itemCount
+
+                        // 判断是否滑动到了最后一个item，并且是向上滑动
+                        if (lastItemPosition == (itemCount - 1) && isSlidingUpward && enableLoadMore)
+                            loadData(nextPaeUrl, loadMore = true)
+
+                    }
                 }
 
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                    with(layoutManager as LinearLayoutManager) {
-                        lastCompleteVisiblePosition = findLastCompletelyVisibleItemPosition()       //记录底部可见的位置
-                    }
-
+                    isSlidingUpward = dy > 0
                 }
             })
         }
@@ -107,8 +119,12 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
     private fun loadData(apiUrl: String?, loadMore: Boolean) {
 
-        if (apiUrl == null) return
+        if (apiUrl == null) {
 
+            return
+        }
+
+        enableLoadMore = false
         mPresenter.getColumnPage(apiUrl)
                 .compose(RxUtil.applySchedulers())  //切换线程
                 .compose(bindToLifecycle())         //RxLifeCycle2.X 避免fragment被销毁后仍进行网络数据请求导致内存泄漏等错误
@@ -119,11 +135,13 @@ class PagerFragment : BaseFragment(), HomeContract.View {
                             viewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
                         }
 
+                        //加载下一页所需API接口
+                        nextPaeUrl = t.nextPageUrl
+
                         //展示数据
                         mAdapter.setData(mItemList as ArrayList<Item>, loadMore)
 
-                        //加载下一页所需API接口
-                        nextPaeUrl = t.nextPageUrl
+
                     }
                 })
 
@@ -152,6 +170,12 @@ class PagerFragment : BaseFragment(), HomeContract.View {
     //加载进度条处理
     override fun showLoading(isLoad: Boolean) {
         refresh.isRefreshing = isLoad
+
+
+        if (!isLoad) {
+            //上次页数据加载完毕，才允许进行下一页数据的加载
+            enableLoadMore = true
+        }
     }
 
 }

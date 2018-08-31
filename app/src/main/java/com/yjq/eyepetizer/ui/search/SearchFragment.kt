@@ -36,11 +36,13 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
     //data
     private var mItemList: List<Item>? = null
     private var nextPaeUrl: String? = null
-    private var lastCompleteVisiblePosition = -1
     private var mHotWordList: ArrayList<String>? = null
 
 
-    //UI state  根据状态显示不同的界面
+    //state
+    private var enableLoadMore = true
+
+    //UI status  根据状态显示不同的界面
     private var state: UIState = UIState.SHOW_SEARCH_HELP
 
     enum class UIState {
@@ -161,18 +163,20 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
 
             //底部加载更多
             addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                private var isSlideUpward = false
                 override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
-                    val totalCount = layoutManager.itemCount - 1
-                    if (newState == RecyclerView.SCROLL_STATE_IDLE && totalCount == lastCompleteVisiblePosition) {
-                        searchMore()
+                    if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                        val lastItemPosition = (layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+                        val itemCount = layoutManager.itemCount
+                        if (itemCount - 1 == lastItemPosition && isSlideUpward && enableLoadMore)
+                            searchMore()
                     }
+
 
                 }
 
                 override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
-                    with(layoutManager as LinearLayoutManager) {
-                        lastCompleteVisiblePosition = findLastCompletelyVisibleItemPosition()       //记录底部可见的位置
-                    }
+                    isSlideUpward = dy > 0
 
                 }
             })
@@ -290,7 +294,9 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
 
 
     override fun showLoading(isLoad: Boolean) {
-
+        if (!isLoad) {
+            enableLoadMore = true
+        }
     }
 
 }
