@@ -39,6 +39,7 @@ object ImageLoader {
                 .apply(RequestOptions.circleCropTransform())
                 .transition(DrawableTransitionOptions.withCrossFade())
                 .into(imageView)
+
     }
 
 }

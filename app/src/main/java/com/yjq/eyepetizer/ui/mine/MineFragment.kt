@@ -9,7 +9,6 @@ import com.yjq.eyepetizer.base.BaseFragment
  * 作者： YangJunQuan   2018-8-21.
  */
 class MineFragment : BaseFragment() {
-
     override fun getLayoutResources(): Int {
         return R.layout.fragment_mine
     }
@@ -17,5 +16,17 @@ class MineFragment : BaseFragment() {
     override fun initView() {
 
     }
+
+    /**
+     * ***************************** 使用  RxBaseObserver 用到的自定义回调  *********************************
+     */
+
+    override fun onNetError() {
+
+    }
+
+    override fun showLoading(isLoad: Boolean) {
+    }
+
 
 }

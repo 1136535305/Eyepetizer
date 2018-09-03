@@ -21,4 +21,6 @@
     <string name="preload">缓存</string>
     <string name="like">喜欢</string>
     <string name="the_end">- The End -</string>
+    <string name="subscription">Subscription</string>
+    <string name="notification">Notification</string>
 </resources>

@@ -27,9 +27,17 @@ import com.yjq.eyepetizer.util.time.TimeUtil
  */
 class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
 
-
+    //data
     private var mDataList = ArrayList<Item>()
+
+    //state
     private var showMoreView = false
+
+
+    /**
+     * **************************************************  声明分割线   ***********************************************************
+     */
+
     fun setData(data: ArrayList<Item>, loadMore: Boolean) {
 
         if (loadMore)
@@ -131,6 +139,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             tvTitle.text = title
             tvSlogan.text = description
             tvVideoDuration.text = duration
+
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
             ImageLoader.loadNetImageWithCorner(mContext, ivBg, feedUrl)
         }

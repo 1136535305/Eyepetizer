@@ -4,17 +4,16 @@ import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.LayoutInflater
 import android.view.View
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
 import com.yjq.eyepetizer.bean.cards.ColumnPage
 import com.yjq.eyepetizer.bean.cards.Item
+import com.yjq.eyepetizer.constant.Constant
 import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.ui.home.adapter.HomePagerAdapter
 import com.yjq.eyepetizer.ui.home.mvp.HomeContract
 import com.yjq.eyepetizer.ui.home.mvp.HomePresenter
-import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
 import kotlinx.android.synthetic.main.fragment_home_pager.*
@@ -32,7 +31,6 @@ class PagerFragment : BaseFragment(), HomeContract.View {
         fun newInstance(apiUrl: String) = PagerFragment().apply { arguments = Bundle().apply { putString("API_URL", apiUrl) } }
     }
 
-
     //data
     private val TAG = "PageFragment"
     private var nextPaeUrl: String? = null
@@ -42,12 +40,6 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
     //state
     private var enableLoadMore = true   //是否允许加载更多，防止重复申请api导致数据重复
-
-
-    //允许展示的列表Item项UI类型
-    private var viewTypeList = listOf(
-            ViewTypeEnum.TextCard, ViewTypeEnum.BriefCard, ViewTypeEnum.DynamicInfoCard,
-            ViewTypeEnum.FollowCard, ViewTypeEnum.VideoSmallCard)
 
 
     //other
@@ -117,7 +109,6 @@ class PagerFragment : BaseFragment(), HomeContract.View {
         //加载首页
         loadData(firstPageUrl, loadMore = false)
 
-
     }
 
 
@@ -137,7 +128,7 @@ class PagerFragment : BaseFragment(), HomeContract.View {
                     override fun onNext(t: ColumnPage) {
                         //筛选数据
                         mItemList = t.itemList.filter {
-                            viewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
+                            Constant.ViewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
                         }
 
                         //加载下一页所需API接口
@@ -146,7 +137,6 @@ class PagerFragment : BaseFragment(), HomeContract.View {
                         //展示数据
                         mAdapter.setData(mItemList as ArrayList<Item>, loadMore)
 
-
                     }
                 })
 
@@ -154,7 +144,7 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
 
     /**
-     * ****************************************      自定义回调处理    **********************************************
+     * ****************************************      RxJava 自定义回调处理    **********************************************
      */
 
 

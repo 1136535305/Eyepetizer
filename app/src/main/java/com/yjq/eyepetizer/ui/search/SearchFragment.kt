@@ -14,6 +14,7 @@ import com.trello.rxlifecycle2.components.support.RxDialogFragment
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.bean.cards.ColumnPage
 import com.yjq.eyepetizer.bean.cards.Item
+import com.yjq.eyepetizer.constant.Constant
 import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.hideKeyBoard
 import com.yjq.eyepetizer.showToast
@@ -45,7 +46,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
 
 
     //state
-    private var enableLoadMore = true
+    private var enableLoadMore = true  //是否允许加载更多标志位
 
     //UI status  根据状态显示不同的界面
     private var state: UIState = UIState.SHOW_SEARCH_HELP
@@ -56,12 +57,6 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
         SHOW_SEARCH_NET_ERROR,      //显示网络错误提示
         SHOW_SEARCH_EMPTY_RESULT;   //搜索不到相应内容
     }
-
-
-    //允许展示的列表Item项UI类型
-    private var viewTypeList = listOf(
-            ViewTypeEnum.TextCard, ViewTypeEnum.BriefCard, ViewTypeEnum.DynamicInfoCard,
-            ViewTypeEnum.FollowCard, ViewTypeEnum.VideoSmallCard)
 
 
     //other
@@ -244,7 +239,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
                     override fun onNext(t: ColumnPage) {
                         //筛选数据
                         mItemList = t.itemList.filter {
-                            viewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
+                            Constant.ViewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
                         }
 
                         //检查搜索结果是否为空
@@ -277,11 +272,11 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
                     override fun onNext(t: ColumnPage) {
                         //筛选数据
                         mItemList = t.itemList.filter {
-                            viewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
+                            Constant.ViewTypeList.contains(ViewTypeEnum.getViewTypeEnum(it.type))
                         }
 
                         //展示数据
-                        mResultAdapter.setData(mItemList as ArrayList<Item>, loadMore = false)
+                        mResultAdapter.setData(mItemList as ArrayList<Item>, loadMore = true)
 
                         //加载下一页所需API接口
                         nextPaeUrl = t.nextPageUrl

@@ -27,9 +27,6 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     private lateinit var mData: Columns
 
 
-    //state
-
-
     //other
     private lateinit var mPresenter: HomePresenter
 
@@ -48,10 +45,7 @@ class HomeFragment : BaseFragment(), HomeContract.View {
     }
 
     private fun initEvent() {
-
-        ivSearch.setOnClickListener {
-            SearchFragment().show(childFragmentManager, "searchFragment")
-        }
+        ivSearch.setOnClickListener { SearchFragment().show(childFragmentManager, "searchFragment") }
     }
 
     private fun initData() {

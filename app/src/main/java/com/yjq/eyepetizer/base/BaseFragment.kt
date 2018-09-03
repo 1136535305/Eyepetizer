@@ -12,7 +12,7 @@ import com.trello.rxlifecycle2.components.support.RxFragment
  * 描述： Fragment基类
  * 作者： YangJunQuan   2018-8-6.
  */
-abstract class BaseFragment : RxFragment() {
+abstract class BaseFragment : RxFragment(), BaseView {
 
     companion object {
         const val TAG = "BaseFragment"
