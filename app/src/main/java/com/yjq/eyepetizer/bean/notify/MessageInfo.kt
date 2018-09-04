@@ -1,5 +1,7 @@
 package com.yjq.eyepetizer.bean.notify
 
+import com.yjq.eyepetizer.bean.error.ErrorResult
+
 /**
  * 文件： MessageInfo
  * 描述：
@@ -10,7 +12,7 @@ data class MessageInfo(
         val messageList: List<Message>,
         val updateTime: Long, //1520841600000
         val nextPageUrl: String //null
-)
+) : ErrorResult()
 
 data class Message(
         val id: Int, //454949

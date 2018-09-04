@@ -296,7 +296,7 @@ class SearchFragment : RxDialogFragment(), SearchContact.View {
     }
 
 
-    override fun showLoading(isLoad: Boolean) {
+    override fun onLoading(isLoad: Boolean) {
         if (!isLoad) {
             enableLoadMore = true
         }

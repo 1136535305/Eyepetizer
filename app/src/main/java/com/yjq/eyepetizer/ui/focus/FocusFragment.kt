@@ -67,7 +67,7 @@ class FocusFragment : BaseFragment() {
     }
 
 
-    override fun showLoading(isLoad: Boolean) {
+    override fun onLoading(isLoad: Boolean) {
     }
 
 }

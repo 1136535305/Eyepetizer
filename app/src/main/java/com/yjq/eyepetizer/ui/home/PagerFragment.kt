@@ -163,7 +163,7 @@ class PagerFragment : BaseFragment(), HomeContract.View {
 
 
     //加载进度条处理
-    override fun showLoading(isLoad: Boolean) {
+    override fun onLoading(isLoad: Boolean) {
         refresh.isRefreshing = isLoad
 
 

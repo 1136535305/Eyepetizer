@@ -1,9 +1,13 @@
 package com.yjq.eyepetizer.util.rx
 
 import com.yjq.eyepetizer.base.BaseView
+import com.yjq.eyepetizer.util.log.LogUtil
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import retrofit2.HttpException
+import java.net.ConnectException
+import java.net.UnknownHostException
+import java.util.concurrent.TimeoutException
 
 /**
  * 文件： RxBaseObserver
@@ -11,6 +15,8 @@ import retrofit2.HttpException
  * 作者： YangJunQuan   2018-8-23.
  */
 abstract class RxBaseObserver<T>(view: BaseView) : Observer<T> {
+
+    private val TAG = "RxBaseObserver"
 
     private val mView: BaseView = view
 
@@ -20,19 +26,22 @@ abstract class RxBaseObserver<T>(view: BaseView) : Observer<T> {
     }
 
     override fun onComplete() {
-        mView.showLoading(false)
+        mView.onLoading(false)
     }
 
     override fun onSubscribe(d: Disposable) {
-        mView.showLoading(true)
+        mView.onLoading(true)
     }
 
     override fun onError(e: Throwable) {
-        mView.showLoading(false)
+        LogUtil.e(TAG, e)
 
+        mView.onLoading(false)
         when (e) {
             is HttpException -> mView.onNetError()
-            else -> mView.onNetError()
+            is ConnectException -> mView.onNetError()
+            is TimeoutException -> mView.onNetError()
+            is UnknownHostException -> mView.onNetError()
         }
     }
 

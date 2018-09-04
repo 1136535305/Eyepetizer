@@ -37,14 +37,14 @@
     </android.support.v7.widget.Toolbar>
 
     <android.support.design.widget.TabLayout
-        app:tabMinWidth="160dp"
         android:id="@+id/tabNotify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:tabMinWidth="160dp" />
 
 
     <View

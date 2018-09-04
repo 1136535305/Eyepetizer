@@ -23,4 +23,7 @@
     <string name="the_end">- The End -</string>
     <string name="subscription">Subscription</string>
     <string name="notification">Notification</string>
+    <string name="donotmiss">别错过重要的信息</string>
+    <string name="after_login">登录后即可查看评论回复、点赞及关注等通知信息</string>
+    <string name="login">登录</string>
 </resources>

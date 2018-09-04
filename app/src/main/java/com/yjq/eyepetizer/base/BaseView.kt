@@ -7,5 +7,5 @@ package com.yjq.eyepetizer.base
  */
 interface BaseView {
     fun onNetError()
-    fun showLoading(isLoad: Boolean)
+    fun onLoading(isLoad: Boolean)
 }

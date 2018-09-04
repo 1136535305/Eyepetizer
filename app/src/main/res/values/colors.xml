@@ -10,4 +10,5 @@
     <color name="darkLight">#222222</color>
     <color name="blueLight">#1782b8</color>
     <color name="transparent">#0000</color>
+    <color name="blueTiny">#2a6fb7</color>
 </resources>

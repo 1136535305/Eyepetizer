@@ -71,7 +71,7 @@ class NotifyFragment : BaseFragment() {
         with(viewPagerNotify) {
             adapter = object : FragmentPagerAdapter(childFragmentManager) {
                 override fun getItem(position: Int): Fragment {
-                    val apiUrl = tabInfo!!.tabInfo.tabList[1].apiUrl
+                    val apiUrl = tabInfo!!.tabInfo.tabList[position].apiUrl
                     return NotifyTabFragment.newInstance(apiUrl)
                 }
 
@@ -110,7 +110,7 @@ class NotifyFragment : BaseFragment() {
 
     }
 
-    override fun showLoading(isLoad: Boolean) {
+    override fun onLoading(isLoad: Boolean) {
 
     }
 

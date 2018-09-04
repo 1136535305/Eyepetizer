@@ -65,6 +65,9 @@ fun Activity.hideKeyBoard() {
 }
 
 
+/**
+ * Fragment中隐藏键盘
+ */
 fun Fragment.hideKeyBoard(view: View) {
     (context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
 }

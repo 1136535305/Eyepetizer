@@ -24,6 +24,17 @@ object RxUtil {
         }
     }
 
+
+//    /**
+//     * RxJava 结果检查
+//     */
+//    fun <T> applyResult(): ObservableTransformer<T, T> {
+//        return ObservableTransformer {
+//            upstream ->
+//        }
+//    }
+
+
     private fun <T> createData(t: T): Observable<T> {
         return Observable.create { emitter ->
             try {

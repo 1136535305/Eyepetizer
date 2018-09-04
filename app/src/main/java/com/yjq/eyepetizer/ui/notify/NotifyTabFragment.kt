@@ -2,15 +2,17 @@ package com.yjq.eyepetizer.ui.notify
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
-import com.yjq.eyepetizer.base.BaseView
 import com.yjq.eyepetizer.bean.notify.Message
 import com.yjq.eyepetizer.bean.notify.MessageInfo
+import com.yjq.eyepetizer.constant.ResponseCode
 import com.yjq.eyepetizer.ui.focus.mvp.NotifyPresenter
 import com.yjq.eyepetizer.ui.notify.adapter.NotifyTabAdapter
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
+import kotlinx.android.synthetic.main.fragment_notify.*
 import kotlinx.android.synthetic.main.tab_notify.*
 
 /**
@@ -59,6 +61,10 @@ class NotifyTabFragment : BaseFragment() {
                 .compose(bindToLifecycle())
                 .subscribe(object : RxBaseObserver<MessageInfo>(this) {
                     override fun onNext(t: MessageInfo) {
+                        if (ResponseCode.RES_ERROR_NOT_LOGIN == t.errorCode) {
+                            onNeedLogin()
+                            return
+                        }
                         messageInfo = t.messageList as ArrayList<Message>
                         mAdapter.setData(messageInfo)
                     }
@@ -75,6 +81,11 @@ class NotifyTabFragment : BaseFragment() {
     }
 
 
+    private fun onNeedLogin() {
+        noAccountView.visibility = View.VISIBLE
+    }
+
+
     /**
      * ****************************************      RxJava 自定义回调处理    **********************************************
      */
@@ -84,7 +95,9 @@ class NotifyTabFragment : BaseFragment() {
 
     }
 
-    override fun showLoading(isLoad: Boolean) {
+    override fun onLoading(isLoad: Boolean) {
 
     }
+
+
 }
