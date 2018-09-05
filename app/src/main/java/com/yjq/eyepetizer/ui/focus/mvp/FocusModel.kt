@@ -1,6 +1,7 @@
 package com.yjq.eyepetizer.ui.focus.mvp
 
 import com.yjq.eyepetizer.bean.cards.Columns
+import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.manager.RetrofitManager
 import io.reactivex.Observable
 
@@ -13,6 +14,10 @@ class FocusModel : FocusContract.Model {
 
     override fun getFocusTabList(): Observable<Columns> {
         return RetrofitManager.EyeAPI().getFocusTabList()
+    }
+
+    override fun getFocusTabInfo(apiUrl:String):Observable<List<Item>>{
+        return RetrofitManager.EyeAPI().getFocusTabInfo(apiUrl)
     }
 
 }

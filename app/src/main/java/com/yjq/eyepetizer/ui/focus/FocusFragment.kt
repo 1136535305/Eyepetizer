@@ -2,11 +2,16 @@ package com.yjq.eyepetizer.ui.focus
 
 import android.graphics.Typeface
 import android.os.Bundle
+import android.support.design.widget.TabLayout
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.content.ContextCompat
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
-import com.yjq.eyepetizer.base.BaseView
 import com.yjq.eyepetizer.bean.cards.Columns
+import com.yjq.eyepetizer.bean.cards.Tab
 import com.yjq.eyepetizer.ui.focus.mvp.FocusPresenter
+import com.yjq.eyepetizer.ui.notify.NotifyTabFragment
 import com.yjq.eyepetizer.ui.search.SearchFragment
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
@@ -19,9 +24,8 @@ import kotlinx.android.synthetic.main.fragment_foucus.*
  */
 class FocusFragment : BaseFragment() {
 
-
     //data
-    private var tabInfo: Columns? = null
+    private var tabList = mutableListOf<Tab>()
 
 
     //other
@@ -48,7 +52,10 @@ class FocusFragment : BaseFragment() {
                 .compose(bindToLifecycle())
                 .subscribe(object : RxBaseObserver<Columns>(this) {
                     override fun onNext(t: Columns) {
-                        tabInfo = t
+                        tabList = (t.tabInfo.tabList as MutableList<Tab>).asReversed() //倒序输出
+
+                        initViewPager()
+                        initTabLayout()
                     }
                 })
     }
@@ -56,7 +63,42 @@ class FocusFragment : BaseFragment() {
 
     private fun initToolbar() {
         tvTitle.typeface = Typeface.createFromAsset(context!!.assets, "fonts/Lobster-1.4.otf")
-        ivSearch.setOnClickListener { SearchFragment().show(fragmentManager, "SearchFragment") }
+        ivSearch.setOnClickListener { SearchFragment().show(fragmentManager, "Subscription") }
+    }
+
+
+    private fun initViewPager() {
+        with(viewPagerFocus) {
+            adapter = object : FragmentPagerAdapter(childFragmentManager) {
+                override fun getItem(position: Int): Fragment {
+                    val apiUrl = tabList[position].apiUrl
+                    return FocusTabFragment.newInstance(apiUrl)
+                }
+
+                override fun getCount(): Int {
+                    return tabList.size
+                }
+
+
+                override fun getPageTitle(position: Int): CharSequence? {
+                    return tabList[position].name
+                }
+
+            }
+        }
+
+    }
+
+
+    private fun initTabLayout() {
+        with(tabFocus) {
+            setSelectedTabIndicatorHeight(0)
+            tabGravity = TabLayout.GRAVITY_CENTER
+            tabMode = TabLayout.MODE_FIXED
+            setSelectedTabIndicatorColor(ContextCompat.getColor(context, R.color.dark))
+            setupWithViewPager(viewPagerFocus)
+
+        }
     }
 
     /**

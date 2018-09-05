@@ -8,8 +8,8 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.content.ContextCompat
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
-import com.yjq.eyepetizer.base.BaseView
 import com.yjq.eyepetizer.bean.cards.Columns
+import com.yjq.eyepetizer.bean.cards.Tab
 import com.yjq.eyepetizer.ui.focus.mvp.NotifyPresenter
 import com.yjq.eyepetizer.ui.search.SearchFragment
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
@@ -25,7 +25,7 @@ class NotifyFragment : BaseFragment() {
 
 
     //data
-    private var tabInfo: Columns? = null
+    private var tabList = mutableListOf<Tab>()
 
 
     //other
@@ -54,7 +54,8 @@ class NotifyFragment : BaseFragment() {
                 .compose(bindToLifecycle())
                 .subscribe(object : RxBaseObserver<Columns>(this) {
                     override fun onNext(t: Columns) {
-                        tabInfo = t
+                        tabList = (t.tabInfo.tabList as MutableList<Tab>).asReversed() //倒序输出
+
                         initViewPager()
                         initTabLayout()
                     }
@@ -71,17 +72,17 @@ class NotifyFragment : BaseFragment() {
         with(viewPagerNotify) {
             adapter = object : FragmentPagerAdapter(childFragmentManager) {
                 override fun getItem(position: Int): Fragment {
-                    val apiUrl = tabInfo!!.tabInfo.tabList[position].apiUrl
+                    val apiUrl = tabList[position].apiUrl
                     return NotifyTabFragment.newInstance(apiUrl)
                 }
 
                 override fun getCount(): Int {
-                    return tabInfo?.tabInfo?.tabList?.size ?: 0
+                    return tabList.size
                 }
 
 
                 override fun getPageTitle(position: Int): CharSequence? {
-                    return tabInfo!!.tabInfo.tabList[position].name
+                    return tabList[position].name
                 }
 
             }

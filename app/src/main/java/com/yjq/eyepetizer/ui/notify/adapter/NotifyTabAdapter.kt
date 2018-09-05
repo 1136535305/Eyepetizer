@@ -19,10 +19,10 @@ import com.yjq.eyepetizer.util.image.ImageLoader
 class NotifyTabAdapter(private val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
 
 
-    private var mDataList = ArrayList<Message>()
+    private var mDataList = mutableListOf<Message>()
 
 
-    fun setData(data: ArrayList<Message>) {
+    fun setData(data: MutableList<Message>) {
         mDataList = data
         notifyDataSetChanged()
     }
@@ -39,7 +39,7 @@ class NotifyTabAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
         //init item view
         with(itemNotifyMessageBinding) {
-           // tvTime.text = message.date.toString()
+            // tvTime.text = message.date.toString()
             tvAuthor.text = message.title
             tvNotifyContent.text = message.content
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, message.icon)

@@ -11,5 +11,5 @@ object Constant {
     //允许展示的列表Item项UI类型
     val ViewTypeList = listOf(
             ViewTypeEnum.TextCard, ViewTypeEnum.BriefCard, ViewTypeEnum.DynamicInfoCard,
-            ViewTypeEnum.FollowCard, ViewTypeEnum.VideoSmallCard)
+            ViewTypeEnum.FollowCard, ViewTypeEnum.VideoSmallCard, ViewTypeEnum.AutoPlayFollowCard)
 }

@@ -2,6 +2,7 @@ package com.yjq.eyepetizer.ui.focus.mvp
 
 import android.content.Context
 import com.yjq.eyepetizer.bean.cards.Columns
+import com.yjq.eyepetizer.bean.cards.Item
 import io.reactivex.Observable
 
 /**
@@ -16,6 +17,10 @@ class FocusPresenter(val context: Context) : FocusContract.Presenter {
 
     fun getFocusTabList(): Observable<Columns> {
         return model.getFocusTabList()
+    }
+
+    fun getFocusTabInfo(apiUrl: String): Observable<List<Item>> {
+        return model.getFocusTabInfo(apiUrl)
     }
 
 }

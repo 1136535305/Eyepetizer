@@ -84,6 +84,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
                     ViewTypeEnum.FollowCard.value -> parent.inflate<ItemFollowCardBinding>(R.layout.item_follow_card)
                     ViewTypeEnum.VideoSmallCard.value -> parent.inflate<ItemVideoSmallCardBinding>(R.layout.item_video_small_card)
                     ViewTypeEnum.DynamicInfoCard.value -> parent.inflate<ItemDynamicInfoCardBinding>(R.layout.item_dynamic_info_card)
+                    ViewTypeEnum.AutoPlayFollowCard.value -> parent.inflate<ItemAutoPlayFollowCardBinding>(R.layout.item_auto_play_follow_card)
                     ViewTypeEnum.SquareCardCollection.value -> parent.inflate<ItemSquareCardCollectionBinding>(R.layout.item_square_card_collection)
                     else -> throw Exception("invalid view type")
                 }
@@ -101,6 +102,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             ViewTypeEnum.FollowCard.value -> initFollowCardView(holder, position)
             ViewTypeEnum.VideoSmallCard.value -> initVideoSmallCardView(holder, position)
             ViewTypeEnum.DynamicInfoCard.value -> initDynamicInfoCardView(holder, position)
+            ViewTypeEnum.AutoPlayFollowCard.value -> initAutoPlayFollowCardView(holder, position)
             ViewTypeEnum.SquareCardCollection.value -> initSquareCardCollectionView(holder, position)
         }
     }
@@ -265,6 +267,34 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             tvLikeCount.text = likeCount
 
         }
+    }
+
+
+    private fun initAutoPlayFollowCardView(holder: CommonViewHolder, position: Int) {
+        val itemAutoPlayFollowCardBinding = DataBindingUtil.getBinding<ItemAutoPlayFollowCardBinding>(holder.itemView)
+
+        //init data
+        val jsonObject = mDataList[position].data
+        val autoPlayFollowCard = Gson().fromJson(jsonObject, AutoPlayFollowCard::class.java)
+
+
+        val iconUrl = autoPlayFollowCard.header.icon
+        val issueName = autoPlayFollowCard.header.issuerName
+        val title = autoPlayFollowCard.content.data.title
+        val description = autoPlayFollowCard.content.data.description
+
+        val collectionCount = autoPlayFollowCard.content.data.consumption.collectionCount
+        val replyCount = autoPlayFollowCard.content.data.consumption.replyCount
+
+        with(itemAutoPlayFollowCardBinding!!) {
+            ImageLoader.loadNetCircleImage(mContext, ivAvatar, iconUrl)
+            tvIssueName.text = issueName
+            tvTitle.text = title
+            tvDescription.text = description
+            tvCollectionCount.text = collectionCount.toString()
+            tvReply.text = replyCount.toString()
+        }
+
     }
 
 

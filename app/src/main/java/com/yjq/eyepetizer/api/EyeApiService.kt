@@ -2,6 +2,7 @@ package com.yjq.eyepetizer.api
 
 import com.yjq.eyepetizer.bean.cards.ColumnPage
 import com.yjq.eyepetizer.bean.cards.Columns
+import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.bean.notify.MessageInfo
 import io.reactivex.Observable
 import retrofit2.http.GET
@@ -44,6 +45,11 @@ interface EyeApiService {
     //获取【关注】下的tabList
     @GET("v5/community/tab/list")
     fun getFocusTabList(): Observable<Columns>
+
+
+    //获取【关注】下某一个Tab的数据
+    @GET
+    fun getFocusTabInfo(@Url tabUrl: String): Observable<List<Item>>
 
 
     //获取【通知】下的tabList
