@@ -8,21 +8,31 @@
         android:layout_height="wrap_content"
         android:background="@color/white">
 
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.5" />
+
+
         <ImageView
             android:id="@+id/ivAvatar"
             android:layout_width="43dp"
             android:layout_height="43dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@mipmap/avatar_default"
-            android:layout_marginLeft="10dp" />
+            app:srcCompat="@mipmap/avatar_default" />
 
         <TextView
             android:id="@+id/tvIssueName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
             android:layout_marginTop="2dp"
             android:textColor="@color/dark"
@@ -30,15 +40,14 @@
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/ivAvatar"
             app:layout_constraintTop_toTopOf="@+id/ivAvatar"
-            tools:text="欧美广告精选"
-            android:layout_marginLeft="10dp" />
+            tools:text="欧美广告精选" />
 
         <TextView
             android:id="@+id/labelPublish"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
-            android:text="发布:"
+            android:text="@string/publish"
             app:layout_constraintStart_toStartOf="@+id/tvIssueName"
             app:layout_constraintTop_toBottomOf="@+id/tvIssueName" />
 
@@ -46,13 +55,13 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:layout_marginStart="5dp"
             android:textColor="@color/dark"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@+id/labelPublish"
             app:layout_constraintTop_toTopOf="@+id/labelPublish"
-            tools:text="老妈也要唱嘻哈，原来可以这么酷"
-            android:layout_marginLeft="5dp" />
+            tools:text="老妈也要唱嘻哈，原来可以这么酷" />
 
         <TextView
             android:id="@+id/tvDescription"
@@ -61,6 +70,7 @@
             android:layout_marginEnd="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="10dp"
+            android:textColor="#999999"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/ivAvatar"
             app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
@@ -72,7 +82,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             app:alignContent="stretch"
@@ -84,89 +93,83 @@
             app:layout_constraintTop_toBottomOf="@+id/tvDescription">
 
 
-            <TextView
-                style="@style/tabStyle"
-                android:text="广告精选" />
-
-            <TextView
-                style="@style/tabStyle"
-                android:layout_marginLeft="10dp"
-                android:text="广告精选" />
-
-            <TextView
-                style="@style/tabStyle"
-                android:layout_marginLeft="10dp"
-                android:text="广告精选" />
-
-
         </com.google.android.flexbox.FlexboxLayout>
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/ivVideoCover"
             android:layout_width="0dp"
-            android:layout_height="150dp"
+            android:layout_height="200dp"
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/flexLayout"
-            app:srcCompat="@mipmap/ic_launcher" />
+            app:srcCompat="@drawable/corner_3_gray" />
 
         <TextView
             android:id="@+id/tvCollectionCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
             android:drawableLeft="@mipmap/ic_action_favorites_grey_without_padding"
             android:drawablePadding="8dp"
             android:gravity="center"
-            android:text="4"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2"
-            android:layout_marginLeft="10dp" />
+            app:layout_constraintTop_toBottomOf="@+id/ivVideoCover"
+            tools:text="4" />
 
         <TextView
             android:id="@+id/tvReply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:drawableLeft="@mipmap/ic_action_reply_grey_without_padding"
             android:drawablePadding="10dp"
             android:gravity="center"
             android:text="0"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/tvCollectionCount"
-            android:layout_marginRight="40dp" />
+            app:layout_constraintTop_toTopOf="@+id/tvCollectionCount" />
 
         <TextView
             android:id="@+id/tvDuration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_marginStart="40dp"
             android:text="08:00"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toTopOf="@+id/tvReply"
-            android:layout_marginLeft="40dp" />
+            app:layout_constraintTop_toTopOf="@+id/tvReply" />
 
         <ImageView
             android:id="@+id/ivMoreAction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="@+id/tvCollectionCount"
-            app:layout_constraintEnd_toEndOf="@+id/imageView2"
+            app:layout_constraintEnd_toEndOf="@+id/ivVideoCover"
             app:layout_constraintTop_toTopOf="@+id/tvCollectionCount"
             app:srcCompat="@mipmap/ic_action_share_grey" />
 
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline"
+
+        <View
+            android:id="@+id/line"
             android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent="0.5" />
+            android:layout_height="0.3dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="12dp"
+            android:alpha="0.3"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvCollectionCount"
+            app:layout_constraintTop_toBottomOf="@+id/tvCollectionCount" />
 
 
     </android.support.constraint.ConstraintLayout>

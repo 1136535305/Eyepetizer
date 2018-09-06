@@ -5,14 +5,16 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:layout_height="wrap_content">
 
 
         <ImageView
             android:id="@+id/ivAvatar"
             android:layout_width="43dp"
             android:layout_height="43dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@mipmap/avatar_default" />
@@ -32,10 +34,41 @@
             android:id="@+id/tvText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="3dp"
             app:layout_constraintStart_toStartOf="@+id/tvAuthor"
             app:layout_constraintTop_toBottomOf="@+id/tvAuthor"
             tools:text="评论:" />
+
+
+        <TextView
+            android:id="@+id/labelHotComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/corner_3_white"
+            android:paddingBottom="2dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:paddingTop="2dp"
+            android:text="热评"
+            android:textColor="#4787d7"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/ivAvatar"
+            app:layout_constraintEnd_toStartOf="@+id/ivGoHotComment"
+            app:layout_constraintTop_toTopOf="@+id/ivAvatar" />
+
+
+        <ImageView
+            android:id="@+id/ivGoHotComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            app:layout_constraintBottom_toBottomOf="@+id/labelHotComment"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/labelHotComment"
+            app:srcCompat="@mipmap/goto_icon" />
+
 
         <TextView
             android:id="@+id/tvReplyMessage"
@@ -43,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:textColor="@color/darkLight"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/ivGoHotComment"
             app:layout_constraintStart_toStartOf="@+id/tvAuthor"
             app:layout_constraintTop_toBottomOf="@+id/ivAvatar"
             tools:text="看了这么多宫崎骏的动漫，又听了这么多配乐，感觉整个人的情感都好脆弱" />
@@ -55,7 +88,7 @@
             android:layout_height="105dp"
             android:layout_marginTop="10dp"
             android:background="@drawable/corner_3_gray"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/tvReplyMessage"
             app:layout_constraintStart_toStartOf="@+id/tvAuthor"
             app:layout_constraintTop_toBottomOf="@+id/tvReplyMessage" />
 
@@ -95,9 +128,9 @@
             android:layout_marginLeft="12dp"
             android:layout_marginRight="4dp"
             android:layout_marginStart="12dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="6dp"
             android:textColor="@color/dark"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="@+id/bg"
             app:layout_constraintStart_toEndOf="@+id/ivFeed"
@@ -108,10 +141,10 @@
             android:id="@+id/tvVieoType"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="@+id/ivFeed"
             app:layout_constraintStart_toStartOf="@+id/tvVideoName"
+            app:layout_constraintTop_toBottomOf="@+id/tvVideoName"
             tools:text="#生活" />
 
         <TextView
@@ -128,17 +161,19 @@
             android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:textSize="13sp"
             app:layout_constraintStart_toEndOf="@+id/tvReplyLabel"
             app:layout_constraintTop_toTopOf="@+id/tvReplyLabel"
-            tools:text="2018/08/19"
-            android:layout_marginLeft="20dp" />
+            tools:text="2018/08/19" />
 
         <TextView
             android:id="@+id/tvLikeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="3dp"
+            android:layout_marginRight="3dp"
             android:layout_marginTop="10dp"
             android:gravity="center"
             android:text="6"
@@ -149,13 +184,28 @@
 
         <ImageView
             android:id="@+id/ivLike"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/bg"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            app:layout_constraintBottom_toBottomOf="@+id/tvDate"
+            app:layout_constraintEnd_toEndOf="@+id/bg"
+            app:layout_constraintTop_toTopOf="@+id/tvDate"
             app:srcCompat="@mipmap/ic_action_like_add_grey" />
 
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="0dp"
+            android:layout_height="0.3dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="15dp"
+            android:alpha="0.3"
+            android:background="@color/gray"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvReplyLabel"
+            app:layout_constraintTop_toBottomOf="@+id/tvReplyLabel" />
 
     </android.support.constraint.ConstraintLayout>
 </layout>

@@ -1,5 +1,6 @@
 package com.yjq.eyepetizer.ui.focus.mvp
 
+import com.yjq.eyepetizer.bean.cards.ColumnPage
 import com.yjq.eyepetizer.bean.cards.Columns
 import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.manager.RetrofitManager
@@ -16,7 +17,7 @@ class FocusModel : FocusContract.Model {
         return RetrofitManager.EyeAPI().getFocusTabList()
     }
 
-    override fun getFocusTabInfo(apiUrl:String):Observable<List<Item>>{
+    override fun getFocusTabInfo(apiUrl:String):Observable<ColumnPage>{
         return RetrofitManager.EyeAPI().getFocusTabInfo(apiUrl)
     }
 

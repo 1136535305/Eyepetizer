@@ -11,7 +11,6 @@ import com.yjq.eyepetizer.base.BaseFragment
 import com.yjq.eyepetizer.bean.cards.Columns
 import com.yjq.eyepetizer.bean.cards.Tab
 import com.yjq.eyepetizer.ui.focus.mvp.FocusPresenter
-import com.yjq.eyepetizer.ui.notify.NotifyTabFragment
 import com.yjq.eyepetizer.ui.search.SearchFragment
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
@@ -52,8 +51,7 @@ class FocusFragment : BaseFragment() {
                 .compose(bindToLifecycle())
                 .subscribe(object : RxBaseObserver<Columns>(this) {
                     override fun onNext(t: Columns) {
-                        tabList = (t.tabInfo.tabList as MutableList<Tab>).asReversed() //倒序输出
-
+                        tabList = t.tabInfo.tabList as MutableList<Tab>
                         initViewPager()
                         initTabLayout()
                     }

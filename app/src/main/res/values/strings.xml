@@ -26,4 +26,5 @@
     <string name="donotmiss">别错过重要的信息</string>
     <string name="after_login">登录后即可查看评论回复、点赞及关注等通知信息</string>
     <string name="login">登录</string>
+    <string name="publish">发布:</string>
 </resources>

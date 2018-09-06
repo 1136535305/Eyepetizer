@@ -34,7 +34,7 @@ abstract class RxBaseObserver<T>(view: BaseView) : Observer<T> {
     }
 
     override fun onError(e: Throwable) {
-        LogUtil.e(TAG, e)
+        LogUtil.d(TAG, e.toString())
 
         mView.onLoading(false)
         when (e) {

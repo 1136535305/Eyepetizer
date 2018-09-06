@@ -2,11 +2,19 @@ package com.yjq.eyepetizer.ui.home.adapter
 
 import android.content.Context
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
+import android.graphics.drawable.ShapeDrawable
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
+import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
+import com.google.android.flexbox.FlexboxLayout
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.yjq.eyepetizer.CommonViewHolder
@@ -17,6 +25,8 @@ import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.databinding.*
 import com.yjq.eyepetizer.inflate
 import com.yjq.eyepetizer.util.image.ImageLoader
+import com.yjq.eyepetizer.util.log.LogUtil
+import com.yjq.eyepetizer.util.sys.ScreenUtil
 import com.yjq.eyepetizer.util.time.TimeUtil
 
 
@@ -240,14 +250,15 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val dynamicInfoCard = Gson().fromJson(jsonObject, DynamicInfoCard::class.java)
 
 
+        val text = dynamicInfoCard.text                               //。。。
         val avatarUrl = dynamicInfoCard.user.avatar                   //评论者头像Url
         val authorName = dynamicInfoCard.user.nickname                //评论者昵称
-        val text = dynamicInfoCard.text                               //。。。
         val replyMessage = dynamicInfoCard.reply.message              //评论内容
-        val videoFeedUrl = dynamicInfoCard.simpleVideo.cover.detail   //视频封面图片
+        val ifHotReply = dynamicInfoCard.reply.ifHotReply             //是否是热评
         val videoTitle = dynamicInfoCard.simpleVideo.title            //视频标题
         val videoType = "#${dynamicInfoCard.simpleVideo.category}"    //视频类型
         val likeCount = dynamicInfoCard.reply.likeCount.toString()    //评论点赞数
+        val videoFeedUrl = dynamicInfoCard.simpleVideo.cover.detail   //视频封面图片
         val timeStamp = TimeUtil.timeStamp2Date(dynamicInfoCard.createDate, "yyyy/MM/dd")             //评论时间
         val videoDuration = TimeUtil.getFormatHMS(dynamicInfoCard.simpleVideo.duration * 1000.toLong())       //视频时长
 
@@ -255,16 +266,22 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         //init view
         with(itemDynamicInfoCardBinding!!) {
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl)
+            tvText.text = text
             tvAuthor.text = authorName
             tvReplyMessage.text = replyMessage
-            tvText.text = text
+
 
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, corner = 12)
-            tvVideoName.text = videoTitle
-            tvVieoType.text = videoType
-            tvVideoDuration.text = videoDuration
             tvDate.text = timeStamp
+            tvVieoType.text = videoType
             tvLikeCount.text = likeCount
+            tvVideoName.text = videoTitle
+            tvVideoDuration.text = videoDuration
+
+
+            //如果是【热评】，相关UI可见
+            labelHotComment.visibility = if (ifHotReply) View.VISIBLE else View.GONE
+            ivGoHotComment.visibility = if (ifHotReply) View.VISIBLE else View.GONE
 
         }
     }
@@ -278,21 +295,38 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val autoPlayFollowCard = Gson().fromJson(jsonObject, AutoPlayFollowCard::class.java)
 
 
-        val iconUrl = autoPlayFollowCard.header.icon
-        val issueName = autoPlayFollowCard.header.issuerName
-        val title = autoPlayFollowCard.content.data.title
-        val description = autoPlayFollowCard.content.data.description
+        val iconUrl = autoPlayFollowCard.header.icon                                           //头像Url
+        val tags = autoPlayFollowCard.content.data.tags                                        //标签列表
+        val title = autoPlayFollowCard.content.data.title                                      //标题
+        val issueName = autoPlayFollowCard.header.issuerName                                   //头像代表名称
+        val description = autoPlayFollowCard.content.data.description                          //内容
+        val videoCoverUrl = autoPlayFollowCard.content.data.cover.detail                       //视频封面Url
+        val videoDuration = autoPlayFollowCard.content.data.duration                           //视频时长
+        val replyCount = autoPlayFollowCard.content.data.consumption.replyCount                //评论数
+        val collectionCount = autoPlayFollowCard.content.data.consumption.collectionCount      //点赞数
 
-        val collectionCount = autoPlayFollowCard.content.data.consumption.collectionCount
-        val replyCount = autoPlayFollowCard.content.data.consumption.replyCount
 
         with(itemAutoPlayFollowCardBinding!!) {
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, iconUrl)
-            tvIssueName.text = issueName
+            ImageLoader.loadNetImageWithCorner(mContext, ivVideoCover, videoCoverUrl)
+
             tvTitle.text = title
+            tvIssueName.text = issueName
             tvDescription.text = description
-            tvCollectionCount.text = collectionCount.toString()
             tvReply.text = replyCount.toString()
+            tvCollectionCount.text = collectionCount.toString()
+            tvDuration.text = TimeUtil.getFormatHMS(videoDuration * 1000.toLong())       //视频时长
+
+
+            flexLayout.removeAllViews()
+            val layoutParams = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
+
+            tags.forEach { itemTag ->
+                val itemView = LayoutInflater.from(mContext).inflate(R.layout.textview_tag, flexLayout, false)
+                itemView.findViewById<TextView>(R.id.tvTag).text = itemTag.name
+                flexLayout.addView(itemView, layoutParams)
+            }
+
         }
 
     }

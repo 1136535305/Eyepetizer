@@ -49,7 +49,7 @@ interface EyeApiService {
 
     //获取【关注】下某一个Tab的数据
     @GET
-    fun getFocusTabInfo(@Url tabUrl: String): Observable<List<Item>>
+    fun getFocusTabInfo(@Url tabUrl: String): Observable<ColumnPage>
 
 
     //获取【通知】下的tabList
