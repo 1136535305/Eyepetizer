@@ -17,11 +17,11 @@ data class ColumnPage(
 )
 
 data class Item(
-        val type: String, //horizontalScrollCard
-        val data: JsonObject,//不解析该字段，因为该字段代表的数据结构会随着type的变化而变化，我们保留原始数据，在具体解析时根据type的不同值进行相应类的类型转换
-        val tag: Any, //null
-        val id: Int, //0
-        val adIndex: Int //-1
+        var type: String, //horizontalScrollCard
+        var data: JsonObject,//不解析该字段，因为该字段代表的数据结构会随着type的变化而变化，我们保留原始数据，在具体解析时根据type的不同值进行相应类的类型转换
+        var tag: Any, //null
+        var id: Int, //0
+        var adIndex: Int //-1
 )
 
 
