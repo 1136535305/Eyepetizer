@@ -2,13 +2,8 @@ package com.yjq.eyepetizer.ui.home.adapter
 
 import android.content.Context
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.ShapeDrawable
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
-import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,8 +20,6 @@ import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.databinding.*
 import com.yjq.eyepetizer.inflate
 import com.yjq.eyepetizer.util.image.ImageLoader
-import com.yjq.eyepetizer.util.log.LogUtil
-import com.yjq.eyepetizer.util.sys.ScreenUtil
 import com.yjq.eyepetizer.util.time.TimeUtil
 
 
@@ -41,7 +34,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
     private var mDataList = ArrayList<Item>()
 
     //state
-    private var showMoreView = false
+    private var ifShowNoMore = false
 
 
     /**
@@ -61,18 +54,18 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
     fun setNoMore(noMoreData: Boolean) {
 
-        if (showMoreView && noMoreData) return
+        if (ifShowNoMore && noMoreData) return
 
-        if (!showMoreView && noMoreData) {
+        if (!ifShowNoMore && noMoreData) {
 
             //构造NoMore时的数据项供解析
             mDataList.add(Item("theEnd", JsonObject(), -1, -1, -1))
             notifyDataSetChanged()
-            showMoreView = true
+            ifShowNoMore = true
         }
 
         if (!noMoreData)
-            showMoreView = false
+            ifShowNoMore = false
     }
 
 
@@ -140,10 +133,10 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val followCard = Gson().fromJson(jsonObject, FollowCard::class.java)
 
 
-        val title = followCard.content.data.title                                                        //标题
-        val description = "${followCard.header.title}  /  #${followCard.content.data.category}"          //描述
         val avatarUrl = followCard.header.icon                                                           //发布者头像
+        val title = followCard.content.data.title                                                        //标题
         val feedUrl = followCard.content.data.cover.detail                                               //发布内容对应封面
+        val description = "${followCard.header.title}  /  #${followCard.content.data.category}"          //描述
         val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())        //视频时长
 
         //init view
@@ -152,8 +145,8 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             tvSlogan.text = description
             tvVideoDuration.text = duration
 
-            ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
             ImageLoader.loadNetImageWithCorner(mContext, ivBg, feedUrl)
+            ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
         }
     }
 
@@ -221,10 +214,10 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val jsonObject = mDataList[position].data
         val briefCard = Gson().fromJson(jsonObject, BriefCard::class.java)
 
-        val description = briefCard.description
         val title = briefCard.title
         val iconUrl = briefCard.icon
         val iconType = briefCard.iconType
+        val description = briefCard.description
 
         //init view
         with(itemBriefCardBinding!!) {
