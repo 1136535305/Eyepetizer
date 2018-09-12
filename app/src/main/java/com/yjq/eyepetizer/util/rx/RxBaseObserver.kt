@@ -6,8 +6,10 @@ import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 import retrofit2.HttpException
 import java.net.ConnectException
+import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 import java.util.concurrent.TimeoutException
+
 
 /**
  * 文件： RxBaseObserver
@@ -42,6 +44,7 @@ abstract class RxBaseObserver<T>(view: BaseView) : Observer<T> {
             is ConnectException -> mView.onNetError()
             is TimeoutException -> mView.onNetError()
             is UnknownHostException -> mView.onNetError()
+            is SocketTimeoutException -> mView.onNetError()
         }
     }
 

@@ -215,7 +215,7 @@ data class SimpleVideo(
         val playUrl: String, //http://baobab.kaiyanapp.com/api/v1/playUrl?vid=121650&resourceType=video&editionType=default&source=aliyun
         val duration: Int, //143
         val releaseTime: Long, //1534813203000
-        val consumption: Any, //null
+        val consumption: Consumption?, //null
         val collected: Boolean, //false
         val actionUrl: String, //eyepetizer://ugcResourceDetail?id=121650&resourceType=video
         val onlineStatus: String, //ONLINE

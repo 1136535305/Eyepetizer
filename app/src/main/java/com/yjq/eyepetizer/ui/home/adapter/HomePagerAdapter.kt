@@ -134,11 +134,11 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         //init data
         val jsonObject = mDataList[position].data
         val followCard = Gson().fromJson(jsonObject, FollowCard::class.java)
-
+        val videoJson = Gson().toJson(jsonObject)
 
         val avatarUrl = followCard.header.icon                                                           //发布者头像
         val title = followCard.content.data.title                                                        //标题
-        val playUrl = followCard.content.data.playUrl                                                      //视频播放地址
+        val playUrl = followCard.content.data.playUrl                                                    //视频播放地址
         val feedUrl = followCard.content.data.cover.detail                                               //发布内容对应封面
         val description = "${followCard.header.title}  /  #${followCard.content.data.category}"          //描述
         val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())        //视频时长
@@ -154,7 +154,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
 
             //init Event
-            ivBg.setOnClickListener { startVideoActivity(title, feedUrl, duration, playUrl) }
+            ivBg.setOnClickListener { startVideoActivity(videoJson, position) }
         }
     }
 
@@ -196,7 +196,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         //init data
         val jsonObject = mDataList[position].data
         val videoSmallCard = Gson().fromJson(jsonObject, VideoSmallCard::class.java)
-
+        val videoJson = Gson().toJson(jsonObject)
 
         val videoTitle = videoSmallCard.title                                                       //视频标题
         val videoPlayUrl = videoSmallCard.playUrl                                                   //视频播放地址
@@ -215,7 +215,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl)
 
             //init Event
-            ivFeed.setOnClickListener { startVideoActivity(videoTitle, videoFeedUrl, videoDuration, videoPlayUrl) }
+            ivFeed.setOnClickListener { startVideoActivity(videoJson, position) }
         }
 
     }
@@ -254,6 +254,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
         //init data
         val jsonObject = mDataList[position].data
+        val videoJson = Gson().toJson(jsonObject)
         val dynamicInfoCard = Gson().fromJson(jsonObject, DynamicInfoCard::class.java)
 
 
@@ -263,7 +264,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val replyMessage = dynamicInfoCard.reply.message              //评论内容
         val ifHotReply = dynamicInfoCard.reply.ifHotReply             //是否是热评
         val videoTitle = dynamicInfoCard.simpleVideo.title            //视频标题
-        val videoPlayUrl = dynamicInfoCard.simpleVideo.playUrl          //视频播放地址
+        val videoPlayUrl = dynamicInfoCard.simpleVideo.playUrl        //视频播放地址
         val videoType = "#${dynamicInfoCard.simpleVideo.category}"    //视频类型
         val likeCount = dynamicInfoCard.reply.likeCount.toString()    //评论点赞数
         val videoFeedUrl = dynamicInfoCard.simpleVideo.cover.detail   //视频封面图片
@@ -296,7 +297,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
             //init Event
-            ivFeed.setOnClickListener { startVideoActivity(videoTitle, videoFeedUrl, videoDuration, videoPlayUrl) }
+            ivFeed.setOnClickListener { startVideoActivity(videoJson, position) }
 
         }
     }
@@ -307,9 +308,9 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
         //init data
         val jsonObject = mDataList[position].data
+        val videoJson = Gson().toJson(jsonObject)
+
         val autoPlayFollowCard = Gson().fromJson(jsonObject, AutoPlayFollowCard::class.java)
-
-
         val iconUrl = autoPlayFollowCard.header.icon                                           //头像Url
         val tags = autoPlayFollowCard.content.data.tags                                        //标签列表
         val title = autoPlayFollowCard.content.data.title                                      //标题
@@ -348,7 +349,7 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
             //init  Event
-            ivVideoCover.setOnClickListener { startVideoActivity(title, videoCoverUrl, videoDuration.toString(), playUrl) }
+            ivVideoCover.setOnClickListener { startVideoActivity(videoJson, position) }
 
         }
 
@@ -398,13 +399,11 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
     //启动视频播放页面
-    private fun startVideoActivity(title: String, feedUrl: String, duration: String?, playUrl: String?) {
+    private fun startVideoActivity(videoJson: String, position: Int) {
         mContext.startActivity(
                 Intent(mContext, VideoPlayActivity::class.java).apply {
-                    putExtra("VIDEO_TITLE", title)
-                    putExtra("VIDEO_FEED_URL", feedUrl)
-                    putExtra("VIDEO_DURATION", duration)
-                    putExtra("VIDEO_PLAY_URL", playUrl)
+                    putExtra("VIDEO_JSON", videoJson)
+                    putExtra("JSON_TYPE", getItemViewType(position))
                 }
         )
     }

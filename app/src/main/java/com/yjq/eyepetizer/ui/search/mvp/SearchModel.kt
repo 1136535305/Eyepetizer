@@ -10,7 +10,7 @@ import io.reactivex.Observable
  * 描述：
  * 作者： YangJunQuan   2018-8-27.
  */
-class SearchModel : SearchContact.Model {
+class SearchModel : SearchContract.Model {
 
     fun getSearchHotWord(): Observable<List<String>> {
         return RetrofitManager.EyeAPI().getSearchHotWord()

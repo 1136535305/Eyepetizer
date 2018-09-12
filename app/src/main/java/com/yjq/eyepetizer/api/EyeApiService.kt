@@ -62,4 +62,8 @@ interface EyeApiService {
     fun getNotifyTabInfo(@Url tabUrl: String): Observable<MessageInfo>
 
 
+    //获取【视频播放页】一些相关信息，如该视频的相关推荐
+    @GET("v4/video/related")
+    fun getVideoRelated(@Query("id") videoId: String): Observable<ColumnPage>
+
 }

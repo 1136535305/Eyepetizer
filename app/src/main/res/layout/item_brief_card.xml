@@ -33,14 +33,38 @@
 
         <TextView
             android:id="@+id/tvDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="3dp"
+            android:layout_marginEnd="10dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivFeed"
+            app:layout_constraintEnd_toStartOf="@+id/labelFocus"
             app:layout_constraintStart_toStartOf="@+id/tvTitle"
-            tools:text="告诉他们为什么与众不同" />
+            tools:text="告诉他们为什么与众不同"
+            android:layout_marginRight="10dp" />
+
+
+        <TextView
+            android:id="@+id/labelFocus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/corner_3_solid_white_stroke_dark"
+            android:paddingBottom="2dp"
+            android:paddingLeft="9dp"
+            android:paddingRight="9dp"
+            android:paddingTop="2dp"
+            android:text="+关注"
+            android:textColor="@color/darkLight"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/ivFeed"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivFeed"
+            android:layout_marginRight="10dp" />
+
+
     </android.support.constraint.ConstraintLayout>
 </layout>

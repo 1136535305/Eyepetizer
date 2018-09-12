@@ -17,10 +17,9 @@ import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.constant.Constant
 import com.yjq.eyepetizer.constant.ViewTypeEnum
 import com.yjq.eyepetizer.hideKeyBoard
-import com.yjq.eyepetizer.showToast
 import com.yjq.eyepetizer.ui.home.adapter.HomePagerAdapter
 import com.yjq.eyepetizer.ui.search.adapter.SearchHelpAdapter
-import com.yjq.eyepetizer.ui.search.mvp.SearchContact
+import com.yjq.eyepetizer.ui.search.mvp.SearchContract
 import com.yjq.eyepetizer.ui.search.mvp.SearchPresenter
 import com.yjq.eyepetizer.util.log.LogUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
@@ -33,7 +32,7 @@ import kotlinx.android.synthetic.main.search_help.*
  * 描述： 搜索Dialog     需求：①键盘弹出时不会让整个视图往上平移 ②实现【搜索历史】 ③实现【搜索关键词】
  * 作者： YangJunQuan   2018-8-24.
  */
-class SearchFragment : RxDialogFragment(), SearchContact.View {
+class SearchFragment : RxDialogFragment(), SearchContract.View {
 
     //TAG
     private val TAG = "SearchFragment"

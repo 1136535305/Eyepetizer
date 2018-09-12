@@ -1,16 +1,17 @@
-package com.yjq.eyepetizer.ui.search.mvp
+package com.yjq.eyepetizer.ui.video.mvp
 
 import com.yjq.eyepetizer.base.BaseView
 
 /**
- * 文件： SearchContact
+ * 文件： VideoPlayContract
  * 描述：
- * 作者： YangJunQuan   2018-8-27.
+ * 作者： YangJunQuan   2018-9-12.
  */
-interface SearchContact {
+interface VideoPlayContract {
     interface View : BaseView
 
     interface Presenter
 
     interface Model
+
 }
