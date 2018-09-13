@@ -409,3 +409,10 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
     }
 
 }
+
+/*
+*   public static void  main ()
+*   speck up the result and test the orientation
+*   s
+*
+*/

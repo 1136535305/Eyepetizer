@@ -6,11 +6,6 @@ apply plugin: 'kotlin-android-extensions'
 
 android {
 
-    //启用一些实验性功能
-    androidExtensions {
-        experimental = true
-    }
-
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.yjq.eyepetizer"

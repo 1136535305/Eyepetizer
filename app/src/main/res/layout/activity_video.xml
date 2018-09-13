@@ -7,10 +7,10 @@
     android:layout_height="match_parent"
     android:background="@color/dark">
 
-    <cn.jzvd.JzvdStd
+    <com.yjq.eyepetizer.widget.CustomJzvdStd
         android:id="@+id/videoPlayer"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="240dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

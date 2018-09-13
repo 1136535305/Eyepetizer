@@ -147,7 +147,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         }
 
 
-        //把关键信息类获取到
+        //从关键信息类获取详细
         videoShareCount = mConsumption?.shareCount.toString()
         videoReplyCount = mConsumption?.replyCount.toString()
         videoLikeCount = mConsumption?.collectionCount.toString()
@@ -165,7 +165,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         //背景图片
         ImageLoader.loadNetBitmap(this, blurredBackgroundUrl) { root.background = it }
 
-
+        //视频标题、内容
         tvVideoTitle.text = videoTitle
         tvVideoDescription.text = videoDescription
 
