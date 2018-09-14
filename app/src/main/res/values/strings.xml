@@ -27,4 +27,6 @@
     <string name="after_login">登录后即可查看评论回复、点赞及关注等通知信息</string>
     <string name="login">登录</string>
     <string name="publish">发布:</string>
+    <string name="rewind"><![CDATA[<<]]></string>
+    <string name="fast_forward"><![CDATA[>>]]></string>
 </resources>
