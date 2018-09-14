@@ -118,26 +118,36 @@ public class CustomJzvdStd extends JzvdStd {
 
         //重置4种状态下UI组件的视觉变化
         if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
+
+            //隐藏
             backButton.setVisibility(View.GONE);
-            fullscreenButton.setVisibility(INVISIBLE);
             batteryTimeLayout.setVisibility(View.GONE);
-            videoMinScreen.setVisibility(View.VISIBLE);
+
+            //显示
+            leftContainer.setVisibility(VISIBLE);
             shareContainer.setVisibility(VISIBLE);
             rightContainer.setVisibility(VISIBLE);
-            leftContainer.setVisibility(VISIBLE);
             progressContainer.setVisibility(VISIBLE);
 
-        } else if (currentScreen == SCREEN_WINDOW_NORMAL || currentScreen == SCREEN_WINDOW_LIST) {    //正常状态下
-            backButton.setVisibility(View.VISIBLE);                                                   //回退按钮R.id.back 可见
-            titleTextView.setVisibility(View.GONE);                                                   //不显示视频标题R.id.title
-            videoMinScreen.setVisibility(View.GONE);
-            batteryTimeLayout.setVisibility(View.GONE);
-            fullscreenButton.setVisibility(VISIBLE);
+            fullscreenButton.setVisibility(INVISIBLE);
+            videoMinScreen.setVisibility(View.VISIBLE);
+
+        } else if (currentScreen == SCREEN_WINDOW_NORMAL || currentScreen == SCREEN_WINDOW_LIST) {
+
+            //隐藏
             rightContainer.setVisibility(GONE);
             leftContainer.setVisibility(GONE);
             shareContainer.setVisibility(GONE);
             progressContainer.setVisibility(GONE);
-            fullscreenButton.setImageResource(R.mipmap.ic_action_full_screen);                        //修改图标背景图片R.id.fullscreen
+            titleTextView.setVisibility(View.GONE);
+            videoMinScreen.setVisibility(View.GONE);
+            batteryTimeLayout.setVisibility(View.GONE);
+
+            //显示
+            backButton.setVisibility(View.VISIBLE);
+            fullscreenButton.setVisibility(VISIBLE);
+            fullscreenButton.setImageResource(R.mipmap.ic_action_full_screen);
+
         }
 
     }
@@ -202,6 +212,7 @@ public class CustomJzvdStd extends JzvdStd {
             startButton.setVisibility(VISIBLE);
             startButton.setImageResource(R.mipmap.ic_player_reload);
             replayTextView.setVisibility(GONE);
+
         } else {
             startButton.setImageResource(R.mipmap.ic_player_play);
             replayTextView.setVisibility(INVISIBLE);
@@ -225,14 +236,15 @@ public class CustomJzvdStd extends JzvdStd {
                                         int thumbImg, int bottomPro, int retryLayout) {
         super.setAllControlsVisiblity(topCon, bottomCon, startBtn, loadingPro, thumbImg, bottomPro, retryLayout);
 
-
+        shareContainer.setVisibility(GONE);
         progressContainer.setVisibility(GONE);
         if (currentScreen == SCREEN_WINDOW_FULLSCREEN) {
             rightContainer.setVisibility(topCon);
             leftContainer.setVisibility(topCon);
             shareContainer.setVisibility(topCon);
-
         }
+
+
     }
 
 
@@ -304,5 +316,28 @@ public class CustomJzvdStd extends JzvdStd {
             tvForwardIcon.setText(R.string.rewind);
         }
         onCLickUiToggleToClear();
+    }
+
+
+    @Override
+    public void changeUiToComplete() {
+        super.changeUiToComplete();
+
+        RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) shareContainer.getLayoutParams();
+        switch (currentScreen) {
+            case SCREEN_WINDOW_NORMAL:
+            case SCREEN_WINDOW_LIST:
+                lp.bottomMargin = ScreenUtil.INSTANCE.dip2px(10);
+                shareContainer.setLayoutParams(lp);
+                shareContainer.setVisibility(VISIBLE);
+                break;
+            case SCREEN_WINDOW_FULLSCREEN:
+                lp.bottomMargin = ScreenUtil.INSTANCE.dip2px(40);
+                shareContainer.setLayoutParams(lp);
+                shareContainer.setVisibility(VISIBLE);
+                break;
+
+        }
+
     }
 }
