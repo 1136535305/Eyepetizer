@@ -30,7 +30,7 @@ import com.yjq.eyepetizer.util.time.TimeUtil
  * 描述：
  * 作者： YangJunQuan   2018-8-20.
  */
-class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
+class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewHolder>() {
 
     //data
     private var mDataList = ArrayList<Item>()
@@ -341,7 +341,10 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             flexLayout.removeAllViews()
             val layoutParams = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
 
-            tags.forEach { itemTag ->
+
+
+
+            tags?.forEach { itemTag ->
                 val itemView = LayoutInflater.from(mContext).inflate(R.layout.textview_tag, flexLayout, false)
                 itemView.findViewById<TextView>(R.id.tvTag).text = itemTag.name
                 flexLayout.addView(itemView, layoutParams)
@@ -409,10 +412,3 @@ class HomePagerAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
     }
 
 }
-
-/*
-*   public static void  main ()
-*   speck up the result and test the orientation
-*   s
-*
-*/

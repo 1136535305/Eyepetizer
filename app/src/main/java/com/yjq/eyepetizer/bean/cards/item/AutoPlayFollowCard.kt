@@ -45,7 +45,7 @@ data class Data(
         val title: String, //老妈也要唱嘻哈，原来可以这么酷
         val description: String, //Lazada 是一家东南亚的购物网站，此广告不按套路出牌，点开五秒以为是走温情路线，可没想到尽如此燃爆现场……
         val library: String, //DEFAULT
-        val tags: List<Tag>,
+        val tags: List<Tag>?,
         val consumption: Consumption,
         val resourceType: String, //video
         val slogan: Any, //null
