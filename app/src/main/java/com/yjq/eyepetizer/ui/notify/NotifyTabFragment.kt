@@ -7,7 +7,7 @@ import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
 import com.yjq.eyepetizer.bean.notify.Message
 import com.yjq.eyepetizer.bean.notify.MessageInfo
-import com.yjq.eyepetizer.constant.ResponseCode
+import com.yjq.eyepetizer.IM.ResponseCode
 import com.yjq.eyepetizer.ui.focus.mvp.NotifyPresenter
 import com.yjq.eyepetizer.ui.notify.adapter.NotifyTabAdapter
 import com.yjq.eyepetizer.util.rx.RxBaseObserver

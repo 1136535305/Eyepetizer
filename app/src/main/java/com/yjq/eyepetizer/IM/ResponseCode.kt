@@ -1,4 +1,4 @@
-package com.yjq.eyepetizer.constant
+package com.yjq.eyepetizer.IM
 
 /**
  * 文件： ResponseCode

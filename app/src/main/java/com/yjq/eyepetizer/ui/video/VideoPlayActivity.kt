@@ -1,14 +1,12 @@
 package com.yjq.eyepetizer.ui.video
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import cn.jzvd.Jzvd
 import com.google.gson.Gson
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseActivity
-import com.yjq.eyepetizer.bean.cards.Author
-import com.yjq.eyepetizer.bean.cards.ColumnPage
-import com.yjq.eyepetizer.bean.cards.Consumption
-import com.yjq.eyepetizer.bean.cards.Cover
+import com.yjq.eyepetizer.bean.cards.*
 import com.yjq.eyepetizer.bean.cards.item.AutoPlayFollowCard
 import com.yjq.eyepetizer.bean.cards.item.DynamicInfoCard
 import com.yjq.eyepetizer.bean.cards.item.FollowCard
@@ -43,7 +41,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
     private lateinit var videoTitle: String               //视频标题
     private lateinit var videoPlayUrl: String             //视频播放地址Url
     private lateinit var videoFeedUrl: String             //视频封面地址Url
-    private lateinit var videoCatogory: String            //视频类别
+    private lateinit var videoCategory: String            //视频类别
     private lateinit var videoLikeCount: String           //视频点赞数
     private lateinit var videoShareCount: String          //视频分享数
     private lateinit var videoReplyCount: String          //视频评论数
@@ -54,7 +52,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
     private var mCover: Cover? = null
     private var mAuthor: Author? = null
     private var mConsumption: Consumption? = null
-
+    private var mPlayInfo: PlayInfo? = null
 
     //mvp
     private lateinit var mPresenter: VideoPlayPresenter
@@ -103,7 +101,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
                 videoTitle = followCard.content.data.title
                 videoPlayUrl = followCard.content.data.playUrl
                 videoId = followCard.content.data.id.toString()
-                videoCatogory = followCard.content.data.category
+                videoCategory = followCard.content.data.category
                 videoDescription = followCard.content.data.description
 
 
@@ -117,6 +115,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
                 videoPlayUrl = videoSmallCard.playUrl
                 videoId = videoSmallCard.id.toString()
                 videoDescription = videoSmallCard.description
+                videoCategory = videoSmallCard.category
 
                 mCover = videoSmallCard.cover
                 mAuthor = videoSmallCard.author
@@ -128,9 +127,10 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
                 videoPlayUrl = dynamicInfoCard.simpleVideo.playUrl
                 videoId = dynamicInfoCard.simpleVideo.id.toString()
                 videoDescription = dynamicInfoCard.simpleVideo.description
+                videoCategory = dynamicInfoCard.simpleVideo.category
 
                 mCover = dynamicInfoCard.simpleVideo.cover
-                //mAuthor = dynamicInfoCard.simpleVideo.
+                // mAuthor = dynamicInfoCard
                 mConsumption = dynamicInfoCard.simpleVideo.consumption
             }
             ViewTypeEnum.AutoPlayFollowCard.value -> {
@@ -139,6 +139,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
                 videoPlayUrl = autoPlayFollowCard.content.data.playUrl
                 videoId = autoPlayFollowCard.content.data.id.toString()
                 videoDescription = autoPlayFollowCard.content.data.description
+                videoCategory = autoPlayFollowCard.content.data.category
 
                 mCover = autoPlayFollowCard.content.data.cover
                 mAuthor = autoPlayFollowCard.content.data.author
@@ -147,7 +148,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         }
 
 
-        //从关键信息类获取详细
+        //从关键信息类获取详细信息
         videoShareCount = mConsumption?.shareCount.toString()
         videoReplyCount = mConsumption?.replyCount.toString()
         videoLikeCount = mConsumption?.collectionCount.toString()
@@ -159,6 +160,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private fun initView() {
 
 
@@ -168,12 +170,13 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         //视频标题、内容
         tvVideoTitle.text = videoTitle
         tvVideoDescription.text = videoDescription
-
+        tvCatagory.text = "#$videoCategory"
 
         //视频播放器初始化
         with(videoPlayer) {
             setUp(videoPlayUrl, videoTitle, Jzvd.SCREEN_WINDOW_NORMAL)
             ImageLoader.loadNetImageWithCorner(context, thumbImageView, videoFeedUrl)
+            startVideo()
         }
     }
 

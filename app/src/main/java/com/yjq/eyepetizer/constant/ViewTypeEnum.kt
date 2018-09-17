@@ -18,9 +18,10 @@ enum class ViewTypeEnum(var value: Int) {
     DynamicInfoCard(6),
     PictureFollowCard(7),
     AutoPlayFollowCard(8),
-    SquareCardCollection(9),
-    HorizontalScrollCard(10),
-    VideoCollectionWithBrief(11);
+    VideoBeanForClient(9),
+    SquareCardCollection(10),
+    HorizontalScrollCard(11),
+    VideoCollectionWithBrief(12);
 
     companion object {
         fun getViewTypeEnum(type: String): ViewTypeEnum {
@@ -34,6 +35,7 @@ enum class ViewTypeEnum(var value: Int) {
                 "autoPlayVideoAd" -> AutoPlayVideoAd
                 "DynamicInfoCard" -> DynamicInfoCard
                 "pictureFollowCard" -> PictureFollowCard
+                "VideoBeanForClient" -> VideoBeanForClient
                 "autoPlayFollowCard" -> AutoPlayFollowCard
                 "squareCardCollection" -> SquareCardCollection
                 "horizontalScrollCard" -> HorizontalScrollCard

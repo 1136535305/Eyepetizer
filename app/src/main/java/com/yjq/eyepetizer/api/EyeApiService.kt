@@ -2,10 +2,12 @@ package com.yjq.eyepetizer.api
 
 import com.yjq.eyepetizer.bean.cards.ColumnPage
 import com.yjq.eyepetizer.bean.cards.Columns
+import com.yjq.eyepetizer.bean.cards.Data
 import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.bean.notify.MessageInfo
 import io.reactivex.Observable
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import retrofit2.http.Url
 
@@ -62,7 +64,12 @@ interface EyeApiService {
     fun getNotifyTabInfo(@Url tabUrl: String): Observable<MessageInfo>
 
 
-    //获取【视频播放页】一些相关信息，如该视频的相关推荐
+    //根据视频Id获取该视频的详细信息    例子：http://baobab.kaiyanapp.com/api/v2/video/127373
+    @GET("v2/video/{videoId}")
+    fun getVideoDetail(@Path("videoId") videoId: String): Observable<Data>
+
+
+    //获取【视频播放页】一些额外信息，如该视频的相关推荐
     @GET("v4/video/related")
     fun getVideoRelated(@Query("id") videoId: String): Observable<ColumnPage>
 

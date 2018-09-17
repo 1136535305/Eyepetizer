@@ -47,9 +47,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
         initFragment()
 
-
         initBottomTab()
-
 
         initEvent()
     }

@@ -3,6 +3,7 @@ package com.yjq.eyepetizer.widget;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,8 +17,6 @@ import android.widget.Toast;
 import com.yjq.eyepetizer.R;
 import com.yjq.eyepetizer.util.sys.ScreenUtil;
 
-import org.w3c.dom.Text;
-
 import cn.jzvd.JZDataSource;
 import cn.jzvd.JzvdStd;
 
@@ -29,7 +28,7 @@ import cn.jzvd.JzvdStd;
 
 public class CustomJzvdStd extends JzvdStd {
 
-    private Context context;
+    private Context mContext;
 
 
     //view  新增的UI组件
@@ -53,14 +52,14 @@ public class CustomJzvdStd extends JzvdStd {
     private TextView tvCurrentTime;
     private TextView tvTotalTime;
 
-    public CustomJzvdStd(Context context) {
-        super(context);
-        this.context = context;
+    public CustomJzvdStd(Context mContext) {
+        super(mContext);
+        this.mContext = mContext;
     }
 
-    public CustomJzvdStd(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        this.context = context;
+    public CustomJzvdStd(Context mContext, AttributeSet attrs) {
+        super(mContext, attrs);
+        this.mContext = mContext;
     }
 
     @Override
@@ -129,7 +128,7 @@ public class CustomJzvdStd extends JzvdStd {
             rightContainer.setVisibility(VISIBLE);
             progressContainer.setVisibility(VISIBLE);
 
-            fullscreenButton.setVisibility(INVISIBLE);
+            fullscreenButton.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.ic_action_min_screen));
             videoMinScreen.setVisibility(View.VISIBLE);
 
         } else if (currentScreen == SCREEN_WINDOW_NORMAL || currentScreen == SCREEN_WINDOW_LIST) {
@@ -145,7 +144,6 @@ public class CustomJzvdStd extends JzvdStd {
 
             //显示
             backButton.setVisibility(View.VISIBLE);
-            fullscreenButton.setVisibility(VISIBLE);
             fullscreenButton.setImageResource(R.mipmap.ic_action_full_screen);
 
         }
@@ -160,7 +158,7 @@ public class CustomJzvdStd extends JzvdStd {
 
         //非全屏状态点击 回退按钮R.id.back 退出当前播放Activity
         if (currentScreen == SCREEN_WINDOW_NORMAL && v.getId() == R.id.back) {
-            ((Activity) context).finish();
+            ((Activity) mContext).finish();
         }
 
 

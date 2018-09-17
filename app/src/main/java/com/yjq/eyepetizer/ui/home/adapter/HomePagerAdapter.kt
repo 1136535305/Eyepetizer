@@ -43,7 +43,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
      * **************************************************  声明分割线   ***********************************************************
      */
 
-    fun setData(data: ArrayList<Item>, loadMore: Boolean) {
+    fun setData(data: ArrayList<Item>, loadMore: Boolean = false) {
 
         if (loadMore)
             mDataList.addAll(data)  //显示更多
@@ -116,7 +116,6 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
     /**
      * **********************************************   下面是各种类型的ItemView 初始化渲染方法   *******************************************************
      */
-
 
     //没有更多数据，到底部的提示ItemView
     private fun initTheEndView(holder: CommonViewHolder, position: Int) {
@@ -215,7 +214,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl)
 
             //init Event
-            ivFeed.setOnClickListener { startVideoActivity(videoJson, position) }
+            holder.itemView.setOnClickListener { startVideoActivity(videoJson, position) }
         }
 
     }
@@ -297,7 +296,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
 
             //init Event
-            ivFeed.setOnClickListener { startVideoActivity(videoJson, position) }
+            bg.setOnClickListener { startVideoActivity(videoJson, position) }
 
         }
     }

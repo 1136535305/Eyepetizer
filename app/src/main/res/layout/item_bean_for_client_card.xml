@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:background="@mipmap/flurr">
+
+        <RelativeLayout
+            android:id="@+id/introductionContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="#55222222"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/tvVideoTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                tools:text="分手吧！让爱情停在最美的那一刻" />
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvVideoTitle"
+                android:layout_marginTop="10dp"
+                android:text="# 生活  /  开眼精选"
+                android:textColor="?attr/colorButtonNormal"
+                tools:text="# 生活  /  开眼精选" />
+
+            <TextView
+                android:id="@+id/tvVideoDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvCategory"
+                android:layout_marginTop="10dp"
+                android:textColor="?attr/colorButtonNormal"
+                tools:text="这只短片的灵感来自导演最喜欢的乐队Explosios in the Sky的一首歌【 Losing Light】，他觉得这首歌的整体节奏就像经历了一段感情，那种心跳着，痛并快乐着的感觉。带着一台Sony F55，花了3天时间，总共花费没有超过1000英镑，拍出了这部已诗歌代替台词，视觉代替叙事的好片，即使片中的两位主角仍然相爱，也无法继续在一起。或许，这就是爱情真实的样子。你觉得呢？FROM David Yorke" />
+
+            <LinearLayout
+                android:id="@+id/consumptionContainer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvVideoDescription"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvCollectionCount"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/ic_action_favorites_without_padding"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="10835"
+                    android:textColor="@color/grayLight" />
+
+                <TextView
+                    android:id="@+id/tvShare"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/ic_action_share_without_padding"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="8934"
+                    android:textColor="@color/grayLight" />
+
+                <TextView
+                    android:id="@+id/tvReply"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/ic_action_reply_without_padding"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="184"
+                    android:textColor="@color/grayLight" />
+
+                <TextView
+                    android:id="@+id/tvPreload"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableLeft="@mipmap/ic_action_offline_without_padding"
+                    android:drawablePadding="8dp"
+                    android:gravity="center_vertical"
+                    android:text="缓存"
+                    android:textColor="@color/grayLight" />
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/line1"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_below="@+id/introductionContainer"
+            android:background="#50ffffff" />
+
+        <RelativeLayout
+            android:id="@+id/tagsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:background="#30222222"
+            android:padding="10dp">
+
+
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/line2"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_below="@+id/tagsContainer"
+            android:background="#50ffffff" />
+
+        <RelativeLayout
+            android:id="@+id/authorContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line2"
+            android:background="#30222222"
+            android:padding="10dp">
+
+
+            <ImageView
+                android:id="@+id/ivAvatar"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_centerVertical="true" />
+
+            <TextView
+                android:id="@+id/tvAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="3dp"
+                android:layout_toEndOf="@id/ivAvatar"
+                android:layout_toRightOf="@id/ivAvatar"
+                android:textColor="@color/white"
+                tools:text="开眼动画精选" />
+
+            <TextView
+                android:id="@+id/tvSlogan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvAuthor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@id/ivAvatar"
+                android:layout_toRightOf="@id/ivAvatar"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/grayLight"
+                android:textSize="13sp"
+                tools:text="有趣的人永远童心不泯" />
+
+
+            <TextView
+                android:id="@+id/labelFocus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/corner_4_stroke_white"
+                android:paddingBottom="2dp"
+                android:paddingLeft="9dp"
+                android:paddingRight="9dp"
+                android:paddingTop="2dp"
+                android:text="+关注"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:id="@+id/line3"
+            android:layout_width="match_parent"
+            android:layout_height="0.3dp"
+            android:layout_below="@+id/authorContainer"
+            android:background="#50ffffff" />
+    </RelativeLayout>
+</layout>
