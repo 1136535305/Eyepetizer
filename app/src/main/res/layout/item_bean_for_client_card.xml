@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:background="@mipmap/flurr">
 
         <RelativeLayout
@@ -61,8 +62,9 @@
                     android:drawableLeft="@mipmap/ic_action_favorites_without_padding"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="10835"
-                    android:textColor="@color/grayLight" />
+                    android:text="0"
+                    android:textColor="@color/grayLight"
+                    tools:text="10835" />
 
                 <TextView
                     android:id="@+id/tvShare"
@@ -72,8 +74,9 @@
                     android:drawableLeft="@mipmap/ic_action_share_without_padding"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="8934"
-                    android:textColor="@color/grayLight" />
+                    android:text="0"
+                    android:textColor="@color/grayLight"
+                    tools:text="8934" />
 
                 <TextView
                     android:id="@+id/tvReply"
@@ -83,8 +86,9 @@
                     android:drawableLeft="@mipmap/ic_action_reply_without_padding"
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
-                    android:text="184"
-                    android:textColor="@color/grayLight" />
+                    android:text="0"
+                    android:textColor="@color/grayLight"
+                    tools:text="184" />
 
                 <TextView
                     android:id="@+id/tvPreload"
@@ -95,7 +99,8 @@
                     android:drawablePadding="8dp"
                     android:gravity="center_vertical"
                     android:text="缓存"
-                    android:textColor="@color/grayLight" />
+                    android:textColor="@color/grayLight"
+                    tools:text="缓存" />
 
 
             </LinearLayout>
@@ -110,16 +115,25 @@
             android:layout_below="@+id/introductionContainer"
             android:background="#50ffffff" />
 
-        <RelativeLayout
+
+        <com.google.android.flexbox.FlexboxLayout
             android:id="@+id/tagsContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:layout_below="@+id/line1"
-            android:background="#30222222"
-            android:padding="10dp">
+            android:background="#35222222"
+            android:padding="10dp"
+            app:flexDirection="row"
 
+            app:alignContent="stretch"
 
-        </RelativeLayout>
+            app:alignItems="stretch"
+
+            app:flexWrap="nowrap"
+
+            app:justifyContent="space_between"
+
+            />
 
 
         <View
@@ -134,7 +148,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/line2"
-            android:background="#30222222"
+            android:background="#35222222"
             android:padding="10dp">
 
 
@@ -168,9 +182,10 @@
                 android:layout_toRightOf="@id/ivAvatar"
                 android:ellipsize="end"
                 android:maxLines="1"
+                android:maxWidth="210dp"
                 android:textColor="@color/grayLight"
                 android:textSize="13sp"
-                tools:text="有趣的人永远童心不泯" />
+                tools:text="有童趣的人永远童心未泯" />
 
 
             <TextView

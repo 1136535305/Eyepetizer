@@ -7,8 +7,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
 import com.yjq.eyepetizer.R
-import com.yjq.eyepetizer.newIntent
 import com.yjq.eyepetizer.base.BaseActivity
+import com.yjq.eyepetizer.newIntent
 import com.yjq.eyepetizer.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_splash.*
 
@@ -44,12 +44,8 @@ class SplashActivity : BaseActivity() {
             addAnimation(alphaAnimation)
             addAnimation(scaleAnimation)
             setAnimationListener(object : Animation.AnimationListener {
-                override fun onAnimationRepeat(animation: Animation?) {
-                }
-
-                override fun onAnimationStart(animation: Animation?) {
-                }
-
+                override fun onAnimationRepeat(animation: Animation?) {}
+                override fun onAnimationStart(animation: Animation?) {}
                 override fun onAnimationEnd(animation: Animation?) {
                     newIntent<MainActivity>()
                     finish()

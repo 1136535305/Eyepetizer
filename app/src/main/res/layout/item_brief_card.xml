@@ -59,11 +59,10 @@
             android:paddingTop="2dp"
             android:text="+关注"
             android:textColor="@color/darkLight"
-            android:textSize="12sp"
+            android:textSize="11sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivFeed"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/ivFeed"
-            android:layout_marginRight="10dp" />
+            app:layout_constraintTop_toTopOf="@+id/ivFeed" />
 
 
     </android.support.constraint.ConstraintLayout>

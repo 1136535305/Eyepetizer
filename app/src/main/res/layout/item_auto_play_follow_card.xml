@@ -105,7 +105,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/flexLayout"
-            app:srcCompat="@drawable/corner_3_gray" />
+            app:srcCompat="@drawable/corner_3_solid_gray" />
 
         <TextView
             android:id="@+id/tvCollectionCount"

@@ -1,16 +1,20 @@
 package com.yjq.eyepetizer.ui
 
+import android.Manifest
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.view.View
 import android.view.WindowManager
+import com.tbruyelle.rxpermissions2.RxPermissions
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseActivity
 import com.yjq.eyepetizer.ui.focus.FocusFragment
 import com.yjq.eyepetizer.ui.home.HomeFragment
 import com.yjq.eyepetizer.ui.mine.MineFragment
 import com.yjq.eyepetizer.ui.notify.NotifyFragment
+import com.yjq.eyepetizer.util.log.LogUtil
 import kotlinx.android.synthetic.main.activity_main.*
+
 
 /**
  * 文件： MainActivity
@@ -22,7 +26,7 @@ class MainActivity : BaseActivity(), View.OnClickListener {
 
     //static
     companion object {
-        val TAG = "MainActivity"
+        const val TAG = "MainActivity"
     }
 
 
@@ -50,6 +54,23 @@ class MainActivity : BaseActivity(), View.OnClickListener {
         initBottomTab()
 
         initEvent()
+
+        requestPermission()
+    }
+
+
+    //动态申请 【记录崩溃日志】所需的【外部目录读写权限】
+    private fun requestPermission() {
+        val rxPermissions = RxPermissions(this)
+        rxPermissions
+                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe { granted ->
+                    if (granted) { // Always true pre-M
+                        LogUtil.d(TAG, "write external_storage permission is granted")
+                    } else {
+                        LogUtil.d(TAG, "write external_storage permission is denied")
+                    }
+                }
     }
 
     private fun initEvent() {

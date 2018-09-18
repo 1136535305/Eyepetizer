@@ -15,55 +15,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
-
-    <View
-        android:id="@+id/bg"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/videoRecycler"
         android:layout_width="match_parent"
-        android:layout_height="230dp"
-        android:background="#50222222"
+        android:layout_height="0dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/videoPlayer" />
-
-    <TextView
-        android:id="@+id/tvVideoTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="15dp"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/videoPlayer"
-        tools:text="分手吧！让爱情停在最美的那一刻" />
-
-    <TextView
-        android:id="@+id/tvCatagory"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="# 生活  /  开眼精选"
-        android:textColor="?attr/colorButtonNormal"
-        app:layout_constraintStart_toStartOf="@+id/tvVideoTitle"
-        app:layout_constraintTop_toBottomOf="@+id/tvVideoTitle"
-        tools:text="# 生活  /  开眼精选" />
-
-    <TextView
-        android:id="@+id/tvVideoDescription"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="?attr/colorButtonNormal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/tvCatagory"
-        app:layout_constraintTop_toBottomOf="@+id/tvCatagory"
-        tools:text="这只短片的灵感来自导演最喜欢的乐队Explosios in the Sky的一首歌【 Losing Light】，他觉得这首歌的整体节奏就像经历了一段感情，那种心跳着，痛并快乐着的感觉。带着一台Sony F55，花了3天时间，总共花费没有超过1000英镑，拍出了这部已诗歌代替台词，视觉代替叙事的好片，即使片中的两位主角仍然相爱，也无法继续在一起。或许，这就是爱情真实的样子。你觉得呢？FORM David Yorke" />
-
-
 
 </android.support.constraint.ConstraintLayout>

@@ -3,7 +3,6 @@ package com.yjq.eyepetizer.ui.focus
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.View
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseFragment
 import com.yjq.eyepetizer.bean.cards.ColumnPage
@@ -27,6 +26,8 @@ class FocusTabFragment : BaseFragment() {
         fun newInstance(apiUrl: String) = FocusTabFragment().apply { arguments = Bundle().apply { putString("API_URL", apiUrl) } }
     }
 
+    //state
+    private var enableLoadMore = true
 
     //data
     private var messageList = ArrayList<Item>()
@@ -37,8 +38,6 @@ class FocusTabFragment : BaseFragment() {
     private lateinit var mPresenter: FocusPresenter
     private lateinit var mAdapter: HomePagerAdapter
 
-    //state
-    private var enableLoadMore = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

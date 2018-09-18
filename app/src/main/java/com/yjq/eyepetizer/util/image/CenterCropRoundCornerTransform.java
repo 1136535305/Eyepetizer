@@ -3,6 +3,7 @@ package com.yjq.eyepetizer.util.image;
 import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 
@@ -12,9 +13,11 @@ import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 public class CenterCropRoundCornerTransform extends CenterCrop {
 
     private int radius = 0;
+    private Boolean ifShade;
 
-    public CenterCropRoundCornerTransform(int radius) {
+    public CenterCropRoundCornerTransform(int radius, Boolean ifShade) {
         this.radius = radius;
+        this.ifShade = ifShade;
     }
 
     @Override
@@ -39,7 +42,16 @@ public class CenterCropRoundCornerTransform extends CenterCrop {
 
         RectF rectF = new RectF(0f, 0f, source.getWidth(), source.getHeight());
         canvas.drawRoundRect(rectF, radius, radius, paint);
+
+
+        //黑色半透明遮罩
+        if (ifShade) {
+            Paint colorPaint = new Paint();
+            colorPaint.setColor(Color.parseColor("#60000000"));//填充颜色
+            canvas.drawRoundRect(rectF, radius, radius, colorPaint);
+        }
+
         return result;
-    }
+}
 
 }

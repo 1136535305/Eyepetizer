@@ -139,6 +139,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val title = followCard.content.data.title                                                        //标题
         val playUrl = followCard.content.data.playUrl                                                    //视频播放地址
         val feedUrl = followCard.content.data.cover.detail                                               //发布内容对应封面
+        val videoId = followCard.content.data.id.toString()                                              //视频Id
         val description = "${followCard.header.title}  /  #${followCard.content.data.category}"          //描述
         val duration = TimeUtil.getFormatHMS(followCard.content.data.duration * 1000.toLong())        //视频时长
 
@@ -153,7 +154,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, avatarUrl, placeHolderId = R.mipmap.avatar_default)
 
             //init Event
-            ivBg.setOnClickListener { startVideoActivity(videoJson, position) }
+            ivBg.setOnClickListener { startVideoActivity(videoId,title,feedUrl,playUrl,followCard.content.data.cover.blurred) }
         }
     }
 
@@ -199,6 +200,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
         val videoTitle = videoSmallCard.title                                                       //视频标题
         val videoPlayUrl = videoSmallCard.playUrl                                                   //视频播放地址
+        val videoId = videoSmallCard.id.toString()                                                  //视频ID
         val videoFeedUrl = videoSmallCard.cover.detail                                              //视频封面Url
         val videoCategory = "#" + videoSmallCard.category                                           //视频类别
         val videoDuration = TimeUtil.getFormatHMS(videoSmallCard.duration * 1000.toLong())       //视频时长
@@ -214,7 +216,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl)
 
             //init Event
-            holder.itemView.setOnClickListener { startVideoActivity(videoJson, position) }
+            holder.itemView.setOnClickListener { startVideoActivity(videoId, videoTitle, videoFeedUrl, videoPlayUrl, videoSmallCard.cover.blurred) }
         }
 
     }
@@ -264,12 +266,12 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val ifHotReply = dynamicInfoCard.reply.ifHotReply             //是否是热评
         val videoTitle = dynamicInfoCard.simpleVideo.title            //视频标题
         val videoPlayUrl = dynamicInfoCard.simpleVideo.playUrl        //视频播放地址
+        val videoId = dynamicInfoCard.simpleVideo.id.toString()      //视频Id
         val videoType = "#${dynamicInfoCard.simpleVideo.category}"    //视频类型
         val likeCount = dynamicInfoCard.reply.likeCount.toString()    //评论点赞数
         val videoFeedUrl = dynamicInfoCard.simpleVideo.cover.detail   //视频封面图片
         val timeStamp = TimeUtil.timeStamp2Date(dynamicInfoCard.createDate, "yyyy/MM/dd")             //评论时间
         val videoDuration = TimeUtil.getFormatHMS(dynamicInfoCard.simpleVideo.duration * 1000.toLong())       //视频时长
-
 
 
         with(itemDynamicInfoCardBinding!!) {
@@ -282,7 +284,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
             tvReplyMessage.text = replyMessage
 
 
-            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, corner = 12)
+            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl)
             tvDate.text = timeStamp
             tvVieoType.text = videoType
             tvLikeCount.text = likeCount
@@ -296,7 +298,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
 
             //init Event
-            bg.setOnClickListener { startVideoActivity(videoJson, position) }
+            bg.setOnClickListener { startVideoActivity(videoId, videoTitle, videoFeedUrl, videoPlayUrl, dynamicInfoCard.simpleVideo.cover.blurred) }
 
         }
     }
@@ -315,12 +317,12 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
         val title = autoPlayFollowCard.content.data.title                                      //标题
         val issueName = autoPlayFollowCard.header.issuerName                                   //头像代表名称
         val playUrl = autoPlayFollowCard.content.data.playUrl                                  //视频播放地址
+        val videoId = autoPlayFollowCard.content.data.id.toString()                            //视频ID
         val videoDuration = autoPlayFollowCard.content.data.duration                           //视频时长
         val description = autoPlayFollowCard.content.data.description                          //内容
         val videoCoverUrl = autoPlayFollowCard.content.data.cover.detail                       //视频封面Url
         val replyCount = autoPlayFollowCard.content.data.consumption.replyCount                //评论数
         val collectionCount = autoPlayFollowCard.content.data.consumption.collectionCount      //点赞数
-
 
         with(itemAutoPlayFollowCardBinding!!) {
 
@@ -339,10 +341,6 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
             flexLayout.removeAllViews()
             val layoutParams = FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT)
-
-
-
-
             tags?.forEach { itemTag ->
                 val itemView = LayoutInflater.from(mContext).inflate(R.layout.textview_tag, flexLayout, false)
                 itemView.findViewById<TextView>(R.id.tvTag).text = itemTag.name
@@ -351,7 +349,7 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
 
             //init  Event
-            ivVideoCover.setOnClickListener { startVideoActivity(videoJson, position) }
+            ivVideoCover.setOnClickListener { startVideoActivity(videoId, title, videoCoverUrl, playUrl, autoPlayFollowCard.content.data.cover.blurred) }
 
         }
 
@@ -401,11 +399,14 @@ class HomePagerAdapter(val mContext: Context) : RecyclerView.Adapter<CommonViewH
 
 
     //启动视频播放页面
-    private fun startVideoActivity(videoJson: String, position: Int) {
+    private fun startVideoActivity(videoId: String, videoTitle: String, videoFeedUrl: String, videoPlayUrl: String, videoBgUrl: String) {
         mContext.startActivity(
                 Intent(mContext, VideoPlayActivity::class.java).apply {
-                    putExtra("VIDEO_JSON", videoJson)
-                    putExtra("JSON_TYPE", getItemViewType(position))
+                    putExtra("VIDEO_ID", videoId)
+                    putExtra("VIDEO_BG", videoBgUrl)
+                    putExtra("VIDEO_TITLE", videoTitle)
+                    putExtra("VIDEO_FEED_URL", videoFeedUrl)
+                    putExtra("VIDEO_PLAY_URL", videoPlayUrl)
                 }
         )
     }

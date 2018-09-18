@@ -27,7 +27,7 @@ public enum OkHttpClientManager {
                     interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
                     OkHttpClient.Builder builder = new OkHttpClient().newBuilder()
-                            .addInterceptor(interceptor)
+                            //.addInterceptor(interceptor)
                             .addInterceptor(chain -> {
                                 Request originRequest = chain.request();
                                 HttpUrl originUrl = originRequest.url();

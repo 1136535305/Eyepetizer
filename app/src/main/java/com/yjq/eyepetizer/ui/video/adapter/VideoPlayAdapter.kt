@@ -1,14 +1,20 @@
 package com.yjq.eyepetizer.ui.video.adapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.graphics.Color
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import com.google.gson.Gson
 import com.yjq.eyepetizer.CommonViewHolder
 import com.yjq.eyepetizer.R
+import com.yjq.eyepetizer.bean.cards.Data
 import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.bean.cards.item.VideoSmallCard
 import com.yjq.eyepetizer.databinding.ItemBeanForClientCardBinding
@@ -16,10 +22,8 @@ import com.yjq.eyepetizer.databinding.ItemTheEndBinding
 import com.yjq.eyepetizer.databinding.ItemVideoSmallCardBinding
 import com.yjq.eyepetizer.inflate
 import com.yjq.eyepetizer.ui.video.VideoPlayActivity
-import com.yjq.eyepetizer.ui.video.bean.VideoBeanForClient
 import com.yjq.eyepetizer.util.image.ImageLoader
 import com.yjq.eyepetizer.util.time.TimeUtil
-import retrofit2.http.POST
 
 /**
  * 文件： VideoPlayAdapter
@@ -30,8 +34,8 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
     //data
-    private var mHeaderData: VideoBeanForClient? = null
-    private var mRelatedDataList = ArrayList<Item>()
+    var mHeaderData: Data? = null
+    var mRelatedDataList = ArrayList<Item>()
 
 
     enum class ItemType(var value: Int) {
@@ -40,6 +44,10 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         TYPE_THE_END(2);
     }
 
+
+    /**
+     * ***********************************************    RecyclerView 方法  *************************************************
+     */
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CommonViewHolder {
         val viewHolder =
@@ -81,7 +89,40 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
      * *********************************************** 以下是初始化各种不同类型ItemView 的渲染方法 ************************************************
      */
 
+    @SuppressLint("SetTextI18n")
     private fun initHeaderView(holder: CommonViewHolder, position: Int) {
+        val itemBeanForClientCardBinding = DataBindingUtil.getBinding<ItemBeanForClientCardBinding>(holder.itemView)
+
+
+        //视频标题、内容
+        with(itemBeanForClientCardBinding!!) {
+            tvVideoTitle.text = mHeaderData?.title
+            tvCategory.text = "#${mHeaderData?.category}"
+            tvVideoDescription.text = mHeaderData?.description
+
+
+            tvCollectionCount.text = mHeaderData?.consumption?.collectionCount.toString()
+            tvShare.text = mHeaderData?.consumption?.shareCount.toString()
+            tvReply.text = mHeaderData?.consumption?.replyCount.toString()
+
+            tagsContainer.removeAllViews()
+            mHeaderData?.tags?.forEach { itemTag ->
+                val itemView = LayoutInflater.from(mContext).inflate(R.layout.video_tag, tagsContainer, false)
+                val ivTag = itemView.findViewById<ImageView>(R.id.ivTag)
+                val tvTag = itemView.findViewById<TextView>(R.id.tvTag)
+
+                tvTag.text = "#" + itemTag.name + "#"
+                ImageLoader.loadNetImageWithCornerAndShade(mContext, ivTag, itemTag.headerImage, placeHolderId = R.drawable.corner_4_solid_dark)
+                tagsContainer.addView(itemView)
+            }
+
+
+
+
+            tvAuthor.text = mHeaderData?.author?.name
+            tvSlogan.text = mHeaderData?.author?.description
+            ImageLoader.loadNetCircleImage(mContext, ivAvatar, mHeaderData?.author?.icon)
+        }
 
     }
 
@@ -95,23 +136,32 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val videoJson = Gson().toJson(jsonObject)
 
         val videoTitle = videoSmallCard.title                                                       //视频标题
-        val videoPlayUrl = videoSmallCard.playUrl                                                   //视频播放地址
-        val videoFeedUrl = videoSmallCard.cover.detail                                              //视频封面Url
-        val videoCategory = "#" + videoSmallCard.category                                           //视频类别
+        val videoPlayUrl = videoSmallCard?.playUrl                                                   //视频播放地址
+        val videoFeedUrl = videoSmallCard?.cover?.detail                                              //视频封面Url
+        val videoCategory = "#" + videoSmallCard?.category                                           //视频类别
         val videoDuration = TimeUtil.getFormatHMS(videoSmallCard.duration * 1000.toLong())       //视频时长
 
 
 
         with(itemVideoSmallCardBinding!!) {
-
             //init view
             tvTitle.text = videoTitle
             tvCatogory.text = videoCategory
-            tvVideoDuration.text = videoDuration
-            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl)
+            tvTitle.setTextColor(mContext.resources.getColor(R.color.white))
+            tvCatogory.setTextColor(mContext.resources.getColor(R.color.white))
 
+
+            tvVideoDuration.text = videoDuration
+            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, placeHolderId = R.drawable.corner_4_solid_dark)
+
+
+            val videoTitle = videoSmallCard.title
+            val videoPlayUrl = videoSmallCard.playUrl
+            val videoId = videoSmallCard.id.toString()
+            val videoFeedUrl = videoSmallCard.cover.feed
+            val videoBgUrl = videoSmallCard.cover.blurred
             //init Event
-            holder.itemView.setOnClickListener { startVideoActivity(videoJson, position) }
+            holder.itemView.setOnClickListener { startVideoActivity(videoId, videoTitle, videoFeedUrl, videoPlayUrl, videoBgUrl) }
         }
     }
 
@@ -122,16 +172,21 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
         with(itemTheEndBinding) {
             tvEnd.typeface = Typeface.createFromAsset(mContext.assets, "fonts/Lobster-1.4.otf")
+            tvEnd.setTextColor(mContext.resources.getColor(R.color.white))
+            root.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
 
     //启动视频播放页面
-    private fun startVideoActivity(videoJson: String, position: Int) {
+    private fun startVideoActivity(videoId: String, videoTitle: String, videoFeedUrl: String, videoPlayUrl: String, videoBgUrl: String) {
         mContext.startActivity(
                 Intent(mContext, VideoPlayActivity::class.java).apply {
-                    putExtra("VIDEO_JSON", videoJson)
-                    putExtra("JSON_TYPE", getItemViewType(position))
+                    putExtra("VIDEO_ID", videoId)
+                    putExtra("VIDEO_BG", videoBgUrl)
+                    putExtra("VIDEO_TITLE", videoTitle)
+                    putExtra("VIDEO_FEED_URL", videoFeedUrl)
+                    putExtra("VIDEO_PLAY_URL", videoPlayUrl)
                 }
         )
     }
