@@ -4,11 +4,14 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.databinding.DataBindingUtil
+import android.databinding.ViewDataBinding
 import android.graphics.Color
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.view.animation.TranslateAnimation
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.Gson
@@ -22,6 +25,7 @@ import com.yjq.eyepetizer.databinding.ItemTheEndBinding
 import com.yjq.eyepetizer.databinding.ItemVideoSmallCardBinding
 import com.yjq.eyepetizer.inflate
 import com.yjq.eyepetizer.ui.video.VideoPlayActivity
+import com.yjq.eyepetizer.util.anim.TiaoZiUtil
 import com.yjq.eyepetizer.util.image.ImageLoader
 import com.yjq.eyepetizer.util.time.TimeUtil
 
@@ -117,12 +121,13 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             }
 
 
-
-
             tvAuthor.text = mHeaderData?.author?.name
             tvSlogan.text = mHeaderData?.author?.description
             ImageLoader.loadNetCircleImage(mContext, ivAvatar, mHeaderData?.author?.icon)
         }
+
+
+        startAnimate(itemBeanForClientCardBinding)
 
     }
 
@@ -136,8 +141,8 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         val videoJson = Gson().toJson(jsonObject)
 
         val videoTitle = videoSmallCard.title                                                       //视频标题
-        val videoPlayUrl = videoSmallCard?.playUrl                                                   //视频播放地址
-        val videoFeedUrl = videoSmallCard?.cover?.detail                                              //视频封面Url
+        val videoPlayUrl = videoSmallCard.playUrl                                                   //视频播放地址
+        val videoFeedUrl = videoSmallCard.cover.detail                                              //视频封面Url
         val videoCategory = "#" + videoSmallCard?.category                                           //视频类别
         val videoDuration = TimeUtil.getFormatHMS(videoSmallCard.duration * 1000.toLong())       //视频时长
 
@@ -155,14 +160,14 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, placeHolderId = R.drawable.corner_4_solid_dark)
 
 
-            val videoTitle = videoSmallCard.title
-            val videoPlayUrl = videoSmallCard.playUrl
             val videoId = videoSmallCard.id.toString()
-            val videoFeedUrl = videoSmallCard.cover.feed
             val videoBgUrl = videoSmallCard.cover.blurred
+
             //init Event
             holder.itemView.setOnClickListener { startVideoActivity(videoId, videoTitle, videoFeedUrl, videoPlayUrl, videoBgUrl) }
         }
+
+
     }
 
 
@@ -176,6 +181,33 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             root.setBackgroundColor(Color.TRANSPARENT)
         }
     }
+
+
+    /**
+     * ****************************************************  动画效果   *************************************************************
+     */
+
+    private fun startAnimate(binding: ItemBeanForClientCardBinding) {
+
+
+        //init Animate
+        val translationAnim = TranslateAnimation(0f, 0f, -80f, 0f)
+        translationAnim.duration = 400
+
+        with(binding) {
+            binding.tvShare.startAnimation(translationAnim)
+            binding.tvReply.startAnimation(translationAnim)
+            binding.tvPreload.startAnimation(translationAnim)
+            binding.tvCollectionCount.startAnimation(translationAnim)
+
+            TiaoZiUtil(tvVideoTitle, mHeaderData?.title, 100)
+           // TiaoZiUtil(tvVideoDescription,mHeaderData?.description,100)
+        }
+
+    }
+
+
+
 
 
     //启动视频播放页面

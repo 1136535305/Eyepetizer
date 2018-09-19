@@ -2,6 +2,7 @@ package com.yjq.eyepetizer.ui.video
 
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import cn.jzvd.Jzvd
 import com.google.gson.Gson
 import com.yjq.eyepetizer.R
@@ -84,6 +85,39 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         requestData()
     }
 
+
+    private fun parseIntent() {
+        videoId = intent.getStringExtra("VIDEO_ID")
+        videoTitle = intent.getStringExtra("VIDEO_TITLE")
+        videoFeedUrl = intent.getStringExtra("VIDEO_FEED_URL")
+        videoPlayUrl = intent.getStringExtra("VIDEO_PLAY_URL")
+        blurredBackgroundUrl = intent.getStringExtra("VIDEO_BG")
+    }
+
+
+    private fun initView() {
+
+
+        //背景图片
+        ImageLoader.loadNetBitmap(this, blurredBackgroundUrl) { root.background = it }
+
+        //视频播放器初始化
+        with(videoPlayer) {
+            setUp(videoPlayUrl, videoTitle, Jzvd.SCREEN_WINDOW_NORMAL)
+            ImageLoader.loadNetImage(context, thumbImageView, videoFeedUrl)
+            //startVideo()
+        }
+
+
+        //列表
+        with(videoRecycler) {
+            adapter = mAdapter
+            layoutManager = LinearLayoutManager(context)
+            visibility = View.GONE
+        }
+    }
+
+
     private fun requestData() {
 
         val videoDetailObservable = mPresenter.getVideoDetail(videoId)
@@ -109,42 +143,13 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
                     }
 
                     override fun onComplete() {
-                        if (onLoadVideoDetailDone && onLoadVideoRelatedDone)
+                        if (onLoadVideoDetailDone && onLoadVideoRelatedDone) {
+                            videoRecycler.visibility = View.VISIBLE
                             mAdapter.notifyDataSetChanged()
+                        }
                     }
                 })
 
-    }
-
-
-    private fun parseIntent() {
-        videoId = intent.getStringExtra("VIDEO_ID")
-        videoTitle = intent.getStringExtra("VIDEO_TITLE")
-        videoFeedUrl = intent.getStringExtra("VIDEO_FEED_URL")
-        videoPlayUrl = intent.getStringExtra("VIDEO_PLAY_URL")
-        blurredBackgroundUrl = intent.getStringExtra("VIDEO_BG")
-    }
-
-
-    private fun initView() {
-
-
-        //背景图片
-        ImageLoader.loadNetBitmap(this, blurredBackgroundUrl) { root.background = it }
-
-        //视频播放器初始化
-        with(videoPlayer) {
-            setUp(videoPlayUrl, videoTitle, Jzvd.SCREEN_WINDOW_NORMAL)
-            ImageLoader.loadNetImage(context, thumbImageView, videoFeedUrl)
-            //  startVideo()
-        }
-
-
-        //列表
-        with(videoRecycler) {
-            adapter = mAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
     }
 
     /**
