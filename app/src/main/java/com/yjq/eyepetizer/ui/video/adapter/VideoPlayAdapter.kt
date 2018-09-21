@@ -2,14 +2,11 @@ package com.yjq.eyepetizer.ui.video.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.Intent
 import android.databinding.DataBindingUtil
-import android.databinding.ViewDataBinding
 import android.graphics.Color
 import android.graphics.Typeface
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.TranslateAnimation
 import android.widget.ImageView
@@ -24,7 +21,6 @@ import com.yjq.eyepetizer.databinding.ItemBeanForClientCardBinding
 import com.yjq.eyepetizer.databinding.ItemTheEndBinding
 import com.yjq.eyepetizer.databinding.ItemVideoSmallCardBinding
 import com.yjq.eyepetizer.inflate
-import com.yjq.eyepetizer.ui.video.VideoPlayActivity
 import com.yjq.eyepetizer.util.anim.TiaoZiUtil
 import com.yjq.eyepetizer.util.image.ImageLoader
 import com.yjq.eyepetizer.util.time.TimeUtil
@@ -39,7 +35,10 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
     //data
     var mHeaderData: Data? = null
-    var mRelatedDataList = ArrayList<Item>()
+    var mRelatedData = ArrayList<Item>()
+
+    //onItemClick
+    lateinit var onItemClick: (position: Int) -> Unit
 
 
     enum class ItemType(var value: Int) {
@@ -48,6 +47,12 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
         TYPE_THE_END(2);
     }
 
+
+    fun setData(headData: Data, relatedData: List<Item>) {
+        this.mHeaderData = headData
+        this.mRelatedData = relatedData as ArrayList<Item>
+        this.notifyDataSetChanged()
+    }
 
     /**
      * ***********************************************    RecyclerView 方法  *************************************************
@@ -66,7 +71,7 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
     override fun getItemCount(): Int {
-        return 1 + mRelatedDataList.size + 1
+        return 1 + mRelatedData.size + 1
     }
 
 
@@ -74,7 +79,7 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
         return when (position) {
             0 -> ItemType.TYPE_HEADER.value
-            in 1..mRelatedDataList.size -> ItemType.TYPE_RELATED.value
+            in 1..mRelatedData.size -> ItemType.TYPE_RELATED.value
             else -> ItemType.TYPE_THE_END.value
         }
     }
@@ -116,7 +121,7 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
                 val tvTag = itemView.findViewById<TextView>(R.id.tvTag)
 
                 tvTag.text = "#" + itemTag.name + "#"
-                ImageLoader.loadNetImageWithCornerAndShade(mContext, ivTag, itemTag.headerImage, placeHolderId = R.drawable.corner_4_solid_dark)
+                ImageLoader.loadNetImageWithCornerAndShade(mContext, ivTag, itemTag.headerImage, placeHolderId = R.drawable.corner_4_solid_dark_light)
                 tagsContainer.addView(itemView)
             }
 
@@ -136,12 +141,10 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
         //init data
-        val jsonObject = mRelatedDataList[position - 1].data
+        val jsonObject = mRelatedData[position - 1].data
         val videoSmallCard = Gson().fromJson(jsonObject, VideoSmallCard::class.java)
-        val videoJson = Gson().toJson(jsonObject)
 
         val videoTitle = videoSmallCard.title                                                       //视频标题
-        val videoPlayUrl = videoSmallCard.playUrl                                                   //视频播放地址
         val videoFeedUrl = videoSmallCard.cover.detail                                              //视频封面Url
         val videoCategory = "#" + videoSmallCard?.category                                           //视频类别
         val videoDuration = TimeUtil.getFormatHMS(videoSmallCard.duration * 1000.toLong())       //视频时长
@@ -157,14 +160,13 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
 
 
             tvVideoDuration.text = videoDuration
-            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, placeHolderId = R.drawable.corner_4_solid_dark)
+            ImageLoader.loadNetImageWithCorner(mContext, ivFeed, videoFeedUrl, placeHolderId = R.drawable.corner_4_solid_dark_light)
 
-
-            val videoId = videoSmallCard.id.toString()
-            val videoBgUrl = videoSmallCard.cover.blurred
 
             //init Event
-            holder.itemView.setOnClickListener { startVideoActivity(videoId, videoTitle, videoFeedUrl, videoPlayUrl, videoBgUrl) }
+            holder.itemView.setOnClickListener {
+                onItemClick.invoke(position - 1)    // -1 是由于Header的存在
+            }
         }
 
 
@@ -200,27 +202,10 @@ class VideoPlayAdapter(private val mContext: Context) : RecyclerView.Adapter<Com
             binding.tvPreload.startAnimation(translationAnim)
             binding.tvCollectionCount.startAnimation(translationAnim)
 
-            TiaoZiUtil(tvVideoTitle, mHeaderData?.title, 100)
-           // TiaoZiUtil(tvVideoDescription,mHeaderData?.description,100)
+            TiaoZiUtil(tvVideoTitle, mHeaderData?.title, 50)
         }
 
     }
 
-
-
-
-
-    //启动视频播放页面
-    private fun startVideoActivity(videoId: String, videoTitle: String, videoFeedUrl: String, videoPlayUrl: String, videoBgUrl: String) {
-        mContext.startActivity(
-                Intent(mContext, VideoPlayActivity::class.java).apply {
-                    putExtra("VIDEO_ID", videoId)
-                    putExtra("VIDEO_BG", videoBgUrl)
-                    putExtra("VIDEO_TITLE", videoTitle)
-                    putExtra("VIDEO_FEED_URL", videoFeedUrl)
-                    putExtra("VIDEO_PLAY_URL", videoPlayUrl)
-                }
-        )
-    }
 
 }

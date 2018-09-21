@@ -1,4 +1,4 @@
-package com.yjq.eyepetizer.util.other
+package com.yjq.eyepetizer.util.dialog
 
 import android.app.Dialog
 import android.content.Context
@@ -49,8 +49,8 @@ class CustomDialog private constructor(builder: Builder) : Dialog(builder.contex
         setCancelable(canceledable)
 
         when (location) {
-            CustomDialog.CustomDialogLocation.BOTTOM -> initBottomLayoutParams()
-            CustomDialog.CustomDialogLocation.CENTER -> initCenterLayoutParams()
+            CustomDialogLocation.BOTTOM -> initBottomLayoutParams()
+            CustomDialogLocation.CENTER -> initCenterLayoutParams()
         }
 
 

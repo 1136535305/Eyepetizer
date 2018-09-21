@@ -7,19 +7,16 @@ import cn.jzvd.Jzvd
 import com.google.gson.Gson
 import com.yjq.eyepetizer.R
 import com.yjq.eyepetizer.base.BaseActivity
-import com.yjq.eyepetizer.bean.cards.*
-import com.yjq.eyepetizer.bean.cards.item.AutoPlayFollowCard
-import com.yjq.eyepetizer.bean.cards.item.DynamicInfoCard
-import com.yjq.eyepetizer.bean.cards.item.FollowCard
+import com.yjq.eyepetizer.bean.cards.ColumnPage
+import com.yjq.eyepetizer.bean.cards.Data
+import com.yjq.eyepetizer.bean.cards.Item
 import com.yjq.eyepetizer.bean.cards.item.VideoSmallCard
-import com.yjq.eyepetizer.constant.ViewTypeEnum
-import com.yjq.eyepetizer.fromJson
 import com.yjq.eyepetizer.ui.video.adapter.VideoPlayAdapter
-import com.yjq.eyepetizer.ui.video.bean.VideoBeanForClient
 import com.yjq.eyepetizer.ui.video.mvp.VideoPlayContract
 import com.yjq.eyepetizer.ui.video.mvp.VideoPlayPresenter
 import com.yjq.eyepetizer.util.image.ImageLoader
 import com.yjq.eyepetizer.util.log.LogUtil
+import com.yjq.eyepetizer.util.other.ToastUtil
 import com.yjq.eyepetizer.util.rx.RxBaseObserver
 import com.yjq.eyepetizer.util.rx.RxUtil
 import io.reactivex.Observable
@@ -38,20 +35,19 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         const val TAG = "VideoPlayActivity"
     }
 
-    //data
+    //data from intent
     private lateinit var videoId: String                  //视频标志ID
     private lateinit var videoTitle: String               //视频标题
     private lateinit var videoPlayUrl: String             //视频播放地址Url
     private lateinit var videoFeedUrl: String             //视频封面地址Url
     private lateinit var blurredBackgroundUrl: String     //高斯模糊背景图片Url
 
+    //data from net request
+    private var mHeaderData: Data? = null
+    private var mRelatedDataList: List<Item>? = null
 
     //mvp
     private lateinit var mPresenter: VideoPlayPresenter
-
-    //state
-    private var onLoadVideoDetailDone = false
-    private var onLoadVideoRelatedDone = false
 
     //other
     private lateinit var mAdapter: VideoPlayAdapter
@@ -82,7 +78,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
 
         initView()
 
-        requestData()
+        requestData(videoId)
     }
 
 
@@ -105,52 +101,69 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
         with(videoPlayer) {
             setUp(videoPlayUrl, videoTitle, Jzvd.SCREEN_WINDOW_NORMAL)
             ImageLoader.loadNetImage(context, thumbImageView, videoFeedUrl)
-            //startVideo()
         }
 
 
         //列表
         with(videoRecycler) {
-            adapter = mAdapter
             layoutManager = LinearLayoutManager(context)
             visibility = View.GONE
+
+            //列表点击事件
+            adapter = mAdapter.apply {
+                onItemClick = { position -> changePlayVideo(position) }
+            }
         }
     }
 
 
-    private fun requestData() {
+    private fun requestData(videoId: String) {
 
-        val videoDetailObservable = mPresenter.getVideoDetail(videoId)
         val videoRelatedObservable = mPresenter.getVideoRelated(videoId)
+        val videoDetailObservable = mPresenter.getVideoDetail(videoId)
 
         Observable.merge(videoDetailObservable, videoRelatedObservable)
                 .compose(RxUtil.applySchedulers())
                 .compose(bindToLifecycle())
                 .subscribe(object : RxBaseObserver<Any>(this) {
-                    override fun onNext(t: Any) {
-                        when (t) {
-                            is Data -> {
-                                onLoadVideoDetailDone = true
-                                mAdapter.mHeaderData = t
-
-                            }
-                            is ColumnPage -> {
-                                onLoadVideoRelatedDone = true
-                                mAdapter.mRelatedDataList = t.itemList.filterNot { it.type != "videoSmallCard" } as ArrayList<Item>
-                            }
+                    override fun onNext(resultBean: Any) {
+                        when (resultBean) {
+                            is Data -> mHeaderData = resultBean
+                            is ColumnPage -> mRelatedDataList = resultBean.itemList.filterNot { it.type != "videoSmallCard" }
                         }
 
                     }
 
                     override fun onComplete() {
-                        if (onLoadVideoDetailDone && onLoadVideoRelatedDone) {
-                            videoRecycler.visibility = View.VISIBLE
-                            mAdapter.notifyDataSetChanged()
-                        }
+                        videoRecycler.visibility = View.VISIBLE
+                        mAdapter.setData(mHeaderData!!, mRelatedDataList!!)
                     }
                 })
 
     }
+
+    private fun changePlayVideo(position: Int) {
+
+
+        //init data
+        val jsonObject = mRelatedDataList!![position].data
+        val videoData = Gson().fromJson(jsonObject, VideoSmallCard::class.java)
+
+        ImageLoader.loadNetBitmap(this, videoData.cover.blurred) { root.background = it }      //整个页面背景图片
+        ImageLoader.loadNetImage(this, videoPlayer.thumbImageView, videoData.cover.detail)   //视频封面
+
+        //改变播放视频Url
+        videoPlayer.changeUrl(videoData.playUrl, videoData.title, 0)
+        videoPlayer.startVideo()
+
+        //刷新列表前重置状态
+        videoRecycler.visibility = View.GONE
+        videoRecycler.scrollToPosition(0)
+
+        //获取数据
+        requestData(videoData.id)
+    }
+
 
     /**
      * ***************************************** 自定义网络数据申请回调  **************************************
@@ -158,8 +171,7 @@ class VideoPlayActivity : BaseActivity(), VideoPlayContract.View {
 
 
     override fun onNetError() {
-
-
+        ToastUtil.showShortToast(this, TAG + ":onNetError")
     }
 
     override fun onLoading(isLoad: Boolean) {

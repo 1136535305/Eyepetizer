@@ -10,7 +10,7 @@ import com.yjq.eyepetizer.bean.cards.*
 
 data class VideoSmallCard(
         val dataType: String, //VideoBeanForClient
-        val id: Int, //120945
+        val id: String, //120945
         val title: String, //回忆杀！5 分钟听完 20 年欧美金曲
         val description: String, //这是 3 位歌手 Nikita Afonso、Stephen Scaccia 和 Randy C 联手合作的超强混音单曲，20 年间的劲歌金曲一次性听个够。有后街男孩、小甜甜、牛姐等等。比拼曲库的时刻到了，每年的代表作你都听出来了吗？From TheSafehouseProject
         val library: String, //DAILY
