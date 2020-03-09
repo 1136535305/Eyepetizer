@@ -38,5 +38,5 @@
 
 ![](https://github.com/1136535305/Eyepetizer/blob/master/gif/首页.gif) 
 ![](https://github.com/1136535305/Eyepetizer/blob/master/gif/视频播放页.gif) 
-![](https://github.com/1136535305/Eyepetizer/blob/master/gif/搜索.gif) 
+![](https://github.com/1136535305/Eyepetizer/blob/master/gif/%E6%90%9C%E7%B4%A2.gif) 
 
