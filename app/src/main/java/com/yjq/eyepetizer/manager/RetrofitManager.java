@@ -47,7 +47,7 @@ public class RetrofitManager {
     }
 
     private EyeApiService initEyeAPI() {
-        Retrofit retrofit = mBuilder.baseUrl(Constant.INSTANCE.getBASE_URL()).build();
+        Retrofit retrofit = mBuilder.baseUrl(Constant.BASE_URL).build();
         return retrofit.create(EyeApiService.class);
     }
 

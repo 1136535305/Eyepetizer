@@ -7,7 +7,7 @@ package com.yjq.eyepetizer.constant
  */
 
 object Constant {
-    val BASE_URL = "http://baobab.kaiyanapp.com/api/"
+    const val BASE_URL = "http://baobab.kaiyanapp.com/api/"
     //允许展示的列表Item项UI类型
     val ViewTypeList = listOf(
             ViewTypeEnum.TextCard, ViewTypeEnum.BriefCard, ViewTypeEnum.DynamicInfoCard,
